@@ -6,7 +6,9 @@ from models import result
 import psycopg2
 from sqlalchemy.dialects.postgresql import JSON
 # basedir = os.path.abspath(os.path.dirname(__file__))
-# https://git.heroku.com/glacial-island-30992.git
+# https://donor-track.herokuapp.com/
+# https://git.heroku.com/donor-track.git
+
 # configure application
 app = Flask(__name__)
 app.config['SQLAlchemy_TRACK_Modifications'] = False
