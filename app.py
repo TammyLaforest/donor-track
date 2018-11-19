@@ -1,11 +1,10 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for, g, Markup, make_response
 from flask_sqlalchemy import SQLAlchemy
 import os
-from app import db
-from models import result
 import psycopg2
 from sqlalchemy.dialects.postgresql import JSON
-# basedir = os.path.abspath(os.path.dirname(__file__))
+
+# Heroku Links
 # https://donor-track.herokuapp.com/
 # https://git.heroku.com/donor-track.git
 
@@ -13,35 +12,8 @@ from sqlalchemy.dialects.postgresql import JSON
 app = Flask(__name__)
 app.config['SQLAlchemy_TRACK_Modifications'] = False
 DATABASE_URL = os.environ['DATABASE_URL']
-app.config.from_object(os.environ['APP_SETTINGS'])
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-
 app.config['SQLAlchemy_DATABASE_URI'] = os.environ['DATABASE_URL']
-db.SQLAlchemy(app)
-
-
-
-
-
-
-
-
-
-
-
-@app.route('/')
-def hello():
-    return "Hello World!"
-
-
-@app.route('/<name>')
-def hello_name(name):
-    return "Hello {}!".format(name)
-
-
-if __name__ == '__main__':
-    app.run()
-
+db = SQLAlchemy(app)
 
 class Result(db.Model):
     __tablename__ = 'results'
@@ -60,7 +32,7 @@ class Result(db.Model):
         return '<id {}>'.format(self.id)
 
 
-class User(bd.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
 
