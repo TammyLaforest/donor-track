@@ -3,3 +3,4 @@ Bin
 Include
 Lib
 .Python
+Pip-selfcheck.json
