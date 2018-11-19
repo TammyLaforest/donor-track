@@ -1,7 +1,100 @@
-#
 from flask import Flask, flash, redirect, render_template, request, session, url_for, g, Markup, make_response
+from flask_sqlalchemy import SQLAlchemy
+import os
+from app import db
+from models import result
+import psycopg2
+from sqlalchemy.dialects.postgresql import JSON
+# basedir = os.path.abspath(os.path.dirname(__file__))
+# https://git.heroku.com/glacial-island-30992.git
+# configure application
+app = Flask(__name__)
+app.config['SQLAlchemy_TRACK_Modifications'] = False
+DATABASE_URL = os.environ['DATABASE_URL']
+app.config.from_object(os.environ['APP_SETTINGS'])
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+app.config['SQLAlchemy_DATABASE_URI'] = os.environ['DATABASE_URL']
+db.SQLAlchemy(app)
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/')
+def hello():
+    return "Hello World!"
+
+
+@app.route('/<name>')
+def hello_name(name):
+    return "Hello {}!".format(name)
+
+
+if __name__ == '__main__':
+    app.run()
+
+
+class Result(db.Model):
+    __tablename__ = 'results'
+
+    id = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.String())
+    result_all = db.Column(JSON)
+    result_no_stop_words = db.Column(JSON)
+
+    def __init__(self, url, result_all, result_no_stop_words):
+        self.url = url
+        self.result_all = result_all
+        self.result_no_stop_words = result_no_stop_words
+
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
+
+
+class User(bd.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+
+    def __init__(self, name):
+        self.name = name
+
+# class Config(object):
+#     DEBUG = False
+#     TESTING = False
+#     CSRF_ENABLED = True
+#     SECRET_KEY = 'this-really-needs-to-be-changed'
+#     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+
+# class ProductionConfig(Config):
+#     DEBUG = False
+
+
+# class StagingConfig(Config):
+#     DEVELOPMENT = True
+#     DEBUG = True
+#
+#
+# class DevelopmentConfig(Config):
+#     DEVELOPMENT = True
+#     DEBUG = True
+#
+#
+# class TestingConfig(Config):
+#     TESTING = True
+
+
+
+
+
 from setuptools import setup, find_packages
-from cs50 import SQL
+
 
 from flask_session import Session
 from flask_session.__init__ import Session
@@ -12,8 +105,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 
 from helpers import *
 
-# configure application
-app = Flask(__name__)
+
 
 # ensure responses aren't cached
 if app.config["DEBUG"]:
@@ -33,8 +125,9 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+# from cs50 import SQL
 # configure CS50 Library to use SQLite database
-db = SQL("sqlite:///donationtracker.db")
+# db = SQL("sqlite:///donationtracker.db")
 
 @app.route("/")
 def index():
@@ -223,11 +316,18 @@ def register():
     elif request.form.get("password") != request.form.get("verification"):
             return apology("passwords do not match")
 
+            new_user = User(name)
+            db.session.add(new_user)
+            # Commit for INSERT and REMOVE Statements
+            db.session.commit()
+
+            users = User.query.order_by(User.id).all()
+
             # insert the new user into users, storing the hash of the user's password
-            result = db.execute("INSERT INTO users (username, hash) \
-                                 VALUES(:username, :hash)", \
-                                 username=request.form.get("username"), \
-                                 hash=pwd_context.encrypt(request.form.get("password")))
+            # result = db.execute("INSERT INTO users (username, hash) \
+            #                      VALUES(:username, :hash)", \
+            #                      username=request.form.get("username"), \
+            #                      hash=pwd_context.encrypt(request.form.get("password")))
 
             if not result:
                 return apology("Username already exist")
