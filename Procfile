@@ -1,1 +1,1 @@
-web: gunicorn application:donor-track
+web: gunicorn donor-track.app
