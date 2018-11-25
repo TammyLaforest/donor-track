@@ -1,1 +1,1 @@
-web: gunicorn donor-track.app
+web: gunicorn donor-track.wsgi
