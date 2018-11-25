@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+# heroku config:set DATABASE_URL=mysql:
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
