@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 from shortuuidfield import ShortUUIDField
 
@@ -51,34 +52,34 @@ class Contact(models.Model):
         default='Other',
     )
 
-    company = models.CharField(max_length=50,)
-    first_name1 = models.CharField(max_length=30,)
-    last_name1 = models.CharField(max_length=30,)
-    first_name2 = models.CharField(max_length=30)
-    last_name2 = models.CharField(max_length=30)
-    address_number = models.CharField(max_length=20)
-    address_street = models.CharField(max_length=30)
-    address_street2 = models.CharField(max_length=30)
-    address_city = models.CharField(max_length=30)
-    address_state = models.CharField(max_length=30)
-    address_postalcode = models.CharField(max_length=30)
-    address_country = models.CharField(max_length=30, default='USA')
-    phone1 = models.CharField(max_length=20)
-    phone2 = models.CharField(max_length=20)
-    email1 = models.EmailField(validators=[validate_email])
-    email2 = models.EmailField(validators=[validate_email])
-    note = models.TextField()
+    company = models.CharField(max_length=50,blank=True )
+    first_name1 = models.CharField(max_length=30, blank=True )
+    last_name1 = models.CharField(max_length=30, blank=True )
+    first_name2 = models.CharField(max_length=30, blank=True )
+    last_name2 = models.CharField(max_length=30, blank=True )
+    address_number = models.CharField(max_length=20, blank=True )
+    address_street = models.CharField(max_length=30, blank=True )
+    address_street2 = models.CharField(max_length=30, blank=True )
+    address_city = models.CharField(max_length=30, blank=True )
+    address_state = models.CharField(max_length=30, blank=True )
+    address_postalcode = models.CharField(max_length=30, blank=True )
+    address_country = models.CharField(max_length=30, default='USA', blank=True )
+    phone1 = models.CharField(max_length=20, blank=True )
+    phone2 = models.CharField(max_length=20, blank=True )
+    email1 = models.EmailField(validators=[validate_email], blank=True )
+    email2 = models.EmailField(validators=[validate_email], blank=True )
+    note = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = 'contacts'
 
-    def clean(self):
-        if not (self.company or
-            self.first_name1 or
-            self.last_name1 or
-            self.last_name2 or
-            self.first_name2):
-            raise ValidationError("You must specify a contact name")
+    # def clean(self):
+    #     if not (self.company or
+    #         self.first_name1 or
+    #         self.last_name1 or
+    #         self.last_name2 or
+    #         self.first_name2):
+    #         raise ValidationError("You must specify a contact name")
 
     @property
     def full_name(self):
@@ -94,11 +95,7 @@ class Contact(models.Model):
             self.first_name2, self.last_name2,)
 
     def __unicode__(self):
-        return u'%s' % self.couple
-
-    @property
-    def company(self):
-        return u'%s' % (self.company)
+        return u'%s' % self.couple  
 
     def __unicode__(self):
         return u'%s' % self.company
@@ -107,7 +104,7 @@ class Contact(models.Model):
     # @models.permalink
     # def get_absolute_url(self):
     #     return 'contact_detail', [self.uuid]
-
+    #
     # @models.permalink
     # def get_update_url(self):
     #     return 'contact_update', [self.uuid]
