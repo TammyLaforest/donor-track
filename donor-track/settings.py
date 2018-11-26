@@ -12,9 +12,49 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import django_heroku
+import sys
+import urllib
+# import urlparse
+
+# Register database schemes in URLs.
+urllib.parse.uses_netloc.append('mysql')
+
+
+
+try:
+
+    # Check to make sure DATABASES is set in settings.py file.
+    # If not default to {}
+
+    if 'DATABASES' not in locals():
+        DATABASES = {}
+
+    if 'DATABASE_URL' in os.environ:
+        url = urllib.parse(os.environ['DATABASE_URL'])
+
+        # Ensure default database exists.
+        DATABASES['default'] = DATABASES.get('default', {})
+
+        # Update with environment configuration.
+    DATABASES ['default'] = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'donortrack',
+            'USER': 'root',
+            'PASSWORD': 'password',
+            'HOST': 'localhost',
+            'OPTIONS': {'ssl': {'ca':'/path/to/ca-cert.pem','cert':'/path/to/cert.pem','key':'/path/to/key.pem'},},
+        }
+    }
+    if url.scheme == 'mysql':
+                DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
+except Exception:
+    print( "Unexpected error:"
+    , sys.exc_info())
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -70,23 +110,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'donor-track.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 
 # "HOST": '/var/run/mysql'
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'donortrack',
-        'USER': 'root',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-    }
-}
 
 
 
