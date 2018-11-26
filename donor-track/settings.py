@@ -14,40 +14,35 @@ import os
 import django_heroku
 import sys
 import urllib
-# import urlparse
 
 # Register database schemes in URLs.
 urllib.parse.uses_netloc.append('mysql')
-
-
-
+#
 try:
-
-    # Check to make sure DATABASES is set in settings.py file.
-    # If not default to {}
-
     if 'DATABASES' not in locals():
         DATABASES = {}
 
     if 'DATABASE_URL' in os.environ:
         url = urllib.parse(os.environ['DATABASE_URL'])
 
-        # Ensure default database exists.
-        DATABASES['default'] = DATABASES.get('default', {})
+        # # Ensure default database exists.
+        # DATABASES['default'] = DATABASES.get('default', {})
 
         # Update with environment configuration.
-    DATABASES ['default'] = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'donortrack',
-            'USER': 'root',
-            'PASSWORD': 'password',
-            'HOST': 'localhost',
-            'OPTIONS': {'ssl': {'ca':'/path/to/ca-cert.pem','cert':'/path/to/cert.pem','key':'/path/to/key.pem'},},
-        }
-    }
+        DATABASES['default'] =  dj_database_url.config(default='mysql://b8b893fa53c39d:5c353d8a@us-cdbr-iron-east-01.cleardb.net/heroku_e51a193f0326908?reconnect=true')
+
+    # DATABASES ['default'] = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.mysql',
+    #         'NAME': 'donortrack',
+    #         'USER': 'root',
+    #         'PASSWORD': 'password',
+    #         'HOST': 'localhost',
+    #         'OPTIONS': {'ssl': {'ca':'/path/to/ca-cert.pem','cert':'/path/to/cert.pem','key':'/path/to/key.pem'},},
+    #     }
+    # }
     if url.scheme == 'mysql':
-                DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
+            DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 except Exception:
     print( "Unexpected error:"
     , sys.exc_info())
