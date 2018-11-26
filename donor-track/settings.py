@@ -29,7 +29,7 @@ try:
         # DATABASES['default'] = DATABASES.get('default', {})
 
         # Update with environment configuration.
-        DATABASES['default'] =  dj_database_url.config(default='mysql://b8b893fa53c39d:5c353d8a@us-cdbr-iron-east-01.cleardb.net/heroku_e51a193f0326908?reconnect=true')
+        DATABASES['default'] =  dj_database_url.config(default='mysql://b8b893fa53c39d:5c353d8a@us-cdbr-iron-east-01.cleardb.net/heroku_e51a193f0326908')
 
     # DATABASES ['default'] = {
     #     'default': {
