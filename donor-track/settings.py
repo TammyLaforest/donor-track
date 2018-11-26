@@ -29,18 +29,16 @@ try:
         # DATABASES['default'] = DATABASES.get('default', {})
 
         # Update with environment configuration.
-        DATABASES['default'] =  dj_database_url.config(default='mysql://b8b893fa53c39d:5c353d8a@us-cdbr-iron-east-01.cleardb.net/heroku_e51a193f0326908')
+        DATABASES['default'] =  dj_database_url.config(default='mysql://b8b893fa53c39d:5c353d8a@us-cdbr-iron-east-01.cleardb.net/heroku_e51a193f0326908'),
 
-    # DATABASES ['default'] = {
-    #     'default': {
     #         'ENGINE': 'django.db.backends.mysql',
-    #         'NAME': 'donortrack',
-    #         'USER': 'root',
-    #         'PASSWORD': 'password',
-    #         'HOST': 'localhost',
-    #         'OPTIONS': {'ssl': {'ca':'/path/to/ca-cert.pem','cert':'/path/to/cert.pem','key':'/path/to/key.pem'},},
-    #     }
-    # }
+            'NAME': 'donortrack',
+            'USER': 'root',
+            'PASSWORD': 'password',
+            'HOST': 'localhost',
+            'OPTIONS': {'ssl': {'ca':'/path/to/ca-cert.pem','cert':'/path/to/cert.pem','key':'/path/to/key.pem'},},
+        }
+    }
     if url.scheme == 'mysql':
             DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 except Exception:
