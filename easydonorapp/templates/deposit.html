@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Deposit Slip
+{% endblock %}
+
+{% block main %}
+
+<p>https://bootsnipp.com/snippets/OPzW8 snippit to learn accordion dropdown</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-file">
+                            </span>DETAILS</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="grant1">Grant#</label>
+                                        <input type="text" class="form-control" id='grant1' placeholder="GRANT#" required />
+                                        <div>Grant Activity and Number: R34 DE002449-01</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="grant2">Grant# (alternative)</label>
+                                        <input type="text" class="form-control" id'grant2' placeholder="GRANT# (Alternare)" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="grantparent">Grant# (Parent)</label>
+                                        <select class="form-control" id="grantparent">
+                                            <option></option>
+                                            <option>Data1772457</option>
+                                            <option>Data4516</option>
+                                            <option>Data24572457</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="shorttitle">Short Title</label>
+                                        <input type="text" class="form-control" id='shorttitle' placeholder="Dentistry Includes Nutrition Reminders (DINR)" required />
+                                        <div> </div>
+                                    </div>
+                                    <div class="form-group">
+                                    <label for="title">Title</label>
+                                        <input type="text" class="form-control" id='shorttitle' placeholder="Dentistry Includes Nutrition Reminders (DINR)" required />
+                                    </div>
+                                    <div class="form-group">
+                                    <label for="suplimenta">Suplimental Grants</label>
+                                        <input type="text" class="form-control" id='suplimenta' required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-th-list">
+                            </span>Administration</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="grantpo">Grant PO</label>
+                                        <select class="form-control" id="grantpo">
+                                            <option>Data1772457</option>
+                                            <option>Data4516</option>
+                                            <option>Data24572457</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="well well-sm well-primary">
+                                        <label for="grantor">Grantor</label>
+                                        <select class="form-control" id="grantor">
+                                            <option>Data1772457</option>
+                                            <option>Data4516</option>
+                                            <option>Data24572457</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -17,14 +17,18 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
 import easydonorapp.views
+from easydonorapp import views as core_views
 
 urlpatterns = [
 
-    path('', easydonorapp.views.CreateContactView.as_view(), name='index'),
+    path('', easydonorapp.views.IndexView.as_view(), name='index'),
     path('admin/', admin.site.urls),
     path('contacts/', easydonorapp.views.ListContactView.as_view(),
         name='contacts-list',),
     path('new/', easydonorapp.views.CreateContactView.as_view(),
             name='contacts-new',),
+    path('deposit/', easydonorapp.views.DepositView.as_view(),
+            name='deposit',),
+    url(r'^signup/$', core_views.signup, name='signup')
 
 ]

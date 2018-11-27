@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.views.generic import ListView
@@ -6,6 +6,10 @@ from django.views.generic import ListView
 from easydonorapp.models import Contact
 from django.urls import reverse
 from django.views.generic import CreateView
+
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+
 
 
 class ListContactView(ListView):
@@ -26,6 +30,40 @@ class IndexView(CreateView):
 
     model = Contact
     template_name = 'index.html'
+    fields = '__all__'
 
     def get_success_url(self):
         return reverse('contacts-list')
+
+class DepositView(CreateView):
+
+    model = Contact
+    template_name = 'deposit.html'
+    fields = '__all__'
+
+
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
+
+
+# class LoginView(CreateView):
+#
+#     model = User
+#     template_name = 'index.html'
+#     fields = '__all__'
+#
+#     def get_success_url(self):
+#         return reverse('contacts-list')

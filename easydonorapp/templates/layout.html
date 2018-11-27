@@ -9,8 +9,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-        <!--CSS only-->
-        <link rel="stylesheet" href="static/styles.css" type="text/css">
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'easydonorapp/bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'easydonorapp/style.css' %}">
 
         <!--JS, Popper.js, and jQuery-->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
