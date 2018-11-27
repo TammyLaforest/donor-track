@@ -38,16 +38,18 @@ class DepositView(CreateView):
 
     model = Contact
     template_name = 'deposit.html'
-    fields = '__all__'
-
-
-
+    fields ='__all__'
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
 
+# class DonorView(CreateView)
+#     model = Contact
+#     template_name = 'donors.html'
+#     fields = '__all__'
+# User.objects.filter(
 # def signup(request):
 #     if request.method == 'POST':
 #         form = UserCreationForm(request.POST)
