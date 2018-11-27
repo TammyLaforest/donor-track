@@ -18,11 +18,11 @@ from django.core.validators import validate_email
 
 class Contact(models.Model):
 
-    owner = models.ForeignKey(User, on_delete = models.CASCADE)
+    Owner = models.ForeignKey(User, on_delete = models.CASCADE)
     uuid = ShortUUIDField(unique=True, primary_key = True,)
-    created_on = models.DateField(auto_now_add=True)
+    Created_On = models.DateField(auto_now_add=True)
 
-    BOOKTYPE_CHOICES = (
+    CATEGORY_CHOICES = (
     ('Donor', (
             ('member', 'Member'),
             ('regular', 'Regular'),
@@ -43,56 +43,56 @@ class Contact(models.Model):
 
     )
 
-    booktype = models.CharField(
+    Category = models.CharField(
         max_length=20,
-        choices=BOOKTYPE_CHOICES,
+        choices=CATEGORY_CHOICES,
         default='Unknown',
     )
-    CONTACTTYPE_CHOICES = (
-        ('company', 'Company'),
+    FORMAT_CHOICES = (
+        ('Company', 'Company'),
         ('individual', 'Individual'),
         ('couple', 'Couple'),
         ('other', 'Other'),
     )
 
-    contacttype = models.CharField(
+    Contact_Format = models.CharField(
         max_length=20,
-        choices=CONTACTTYPE_CHOICES,
+        choices=FORMAT_CHOICES,
         default='Other',
     )
 
-    company = models.CharField(max_length=50,blank=True )
-    first_name1 = models.CharField(max_length=30, blank=True )
-    last_name1 = models.CharField(max_length=30, blank=True )
-    first_name2 = models.CharField(max_length=30, blank=True )
-    last_name2 = models.CharField(max_length=30, blank=True )
-    address_number = models.CharField(max_length=20, blank=True )
-    address_street = models.CharField(max_length=30, blank=True )
-    address_street2 = models.CharField(max_length=30, blank=True )
-    address_city = models.CharField(max_length=30, blank=True )
-    address_state = models.CharField(max_length=30, blank=True )
-    address_postalcode = models.CharField(max_length=30, blank=True )
-    address_country = models.CharField(max_length=30, default='USA', blank=True )
-    phone1 = models.CharField(max_length=20, blank=True )
-    phone2 = models.CharField(max_length=20, blank=True )
-    email1 = models.EmailField(validators=[validate_email], blank=True )
-    email2 = models.EmailField(validators=[validate_email], blank=True )
-    note = models.TextField(blank=True)
+    Company = models.CharField(max_length=50,blank=True )
+    First_Name1 = models.CharField(max_length=30, blank=True )
+    Last_Name1 = models.CharField(max_length=30, blank=True )
+    First_Name2 = models.CharField(max_length=30, blank=True )
+    Last_Name2 = models.CharField(max_length=30, blank=True )
+    Address_Number = models.CharField(max_length=20, blank=True )
+    Address_Street = models.CharField(max_length=30, blank=True )
+    Address_Street2 = models.CharField(max_length=30, blank=True )
+    Address_City = models.CharField(max_length=30, blank=True )
+    Address_State = models.CharField(max_length=30, blank=True )
+    Address_Postal_Code = models.CharField(max_length=30, blank=True )
+    Address_Country = models.CharField(max_length=30, default='USA', blank=True )
+    Phone1 = models.CharField(max_length=20, blank=True )
+    Phone2 = models.CharField(max_length=20, blank=True )
+    Email1 = models.EmailField(validators=[validate_email], blank=True )
+    Email2 = models.EmailField(validators=[validate_email], blank=True )
+    Note = models.TextField(blank=True)
 
     class Meta:
-        verbose_name_plural = 'contacts'
+        verbose_name_plural = 'Contacts'
 
     # def clean(self):
-    #     if not (self.company or
-    #         self.first_name1 or
-    #         self.last_name1 or
-    #         self.last_name2 or
-    #         self.first_name2):
+    #     if not (self.Company or
+    #         self.First_Name1 or
+    #         self.Last_Name1 or
+    #         self.Last_Name2 or
+    #         self.First_Name2):
     #         raise ValidationError("You must specify a contact name")
 
     @property
     def full_name(self):
-        return u'%s %s' % (self.first_name1, self.last_name1)
+        return u'%s %s' % (self.First_Name1, self.Last_Name1)
 
     def __unicode__(self):
         return u'%s' % self.full_name
@@ -100,14 +100,14 @@ class Contact(models.Model):
 
     @property
     def couple(self):
-        return u'%s %s & %s %s' % (self.first_name1, self.last_name1,
-            self.first_name2, self.last_name2,)
+        return u'%s %s & %s %s' % (self.First_Name1, self.Last_Name1,
+            self.First_Name2, self.Last_Name2,)
 
     def __unicode__(self):
         return u'%s' % self.couple
 
     def __unicode__(self):
-        return u'%s' % self.company
+        return u'%s' % self.Company
 
 
     # @models.permalink

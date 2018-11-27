@@ -5,11 +5,11 @@ from .models import Contact
 class ContactAdmin(admin.ModelAdmin):
     list_display = (
         'uuid',
-        'company',
-        'last_name1',
-        'first_name1',
-        'last_name2',
-        'first_name2',
+        'Company',
+        'Last_Name1',
+        'First_Name1',
+        'Last_Name2',
+        'First_Name2',
         )
 
 admin.site.register(Contact, ContactAdmin)

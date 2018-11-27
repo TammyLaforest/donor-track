@@ -1,3 +1,6 @@
+<!-- Much assistance from this tutorial https://github.com/wsvincent/django-auth-tutorial -->
+<!-- https://wsvincent.com/django-user-authentication-tutorial-login-and-logout/ -->
+
 {% extends "layout.html" %}
 
 {% block title %}
@@ -5,9 +8,29 @@
 {% endblock %}
 
 {% block main %}
+
+
 <div class="container">
     <div class="row" >
-        <button type="button" id="loginbutton" class="btn btn-primary btn-lg login ">Login</button>
+
+      <!-- templates/registration/login.html -->
+      <div class="title"><h2>Login</h2></div>
+      </div>
+      <div class="row">
+
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+      </form>
+
+      </div>
+
+
+
+
+
+        <!-- <button type="button" id="loginbutton" class="btn btn-primary btn-lg login ">Login</button>
         <button type="button" id="registerbutton" class="btn btn-secondary btn-lg login">Register</button>
     </div>
     <br>
@@ -54,5 +77,5 @@
     loginrow.style.display = "none";
     registerrow.style.display = "block";
   }
-  </script>
+  </script> -->
 {% endblock %}
