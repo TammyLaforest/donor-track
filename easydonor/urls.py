@@ -1,4 +1,4 @@
-"""donor-track URL Configuration
+"""easy-donor URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -16,15 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
-import contacts.views
+import easydonorapp.views
 
 urlpatterns = [
 
-    path('', contacts.views.CreateContactView.as_view(), name='index'),
+    path('', easydonorapp.views.CreateContactView.as_view(), name='index'),
     path('admin/', admin.site.urls),
-    path('contacts/', contacts.views.ListContactView.as_view(),
+    path('contacts/', easydonorapp.views.ListContactView.as_view(),
         name='contacts-list',),
-    path('new/', contacts.views.CreateContactView.as_view(),
+    path('new/', easydonorapp.views.CreateContactView.as_view(),
             name='contacts-new',),
 
 ]

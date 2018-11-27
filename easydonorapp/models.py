@@ -95,7 +95,7 @@ class Contact(models.Model):
             self.first_name2, self.last_name2,)
 
     def __unicode__(self):
-        return u'%s' % self.couple  
+        return u'%s' % self.couple
 
     def __unicode__(self):
         return u'%s' % self.company

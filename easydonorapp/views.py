@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 from django.views.generic import ListView
 
-from contacts.models import Contact
+from easydonorapp.models import Contact
 from django.urls import reverse
 from django.views.generic import CreateView
 
