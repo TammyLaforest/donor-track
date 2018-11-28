@@ -11,26 +11,13 @@
       <div class="title"><h2>Home</h2></div>
       </div>
       <div class="row">
+
+
       {% if user.is_authenticated %}
         Hi {{ user.username }}!
-        </div>
-        <div class="row">
-        <div>
-          <button class="btn btn-primary" href="{% url 'logout' %}">logout</button>
-        </div>
-        <div>
-          <button class="btn btn-primary" href="{% url 'password_reset' %}">reset password</button>
-        </div>
+        <p><a href="{% url 'logout' %}">logout</a></p>
       {% else %}
         <p>You are not logged in</p>
         <a href="{% url 'login' %}">login</a>
-
       {% endif %}
-        </div>
-      </div>
-        <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit">Login</button>
-        </form>
-{% endblock %}
+      {% endblock %}

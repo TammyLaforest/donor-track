@@ -16,23 +16,33 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import include, url
-import easydonorapp.views
-from easydonorapp import views as core_views
-from django.views.generic.base import TemplateView
+import accounts
+import easydonorapp
+import contacts
+import donors
+from accounts import views
+from easydonorapp import views
+from contacts import views
+from donors import views
+
+from django.views.generic import TemplateView
 
 urlpatterns = [
- path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    # path('', easydonorapp.views.IndexView.as_view(), name='index'),
+    path('home/', TemplateView.as_view(template_name='home.html'),
+        name='home'),
+    path('', TemplateView.as_view(template_name='home.html'),
+        name='home'),
     path('admin/', admin.site.urls),
-    path('contacts/', easydonorapp.views.ListContactView.as_view(),
+    path('contacts/', contacts.views.ListContactView.as_view(),
         name='contacts-list',),
-    path('new/', easydonorapp.views.CreateContactView.as_view(),
-            name='contacts-new',),
-    path('deposit/', easydonorapp.views.DepositView.as_view(),
-            name='deposit',),
-      path('accounts/', include('django.contrib.auth.urls')),
-      path('signup/', easydonorapp.views.SignUpView.as_view(), name='signup'),
-      ]
+    path('new/', contacts.views.CreateContactView.as_view(),
+        name='contacts-new',),
+    path('deposit/', donors.views.DepositView.as_view(),
+        name='deposit',),
+    path('accounts/', include('django.contrib.auth.urls')),
+    # path('signup/', accounts.views.SignUpView.as_view(),
+    #     name='signup'),
+    ]
 
 
 # accounts/login/ [name='login']
