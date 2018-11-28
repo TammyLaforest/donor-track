@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+
+
+{# donors/templates/donors.html #}
+
+{% load render_table from django_tables2 %}
+
+<!-- <div style="border:1px solid red">
+        {% render_table donortable %}
+</div> -->
+<div style="border:1px solid blue">
+        {% render_table donorlist %}
+</div>
+
+{% endblock %}

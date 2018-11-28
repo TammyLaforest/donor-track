@@ -37,11 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'easydonorapp',
     'accounts',
     'contacts',
     'donors',
+
     'django_tables2',
+    'django_filters',
 
 ]
 
@@ -78,6 +81,7 @@ TEMPLATES = [
 ]
 
 
+DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap-responsive.html'
 
 WSGI_APPLICATION = 'easydonor.wsgi.application'
 
