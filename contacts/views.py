@@ -9,19 +9,28 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.views.generic import ListView, CreateView
 
-# from django.contrib.auth import login, authenticate
-# from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+
+from .models import Contact
 
 class ListContactView(ListView):
 
+    list_display = ['__all__']
     model = Contact
     template_name = 'contacts.html'
 
 class CreateContactView(CreateView):
 
     model = Contact
-    template_name = 'edit_contact.html'
+    template_name = 'new.html'
     fields = '__all__'
-
+    #
     def get_success_url(self):
-        return reverse('contacts-list')
+        return reverse('contacts.html')
+
+def contactstable(request):
+    return render(request, 'contacts/contacts.html', {'contactstable': Contact.objects.all()})
+
+def donortable(request):
+    return render(request, 'donors/donors.html', {'donortable': Contacts.objects.filter()})

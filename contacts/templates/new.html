@@ -9,7 +9,7 @@
     <div class="row" >
       <h1>Add Contact</h1>
 
-    <form action="{% url "contacts-new" %}" method="POST">
+    <form action="{% url "new" %}" method="POST">
       {% csrf_token %}
       <ul>
         {{ form.as_ul }}
@@ -17,7 +17,7 @@
       <input id="save_contact" type="submit" value="Save" />
     </form>
 
-    <a href="{% url "contacts-list" %}">back to list</a>
+    <!-- <a href="{% url "contacts" %}">back to list</a> -->
     </div>
 </div>
 {% endblock %}

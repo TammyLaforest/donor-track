@@ -6,6 +6,12 @@ from shortuuidfield import ShortUUIDField
 
 from django.core.validators import validate_email
 
+
+# tutorial/models.py
+class Person(models.Model):
+    name = models.CharField(max_length=100, verbose_name='full name')
+
+
 # class Donor(models.Model):
 #     Owner = models.ForeignKey(User, on_delete = models.CASCADE)
 #

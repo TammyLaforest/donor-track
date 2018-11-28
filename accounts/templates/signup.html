@@ -1,14 +1,15 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Log In
+    Sign up!
 {% endblock %}
 
-<!-- {% block main %} -->
+<!-- from tutorial https://wsvincent.com/django-user-authentication-tutorial-signup/ -->
+    {% block main %}
 <div class="container">
     <div class="row" >
 
-      {% block content %}
+
         <h2>Sign up</h2>
         <form method="post">
           {% csrf_token %}
@@ -17,7 +18,7 @@
         </form>
       {% endblock %}
 </div>
-<div class="row" >
+<!-- <div class="row" >
 
 
         <button type="button" id="loginbutton" class="btn btn-primary btn-lg login ">Login</button>
@@ -67,5 +68,4 @@
     loginrow.style.display = "none";
     registerrow.style.display = "block";
   }
-  </script>
-{% endblock %}
+  </script> -->

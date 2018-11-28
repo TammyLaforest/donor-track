@@ -25,31 +25,42 @@ from easydonorapp import views
 from contacts import views
 from donors import views
 
+from contacts.views import contactstable, donortable
+
 from django.views.generic import TemplateView
 
 urlpatterns = [
+
+    path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
+
+    url(r'^contacts/', contactstable),
+    url(r'^donors/', donortable),
+
+
     path('home/', TemplateView.as_view(template_name='home.html'),
         name='home'),
     path('', TemplateView.as_view(template_name='home.html'),
         name='home'),
-    path('admin/', admin.site.urls),
-    path('contacts/', contacts.views.ListContactView.as_view(),
-        name='contacts-list',),
-    path('new/', contacts.views.CreateContactView.as_view(),
-        name='contacts-new',),
+    path('new/', TemplateView.as_view(template_name='new.html'),
+            name='new'),
+# url(r'^contacts/', contactstable),
     path('deposit/', donors.views.DepositView.as_view(),
         name='deposit',),
+
+    path('contacts/', contacts.views.ListContactView.as_view(),
+        name='contacts',),
+
+    path('donors/', donors.views.DonorsView.as_view(),
+            name='donors',),
+    path('donor_categories/', donors.views.Donor_Categories_View.as_view(),
+            name='donor_categories',),
+    path('thanks/', donors.views.Thanks_View.as_view(),
+            name='thanks',),
+
     path('accounts/', include('django.contrib.auth.urls')),
-    # path('signup/', accounts.views.SignUpView.as_view(),
-    #     name='signup'),
+
+
+
+
     ]
-
-
-# accounts/login/ [name='login']
-# accounts/logout/ [name='logout']
-# accounts/password_change/ [name='password_change']
-# accounts/password_change/done/ [name='password_change_done']
-# accounts/password_reset/ [name='password_reset']
-# accounts/password_reset/done/ [name='password_reset_done']
-# accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
-# accounts/reset/done/ [name='password_reset_complete']

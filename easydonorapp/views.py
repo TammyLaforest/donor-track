@@ -22,3 +22,12 @@ class IndexView(CreateView):
 
     def get_success_url(self):
         return reverse('contacts-list')
+
+class LoginView(CreateView):
+
+    model = User
+    template_name = 'index.html'
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse('contacts-list')

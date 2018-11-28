@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from contacts.models import Contact
 # from donors.models import Donor
 from accounts.models import User
@@ -14,18 +13,28 @@ from django.views.generic import ListView, CreateView
 # from django.contrib.auth import login, authenticate
 # from django.contrib.auth.forms import UserCreationForm
 
+
 class DepositView(CreateView):
 
     model = Contact
     template_name = 'deposit.html'
     fields ='__all__'
 
+class DonorsView(CreateView):
+    model = Contact
+    template_name = 'donors.html'
+    fields = '__all__'
 
+class Donor_Categories_View(CreateView):
+    model = Contact
+    template_name = 'donor_categories.html'
+    fields = '__all__'
 
-    # class DonorView(CreateView)
-    #     model = Contact
-    #     template_name = 'donors.html'
-    #     fields = '__all__'
+class Thanks_View(CreateView):
+    model = Contact
+    template_name = 'thanks.html'
+    fields = '__all__'
+
     # User.objects.filter(
     # def signup(request):
     #     if request.method == 'POST':
@@ -40,12 +49,3 @@ class DepositView(CreateView):
     #     else:
     #         form = UserCreationForm()
     #     return render(request, 'signup.html', {'form': form})
-
-    # class LoginView(CreateView):
-    #
-    #     model = User
-    #     template_name = 'index.html'
-    #     fields = '__all__'
-    #
-    #     def get_success_url(self):
-    #         return reverse('contacts-list')

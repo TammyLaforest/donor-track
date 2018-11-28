@@ -17,7 +17,15 @@
         Hi {{ user.username }}!
         <p><a href="{% url 'logout' %}">logout</a></p>
       {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">login</a>
-      {% endif %}
-      {% endblock %}
+        <p>You are not logged in.</p>
+    </div>
+    <div class="row">
+      <a class="btn button btn-primary" href="{% url 'login' %}">Login</a>
+    </div>
+    <div class="row">
+      <a class="btn button btn-primary" href="{% url 'signup' %}">Sign Up</a>
+    </div>
+    <div class="row">
+      <a class="btn button btn-primary" href="{% url 'password_reset' %}">Reset Password</a>
+    {% endif %}
+    {% endblock %}
