@@ -31,6 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    'easydonorapp',
+    'accounts',
+    'contacts',
+    'donors',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,13 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'easydonorapp',
-    'accounts',
-    'contacts',
-    'donors',
-
     'django_tables2',
     'django_filters',
+    'bootstrapform',
+    'materialize',
 
 ]
 

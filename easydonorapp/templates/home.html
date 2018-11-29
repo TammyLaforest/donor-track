@@ -5,7 +5,7 @@
     Home
 {% endblock %}
 
-{% block main %}
+{% block body_block %}
 <div class="container">
     <div class="row" >
       <div class="title"><h2>Home</h2></div>
@@ -15,7 +15,7 @@
 
       {% if user.is_authenticated %}
         Hi {{ user.username }}!
-        
+
         <p><a href="{% url 'logout' %}">logout</a></p>
       {% else %}
         <p>You are not logged in.</p>

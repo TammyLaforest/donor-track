@@ -1,34 +1,35 @@
 {% extends "layout.html" %}
 {% load bootstrap %}
 {% block title %}
-    Contacts
+    Contacts Detail
 {% endblock %}
 
 {% block body_block %}
 
+
 <div class="container">
   <div class="row" >
-    <h1>Contacts</h1>
-
+    <h1>Contacts Detail</h1>
 
 
     <table>
-
         <tr>
-          {% for row in ContactDetailView %}
-
+          {% for row in ContactListView %}
+          <td>jack</td>
           <td>
             {%  for field in row %}
           </td>
           {%  endfor %}
             </tr>
-{%  endfor %}
+            {%  endfor %}
 </table>
-    {# contacts.html #}
+
+{# contacts/detail.html #}
 
 
 
-  </div>
 </div>
+</div>
+
 
 {% endblock %}

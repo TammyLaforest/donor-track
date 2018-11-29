@@ -25,9 +25,7 @@ from easydonorapp import views
 from contacts import views
 from donors import views
 from django.contrib.auth.models import User
-
 from contacts.views import donortable, ContactsTable
-
 from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -35,25 +33,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
 
-    url(r'^contacts/', ContactsTable),
-    url(r'^donors/', donortable),
-
-
-
-
     path('home/', TemplateView.as_view(template_name='home.html'),
         name='home'),
     path('', TemplateView.as_view(template_name='home.html'),
         name='home'),
     path('new/', TemplateView.as_view(template_name='new.html'),
             name='new'),
-# url(r'^contacts/', contactstable),
     path('deposit/', donors.views.DepositView.as_view(),
         name='deposit',),
-
-    path('contacts/', contacts.views.ListContactView.as_view(),
-        name='contacts',),
-
     path('donors/', donors.views.DonorsView.as_view(),
             name='donors',),
     path('donor_categories/', donors.views.Donor_Categories_View.as_view(),
@@ -63,7 +50,9 @@ urlpatterns = [
 
     path('accounts/', include('django.contrib.auth.urls')),
 
+    path('contacts/', contacts.views.ContactListView.as_view(), name='contacts'),
+    url(r'^contacts/detail/', ContactsTable),
+    # path('contacts/detail/', contacts.views.ContactDetailView.as_view(), name='detail'),
 
-
-
-    ]
+    url(r'^donors/', donortable),
+]

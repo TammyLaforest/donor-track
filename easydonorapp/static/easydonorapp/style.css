@@ -1,3 +1,15 @@
+
+
+/* CSS for layout.html */
+
+.page-header {
+  padding: 1em;
+}
+
+/* END Settings for layout.html */
+/* CSS for other */
+
+
 .login {
   margin-right: 0.5em;
   background-color: red;

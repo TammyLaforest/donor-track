@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% load bootstrap %}
+{% block title %}Snippet List{% endblock title %}
+
+{% block content %}
+{{ filter.form|bootstrap }}
+<ul>
+    <h1>Hey hey </h1>
+    {% for contact in filter.qs %}
+    <li>
+      <a href="{% url 'snippets:detail' snippet.id %}">{{ contact.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+
+{% endblock  %}
