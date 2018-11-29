@@ -26,7 +26,7 @@ from contacts import views
 from donors import views
 from django.contrib.auth.models import User
 
-from contacts.views import contactstable, donortable
+from contacts.views import donortable, ContactsTable
 
 from django.views.generic import TemplateView
 
@@ -35,7 +35,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
 
-    url(r'^contacts/', contactstable),
+    url(r'^contacts/', ContactsTable),
     url(r'^donors/', donortable),
 
 

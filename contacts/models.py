@@ -7,9 +7,6 @@ from shortuuidfield import ShortUUIDField
 
 from django.core.validators import validate_email
 
-class Person(models.Model):
-    name = models.CharField(max_length=100, verbose_name='full name')
-
 class Contact(models.Model):
     Owner = models.ForeignKey(User, on_delete = models.CASCADE)
     uuid = ShortUUIDField(unique=True, primary_key = True,)
