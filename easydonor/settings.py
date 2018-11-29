@@ -43,10 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'django_tables2',
+    'shortuuidfield',
     'django_filters',
-    'bootstrapform',
     'materialize',
 
 ]
@@ -83,8 +81,6 @@ TEMPLATES = [
     },
 ]
 
-
-DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap-responsive.html'
 
 WSGI_APPLICATION = 'easydonor.wsgi.application'
 

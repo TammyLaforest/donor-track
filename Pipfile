@@ -7,6 +7,11 @@ verify_ssl = true
 
 [packages]
 materialize = "*"
+django = "*"
+django-filter = "*"
+django-filters = "*"
+django-materialize = "*"
+django-shortuuidfield = "*"
 
 [requires]
 python_version = "3.7"

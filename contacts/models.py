@@ -6,18 +6,10 @@ from django.urls import reverse
 from shortuuidfield import ShortUUIDField
 
 from django.core.validators import validate_email
+from django.forms import ModelForm
 
 
-# class Snippet(models.Model):
-#     title = models.CharField(max_length=100)
-#     body = models.TextField()
-#     created = models.DateTimeField(auto_now_add=True)
-#
-#     def __str__(self):
-#         return self.title
-#
-#     def body_preview(self):
-#         return self.body[:50]
+
 
 class Contact(models.Model):
     Owner = models.ForeignKey(User, on_delete = models.CASCADE)
@@ -104,3 +96,21 @@ class Contact(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.Company
+
+
+#
+# class DonorForm(ModelForm):
+#     class Meta:
+#         model = Contact
+#         fields = ['First_Name1', 'Last_Name1', 'First_Name2', 'Last_Name2', ]
+
+class DonorForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
+
+
+class VendorForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['Company', 'Address_City', 'Address_State']

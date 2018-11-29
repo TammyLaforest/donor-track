@@ -1,6 +1,5 @@
 import django_filters
-import django_tables2 as tables
-from django_tables2.views import SingleTableMixin
+
 
 from django.db import models
 from django.db.models import Q
@@ -14,7 +13,7 @@ from django.urls import reverse, reverse_lazy
 # from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from .filters import ContactsNameFilter
-from .models import Contact
+from .models import Contact, DonorForm, VendorForm
 
 class ContactListView(ListView):
     model = Contact
@@ -34,9 +33,9 @@ def ContactsTable(request):
     return render(request, 'contacts/detail.html', {'ContactsTable': Contact.objects.filter(Q(Owner=request.user))})
 
 
-class ContactContactView(CreateView):
+class contacts_new(CreateView):
     model = Contact
-    template_name = 'new.html'
+    template_name = 'contacts/new.html'
     fields = '__all__'
     #
     def get_success_url(self):
@@ -45,3 +44,11 @@ class ContactContactView(CreateView):
 def donortable(request):
     table = DonorTableMaker(Contact.objects.all())
     return render(request, 'donors.html', {'donortable': Contact.objects.filter(Q(Category='regular') | Q(Category='member') | Q(Category='first_time') | Q(Category='Annual') | Q(Category='grant') | Q(Category='otherdonor'))})
+
+def vendor_new(request):
+    form = VendorForm()
+    return render(request, 'contacts/new.html', {'form': form})
+
+def donor_new(request):
+    form = DonorForm()
+    return render(request, 'contacts/new.html', {'form': form})

@@ -9,15 +9,18 @@
     <div class="row" >
       <h1>Add Contact</h1>
 
-    <form action="{% url "new" %}" method="POST">
-      {% csrf_token %}
-      <ul>
-        {{ form.as_ul }}
-      </ul>
-      <input id="save_contact" type="submit" value="Save" />
-    </form>
+<form style="border: 1px solid blue" method="POST" class="vendor-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
 
-    <!-- <a href="{% url "contacts" %}">back to list</a> -->
+        <!-- <form style="border: 1px solid red" action="{% url "contacts" %}" method="POST" class="DonorForm">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="save btn btn-default">Save</button>
+            </form> -->
+
     </div>
 </div>
 {% endblock %}

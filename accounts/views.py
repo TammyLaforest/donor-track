@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
+from django.forms import ModelForm
 
 # from tutorial https://wsvincent.com/django-user-authentication-tutorial-signup/
 

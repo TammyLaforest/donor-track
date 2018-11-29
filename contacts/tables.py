@@ -3,8 +3,7 @@ from django.db.models import Q
 from .models import Contact
 from django.http import HttpResponse
 
-import django_tables2 as tables
-from django_tables2.views import SingleTableMixin
+
 
 
 

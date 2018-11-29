@@ -29,6 +29,7 @@ from contacts.views import donortable, ContactsTable
 from django.views.generic import TemplateView
 
 urlpatterns = [
+    path('contacts/new', contacts.views.contacts_new, name='contacts_new'),
 
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
