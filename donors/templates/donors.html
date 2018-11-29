@@ -1,40 +1,21 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Contacts
+    Donors
 {% endblock %}
 
 {% block main %}
+
 <div class="container">
-    <div class="row" >
-      <h1>Donors</h1>
+  <div class="row" >
+    <h1>Contacts</h1>
 
+    {# donors/templates/donors.html #}
+    {% load render_table from django_tables2 %}
 
+            {% render_table donortable %}
 
-
-
-      <ul>
-        {% for contact in object_list %}
-          <li class="contact">{{ contact }}</li>
-        {% endfor %}
-      </ul>
-    </div>
+  </div>
 </div>
-
-
-<table>
-    <tr>
-        <th>Field 1</th>
-        ...
-        <th>Field N</th>
-    </tr>
-    {% for item in query_results %}
-    <tr>
-        <td>{{ item.field1 }}</td>
-        ...
-        <td>{{ item.fieldN }}</td>
-    </tr>
-    {% endfor %}
-</table>
 
 {% endblock %}

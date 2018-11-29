@@ -24,6 +24,7 @@ from accounts import views
 from easydonorapp import views
 from contacts import views
 from donors import views
+from django.contrib.auth.models import User
 
 from contacts.views import contactstable, donortable
 
@@ -36,6 +37,8 @@ urlpatterns = [
 
     url(r'^contacts/', contactstable),
     url(r'^donors/', donortable),
+
+
 
 
     path('home/', TemplateView.as_view(template_name='home.html'),

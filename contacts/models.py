@@ -1,4 +1,5 @@
 from django.db import models
+
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -6,8 +7,10 @@ from shortuuidfield import ShortUUIDField
 
 from django.core.validators import validate_email
 
-class Contact(models.Model):
+class Person(models.Model):
+    name = models.CharField(max_length=100, verbose_name='full name')
 
+class Contact(models.Model):
     Owner = models.ForeignKey(User, on_delete = models.CASCADE)
     uuid = ShortUUIDField(unique=True, primary_key = True,)
     Created_On = models.DateField(auto_now_add=True)
@@ -92,16 +95,3 @@ class Contact(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.Company
-
-
-    # @models.permalink
-    # def get_absolute_url(self):
-    #     return 'contact_detail', [self.uuid]
-    #
-    # @models.permalink
-    # def get_update_url(self):
-    #     return 'contact_update', [self.uuid]
-    #
-    # @models.permalink
-    # def get_delete_url(self):
-    #     return 'contact_delete', [self.id]

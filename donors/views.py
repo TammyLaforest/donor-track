@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from contacts.models import Contact
-# from donors.models import Donor
 from accounts.models import User
 
 from django.shortcuts import render, redirect
