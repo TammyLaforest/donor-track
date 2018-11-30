@@ -4,12 +4,14 @@ from django.urls import reverse
 
 from shortuuidfield import ShortUUIDField
 
-from django.core.validators import validate_email
+from contacts.models import Contact
+from django import forms
+from django.forms import ModelForm
 
-
-# tutorial/models.py
-class Person(models.Model):
-    name = models.CharField(max_length=100, verbose_name='full name')
+class DonorForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
 
 
 # class Donor(models.Model):

@@ -13,7 +13,7 @@ from django.urls import reverse, reverse_lazy
 # from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from .filters import ContactsNameFilter
-from .models import Contact, DonorForm, VendorForm
+from contacts.models import Contact, ContactForm
 
 class ContactListView(ListView):
     model = Contact
@@ -33,22 +33,14 @@ def ContactsTable(request):
     return render(request, 'contacts/detail.html', {'ContactsTable': Contact.objects.filter(Q(Owner=request.user))})
 
 
-class contacts_new(CreateView):
+class contact_new_view(CreateView):
     model = Contact
-    template_name = 'contacts/new.html'
+    template_name = 'new_contact.html'
     fields = '__all__'
     #
     def get_success_url(self):
-        return reverse('contacts.html')
+        return reverse('new_contact.html')
 
-def donortable(request):
-    table = DonorTableMaker(Contact.objects.all())
-    return render(request, 'donors.html', {'donortable': Contact.objects.filter(Q(Category='regular') | Q(Category='member') | Q(Category='first_time') | Q(Category='Annual') | Q(Category='grant') | Q(Category='otherdonor'))})
-
-def vendor_new(request):
-    form = VendorForm()
-    return render(request, 'contacts/new.html', {'form': form})
-
-def donor_new(request):
-    form = DonorForm()
-    return render(request, 'contacts/new.html', {'form': form})
+def contact_new(request):
+    form = ContactForm()
+    return render(request, 'contacts/new_contact.html', {'form': form})

@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block body_block %}
-
-<p>https://bootsnipp.com/snippets/OPzW8 snippit to learn accordion dropdown</p>
+{% if user.is_authenticated %}
+  Hi, {{ user.username }}!
+<!-- <p>https://bootsnipp.com/snippets/OPzW8 snippit to learn accordion dropdown</p> -->
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -99,5 +100,5 @@
     </div>
 </div>
 
-
+{% endif %}
 {% endblock %}

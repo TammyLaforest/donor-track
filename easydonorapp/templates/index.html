@@ -5,8 +5,14 @@
 {% endblock %}
 
 {% block body_block %}
+
+
+
 <div class="container">
     <div class="row" >
+      {% if user.is_authenticated %}
+        Hi {{ user.username }}!
+
       <h1>Donation Tracker</h1>
       <p>Welcome to Donation Tracker.
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus ex nec est dignissim, in vestibulum nibh lacinia. Maecenas ac sapien et nisi facilisis congue. Praesent ut nisi sodales, tincidunt odio at, vulputate nisl. Mauris facilisis neque non neque posuere, efficitur interdum nunc venenatis. Nullam rhoncus nisl nec libero porttitor, finibus convallis lorem condimentum. In ante libero, lacinia vel neque nec, congue fringilla ligula. Maecenas vitae dolor pharetra, pellentesque nisi a, lacinia enim. Cras vel lectus mauris.</p>
@@ -16,4 +22,5 @@
 <p>Quisque nibh urna, ultricies in eros id, consectetur lobortis purus. Nam sodales venenatis dictum. Nulla a nisi eu lacus finibus faucibus. Maecenas et viverra sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam dapibus libero ut ligula consectetur eleifend. Curabitur elit erat, volutpat a lobortis sit amet, condimentum eu lectus. Morbi luctus vehicula tincidunt. Etiam eget eros vitae metus luctus faucibus a sit amet mi. Donec ultrices dui at enim consectetur, vitae tempus tellus fringilla. Curabitur quis dolor id tellus fringilla euismod vitae sit amet enim. Pellentesque vitae consequat elit. Nunc tincidunt orci eget urna accumsan lobortis. Maecenas mattis massa in malesuada vestibulum.</p>
     </div>
 </div>
+{% endif %}
 {% endblock %}

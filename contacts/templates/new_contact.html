@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+    <div class="row" >
+      <h1>Add Contact</h1>
+
+      {% if user.is_authenticated %}
+</div>
+<div class=row>
+  <h5>New Contacts</h5>
+  <form class="contact-form" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="save btn btn-primary" type="submit">Sign up</button>
+  </form>
+
+  </div>
+
+  </div>
+  <div class=row>
+    <h5>Donor Contacts</h5>
+    <form style="border: 1px solid blue"  class="vendor-form" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="save btn btn-default" type="submit">Sign up</button>
+    </form> -->
+
+
+
+    </div>
+</div>
+{% endif %}
+{% endblock %}

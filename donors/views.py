@@ -8,7 +8,28 @@ from django.urls import reverse, reverse_lazy
 
 from django.views import generic
 from django.views.generic import ListView, CreateView
+from django.views.generic.edit import FormView
 
+from contacts.models import Contact
+
+
+class donor_new_view(CreateView):
+    model = Contact
+    template_name = 'new_donor.html'
+    fields = ['First_Name1', 'Last_Name1', 'First_Name2', 'Last_Name2', ]
+    #
+    def get_success_url(self):
+        return reverse('new.html')
+
+
+
+def donor_new(request):
+    form = DonorForm()
+    return render(request, 'contacts/new.html', {'form': form})
+
+def donortable(request):
+    table = DonorTableMaker(Contact.objects.all())
+    return render(request, 'donors.html', {'donortable': Contact.objects.filter(Q(Category='regular') | Q(Category='member') | Q(Category='first_time') | Q(Category='Annual') | Q(Category='grant') | Q(Category='otherdonor'))})
 
 class DepositView(CreateView):
 

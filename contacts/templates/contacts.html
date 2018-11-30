@@ -8,8 +8,11 @@
 
 <div class="container">
   <div class="row" >
-    <h1>Contacts</h1>
 
+
+    <h1>Contacts</h1>
+    {% if user.is_authenticated %}
+      Hi {{ user.username }}!
 
 
     <table>
@@ -30,5 +33,5 @@
 
   </div>
 </div>
-
+{% endif %}
 {% endblock %}

@@ -12,6 +12,7 @@ django-filter = "*"
 django-filters = "*"
 django-materialize = "*"
 django-shortuuidfield = "*"
+bootstrap = "*"
 
 [requires]
 python_version = "3.7"

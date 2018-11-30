@@ -33,9 +33,11 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
 
     'easydonorapp',
-    'accounts',
     'contacts',
     'donors',
+    'accounts',
+
+
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'shortuuidfield',
     'django_filters',
     'materialize',
+
 
 ]
 
@@ -95,6 +98,7 @@ DATABASES = {
     }
 }
 
+FORM_RENDERER ='django.forms.renderers.DjangoTemplates'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

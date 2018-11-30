@@ -1,5 +1,5 @@
 from django.db import models
-
+from django import forms
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -8,11 +8,8 @@ from shortuuidfield import ShortUUIDField
 from django.core.validators import validate_email
 from django.forms import ModelForm
 
-
-
-
 class Contact(models.Model):
-    Owner = models.ForeignKey(User, on_delete = models.CASCADE)
+    Owner = User
     uuid = ShortUUIDField(unique=True, primary_key = True,)
     Created_On = models.DateField(auto_now_add=True)
 
@@ -97,20 +94,21 @@ class Contact(models.Model):
     def __unicode__(self):
         return u'%s' % self.Company
 
-
-#
-# class DonorForm(ModelForm):
-#     class Meta:
-#         model = Contact
-#         fields = ['First_Name1', 'Last_Name1', 'First_Name2', 'Last_Name2', ]
-
-class DonorForm(ModelForm):
-    class Meta:
-        model = Contact
-        fields = '__all__'
-
-
-class VendorForm(ModelForm):
+class ContactForm(ModelForm):
     class Meta:
         model = Contact
         fields = ['Company', 'Address_City', 'Address_State']
+
+def __init__(self, *args, **kwargs):
+    is_staff = kwargs.pop('is_staff')
+    super(AddMovementForm, self).__init__(*args, **kwargs)
+    if is_staff:
+        self.fields['status'].choices = STAFF_STATUS_CHOICES
+    else:
+        self.fields['status'].choices = STATUS_CHOICES
+
+
+# class VendorForm(ModelForm):
+#     class Meta:
+#         model = Contact
+#         fields = ['Company', 'Address_City', 'Address_State']
