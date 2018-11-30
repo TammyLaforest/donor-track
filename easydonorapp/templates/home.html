@@ -1,32 +1,29 @@
 
 {% extends "layout.html" %}
 
-{% block title %}
-    Home
-{% endblock %}
+
 
 {% block body_block %}
 <div class="container">
-    <div class="row" >
-      <div class="title"><h2>Home</h2></div>
+    <div class="row title"  >
+      <div class="title"><h1>{% block title %}
+          EasyDonor
+      {% endblock %}</h1></div>
       </div>
-      <div class="row">
+      <div class="row" >
+
+        <p>Welcome to Donation Tracker.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus ex nec est dignissim, in vestibulum nibh lacinia. Maecenas ac sapien et nisi facilisis congue. Praesent ut nisi sodales, tincidunt odio at, vulputate nisl. Mauris facilisis neque non neque posuere, efficitur interdum nunc venenatis. Nullam rhoncus nisl nec libero porttitor, finibus convallis lorem condimentum. In ante libero, lacinia vel neque nec, congue fringilla ligula. Maecenas vitae dolor pharetra, pellentesque nisi a, lacinia enim. Cras vel lectus mauris.</p>
+
+        <p>Ut mattis luctus magna, eget sollicitudin arcu dignissim a. Integer id augue mauris. Morbi hendrerit tellus facilisis, tempor sapien porttitor, venenatis velit. In euismod ex a orci posuere faucibus. Quisque faucibus sem et justo mattis ultricies. Morbi vehicula euismod egestas. Proin vulputate elit orci, id auctor dolor tristique fermentum. Nulla et enim dignissim, ultrices quam eu, vulputate metus.</p>
+
+        <p>Quisque nibh urna, ultricies in eros id, consectetur lobortis purus. Nam sodales venenatis dictum. Nulla a nisi eu lacus finibus faucibus. Maecenas et viverra sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam dapibus libero ut ligula consectetur eleifend. Curabitur elit erat, volutpat a lobortis sit amet, condimentum eu lectus. Morbi luctus vehicula tincidunt. Etiam eget eros vitae metus luctus faucibus a sit amet mi. Donec ultrices dui at enim consectetur, vitae tempus tellus fringilla. Curabitur quis dolor id tellus fringilla euismod vitae sit amet enim. Pellentesque vitae consequat elit. Nunc tincidunt orci eget urna accumsan lobortis. Maecenas mattis massa in malesuada vestibulum.</p>
+        </div>
+        </div>
+
+    </div>
 
 
-      {% if user.is_authenticated %}
-        Hi {{ user.username }}!
 
-        <p><a href="{% url 'logout' %}">logout</a></p>
-      {% else %}
-        <p>You are not logged in.</p>
-    </div>
-    <div class="row">
-      <a class="btn button btn-primary" href="{% url 'login' %}">Login</a>
-    </div>
-    <div class="row">
-      <a class="btn button btn-primary" href="{% url 'signup' %}">Sign Up</a>
-    </div>
-    <div class="row">
-      <a class="btn button btn-primary" href="{% url 'password_reset' %}">Reset Password</a>
-    {% endif %}
+
     {% endblock %}

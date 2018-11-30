@@ -1,18 +1,14 @@
 {% extends "layout.html" %}
 
-{% block title %}
-    Log In
-{% endblock %}
-
 {% block body_block %}
 <div class="container">
-    <div class="row" >
-      <h1>Add Contact</h1>
-
-      {% if user.is_authenticated %}
-</div>
-<div class=row>
-  <h5>New Contacts</h5>
+    <div class="row title"  >
+      <div class="title"><h1>{% block title %}
+          New Contacts
+      {% endblock %}</h1></div>
+      </div>
+        {% if user.is_authenticated %}
+      <div class="row" >
   <form class="contact-form" method="post">
     {% csrf_token %}
     {{ form.as_p }}

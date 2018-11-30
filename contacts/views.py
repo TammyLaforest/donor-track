@@ -52,11 +52,7 @@ class ContactListView(ListView):
         context = super().get_context_data(**kwargs)
         context['filter'] = ContactsNameFilter(self.request.GET, queryset=self.get_queryset())
         return context
-
-# class ContactDetailView(DetailView):
-#     list_display = ['__all__']
-#     model = Contact
-#     template_name =
+  
 
 def ContactsTable(request):
     return render(request, 'contacts/detail.html', {'ContactsTable': Contact.objects.filter(Q(Owner=request.user))})

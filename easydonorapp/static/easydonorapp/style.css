@@ -9,7 +9,9 @@
 /* END Settings for layout.html */
 /* CSS for other */
 
-
+.title {
+margin-top: 2em;
+}
 .login {
   margin-right: 0.5em;
   background-color: red;

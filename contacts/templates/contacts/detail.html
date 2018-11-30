@@ -1,20 +1,15 @@
 {% extends "layout.html" %}
-{% load bootstrap %}
-{% block title %}
-    Contacts Detail
-{% endblock %}
+
 
 {% block body_block %}
-
-
 <div class="container">
-  <div class="row" >
-    {% if user.is_authenticated %}
-      Hi {{ user.username }}!
-
-    <h1>Contacts Detail</h1>
-
-
+    <div class="row title"  >
+      <div class="title"><h1>{% block title %}
+          Contacts Detail
+      {% endblock %}</h1></div>
+      </div>
+        {% if user.is_authenticated %}
+      <div class="row" >
     <table>
         <tr>
           {% for row in ContactListView %}

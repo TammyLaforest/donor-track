@@ -1,22 +1,22 @@
 {% extends "layout.html" %}
 
-{% block title %}
-    Sign up!
-{% endblock %}
-
-<!-- from tutorial https://wsvincent.com/django-user-authentication-tutorial-signup/ -->
     {% block body_block %}
-<div class="container">
+
+    <div class="container">
+        <div class="row title"  >
+          <div class="title"><h1>{% block title %}
+              Sign Up!
+          {% endblock %}</h1></div>
+          </div>
+
     <div class="row" >
 
-
-        <h2>Sign up</h2>
         <form method="post">
           {% csrf_token %}
           {{ form.as_p }}
-          <button type="submit">Sign up</button>
+          <button class="btn btn-primary" type="submit">Sign up</button>
         </form>
-      
+
       {% endblock %}
 </div>
 <!-- <div class="row" >
