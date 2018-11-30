@@ -1,9 +1,11 @@
 
 {% extends "layout.html" %}
-
+{% load static %}
 
 
 {% block body_block %}
+
+
 <div class="container" >
     <div class="row title"  >
       <div class="title"><h1>{% block title %}
@@ -11,15 +13,30 @@
       {% endblock %}</h1>
     </div>
     </div>
-      <div class="row" >
 
-        <p>Welcome to Donation Tracker.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus ex nec est dignissim, in vestibulum nibh lacinia. Maecenas ac sapien et nisi facilisis congue. Praesent ut nisi sodales, tincidunt odio at, vulputate nisl. Mauris facilisis neque non neque posuere, efficitur interdum nunc venenatis. Nullam rhoncus nisl nec libero porttitor, finibus convallis lorem condimentum. In ante libero, lacinia vel neque nec, congue fringilla ligula. Maecenas vitae dolor pharetra, pellentesque nisi a, lacinia enim. Cras vel lectus mauris.</p>
+{% if not request.user.is_authenticated %}
+    <div class="row" >
+        <h4>Welcome to EasyDonor- the app that doesn't work yet.</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus ex nec est dignissim, in vestibulum nibh lacinia. Maecenas ac sapien et nisi facilisis congue. Praesent ut nisi sodales, tincidunt odio at, vulputate nisl. Mauris facilisis neque non neque posuere, efficitur interdum nunc venenatis. Nullam rhoncus nisl nec libero porttitor, finibus convallis lorem condimentum. In ante libero, lacinia vel neque nec, congue fringilla ligula. Maecenas vitae dolor pharetra, pellentesque nisi a, lacinia enim. Cras vel lectus mauris.</p>
 
         <p>Ut mattis luctus magna, eget sollicitudin arcu dignissim a. Integer id augue mauris. Morbi hendrerit tellus facilisis, tempor sapien porttitor, venenatis velit. In euismod ex a orci posuere faucibus. Quisque faucibus sem et justo mattis ultricies. Morbi vehicula euismod egestas. Proin vulputate elit orci, id auctor dolor tristique fermentum. Nulla et enim dignissim, ultrices quam eu, vulputate metus.</p>
+    </div>
+    <!-- <div class="row">
+      <img class="halfpage"src='{% static "easydonorapp/media/easydonorimage.png" %}'>
+    </div> -->
+{% endif %}
+
+{% if request.user.is_authenticated %}
+<div class="row" >
+    <h4>Your Home Page</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus ex nec est dignissim, in vestibulum nibh lacinia. Maecenas ac sapien et nisi facilisis congue. Praesent ut nisi sodales, tincidunt odio at, vulputate nisl. Mauris facilisis neque non neque posuere, efficitur interdum nunc venenatis. Nullam rhoncus nisl nec libero porttitor, finibus convallis lorem condimentum. In ante libero, lacinia vel neque nec, congue fringilla ligula. Maecenas vitae dolor pharetra, pellentesque nisi a, lacinia enim. Cras vel lectus mauris.</p>
+
+    <p>Ut mattis luctus magna, eget sollicitudin arcu dignissim a. Integer id augue mauris. Morbi hendrerit tellus facilisis, tempor sapien porttitor, venenatis velit. In euismod ex a orci posuere faucibus. Quisque faucibus sem et justo mattis ultricies. Morbi vehicula euismod egestas. Proin vulputate elit orci, id auctor dolor tristique fermentum. Nulla et enim dignissim, ultrices quam eu, vulputate metus.</p>
 </div>
+
+
 <div class="row">
-<div class="card-group">
+<div class="card-deck homedeck">
   <!-- <div class="col-sm"> -->
     <div class="card">
       <div class="card-header">
@@ -46,6 +63,7 @@
   <!-- </div> -->
   </div>
 </div>
+{% endif %}
 </div>
 
 

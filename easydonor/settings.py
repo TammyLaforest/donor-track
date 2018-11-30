@@ -84,7 +84,8 @@ TEMPLATES = [
         },
     },
 ]
-
+MEDIA_ROOT = '/Users/user/Envs/easydonor/easydonorapp/static/easydonorapp/easydonorapp/media/'
+MEDIA_URL = "http://127.0.0.1:8000/easydonorapp/media/"
 
 WSGI_APPLICATION = 'easydonor.wsgi.application'
 
