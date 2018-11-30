@@ -8,6 +8,44 @@ from shortuuidfield import ShortUUIDField
 from django.core.validators import validate_email
 from django.forms import ModelForm
 
+class Category(models.Model):
+    CATEGORY_CHOICES = (('Donor', 'donor'),('Vendor', 'vendor'), ('Other', 'other'))
+    Category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default='Other',
+    )
+
+
+class Subcategory(models.Model):
+    Category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    SUBCATEGORY_CHOICES =(
+            ('member', 'Member'),
+            ('regular', 'Regular'),
+            ('first_time', 'First_Time'),
+            ('annual', 'Annual'),
+            ('grant', 'Grant'),
+            ('otherdonor', 'Otherdonor'),
+
+            ('biller', 'Biller'),
+            ('contractor', 'Contractor'),
+            ('seller', 'Seller'),
+
+            ('other', 'Other'),
+            )
+    Subcategory = models.CharField(
+        max_length=20,
+        choices=SUBCATEGORY_CHOICES,
+        default='Other',
+        )
+#
+# class Person(models.Model):
+#     name = models.CharField(max_length=100)
+#     birthdate = models.DateField(null=True, blank=True)
+#     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
+#     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+#
+
 class Contact(models.Model):
     Owner = User
     uuid = ShortUUIDField(unique=True, primary_key = True,)

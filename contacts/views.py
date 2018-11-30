@@ -19,19 +19,27 @@ from contacts.models import Contact, ContactForm, Select_ContactForm
 class Select_ContactView(CreateView):
     model = Select_ContactForm
     template_name = 'contacts/detail.html'
-    if .category.lower() == donor:
-        if Contact_Format.lower() == company:
-            fields = ['Company', 'First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
-        elif Contact_Format.lower() == individual:
-            fields = ['First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
-        elif Contact_Format.lower() == couple:
-            fields = ['First_Name1', 'Last_Name1', 'First_Name2', 'Last_Name2','Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Phone2', 'Email2', 'Note']
-        else:
-            fields ='__all__'
-    if category.lower() == vendor:
-        fields = ['Company', 'First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
-    else:
-        fields ='__all__'
+    # category = Contact.objects.get(Category)
+    # # {% for org in organisation %}
+    #     #    <option value="{{org.id}}"
+    #     #        {% if org == current_org %}selected="selected"{% endif %}>
+    #     #        {{org.name|capfirst}}
+    #     #    </option>
+    #     # {% endfor %}
+    #
+    # if  category.lower() == donor:
+    #     if Contact_Format.lower() == company:
+    #         fields = ['Company', 'First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
+    #     elif Contact_Format.lower() == individual:
+    #         fields = ['First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
+    #     elif Contact_Format.lower() == couple:
+    #         fields = ['First_Name1', 'Last_Name1', 'First_Name2', 'Last_Name2','Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Phone2', 'Email2', 'Note']
+    #     else:
+    #         fields ='__all__'
+    # if category.lower() == vendor:
+    #     fields = ['Company', 'First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
+    # else:
+    #     fields ='__all__'
 
 
 
@@ -57,7 +65,7 @@ def ContactsTable(request):
 class contact_new_view(CreateView):
     model = Contact
     template_name = 'new_contact.html'
-    fields = "Company', 'First_Name1', 'Last_Name1', 'Address_Number'"
+    fields = ('Company', 'First_Name1', 'Last_Name1', 'Address_Number',)
     #
     def get_success_url(self):
         return reverse('new_contact.html')

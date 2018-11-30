@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'contacts',
     'donors',
     'accounts',
+    'testapp',
 
 
 
