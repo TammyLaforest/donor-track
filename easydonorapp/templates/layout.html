@@ -20,6 +20,7 @@
 </head>
 
 <body>
+
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-md navbar-light bg-light border">
         <a class="navbar-brand" href="/">EasyDonor</a>{% if request.user.is_authenticated %}<span> Hi, {{ user.username }}!</span> {% else %}<span>You are not logged in.</span>{% endif %}
@@ -76,14 +77,13 @@
     </div>
 </nav>
 <!-- End of navigation -->
-
 <div class="content container">
     <div class="row">
-        <div class="col-md-8">
+
             {% block body_block %}
             You Shouldn't see this
             {% endblock  %}
-        </div>
+
     </div>
 </div>
 <footer>
