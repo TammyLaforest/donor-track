@@ -40,8 +40,8 @@ class Contact(models.Model):
         default='Unknown',
     )
     FORMAT_CHOICES = (
-        ('Company', 'Company'),
-        ('individual', 'Individual'),
+        ('company', 'Company'),
+        ('individual','Individual'),
         ('couple', 'Couple'),
         ('other', 'Other'),
     )
@@ -98,6 +98,25 @@ class ContactForm(ModelForm):
     class Meta:
         model = Contact
         fields = ['Company', 'Address_City', 'Address_State']
+
+class Select_ContactForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['Company', 'Address_City', 'Address_State']
+    # if category.lower() == donor:
+    #     if Contact_Format.lower() == company:
+    #         fields = ['Company', 'First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
+    #     elif Contact_Format.lower() == individual:
+    #         fields = ['First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
+    #     elif Contact_Format.lower() == couple:
+    #         fields = ['First_Name1', 'Last_Name1', 'First_Name2', 'Last_Name2','Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Phone2', 'Email2', 'Note']
+    #     else:
+    #         fields ='__all__'
+    # if category.lower() == vendor:
+    #     fields = ['Company', 'First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
+    # else:
+        # fields ='__all__'
+
 
 def __init__(self, *args, **kwargs):
     is_staff = kwargs.pop('is_staff')

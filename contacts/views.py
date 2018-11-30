@@ -13,7 +13,28 @@ from django.urls import reverse, reverse_lazy
 # from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from .filters import ContactsNameFilter
-from contacts.models import Contact, ContactForm
+from contacts.models import Contact, ContactForm, Select_ContactForm
+
+
+class Select_ContactView(CreateView):
+    model = Select_ContactForm
+    template_name = 'contacts/detail.html'
+    if .category.lower() == donor:
+        if Contact_Format.lower() == company:
+            fields = ['Company', 'First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
+        elif Contact_Format.lower() == individual:
+            fields = ['First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
+        elif Contact_Format.lower() == couple:
+            fields = ['First_Name1', 'Last_Name1', 'First_Name2', 'Last_Name2','Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Phone2', 'Email2', 'Note']
+        else:
+            fields ='__all__'
+    if category.lower() == vendor:
+        fields = ['Company', 'First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
+    else:
+        fields ='__all__'
+
+
+
 
 class ContactListView(ListView):
     model = Contact
@@ -24,10 +45,10 @@ class ContactListView(ListView):
         context['filter'] = ContactsNameFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
-class ContactDetailView(DetailView):
-    list_display = ['__all__']
-    model = Contact
-    template_name = 'contacts/detail.html'
+# class ContactDetailView(DetailView):
+#     list_display = ['__all__']
+#     model = Contact
+#     template_name =
 
 def ContactsTable(request):
     return render(request, 'contacts/detail.html', {'ContactsTable': Contact.objects.filter(Q(Owner=request.user))})
@@ -36,7 +57,7 @@ def ContactsTable(request):
 class contact_new_view(CreateView):
     model = Contact
     template_name = 'new_contact.html'
-    fields = '__all__'
+    fields = "Company', 'First_Name1', 'Last_Name1', 'Address_Number'"
     #
     def get_success_url(self):
         return reverse('new_contact.html')

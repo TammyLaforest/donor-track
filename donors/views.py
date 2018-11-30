@@ -37,6 +37,8 @@ class DepositView(CreateView):
     template_name = 'deposit.html'
     fields ='__all__'
 
+
+
 class DonorsView(CreateView):
     model = Contact
     template_name = 'donors.html'
