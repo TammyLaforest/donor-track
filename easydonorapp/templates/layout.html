@@ -59,15 +59,16 @@
         </ul>
 
         <ul class="navbar-nav ml-auto mt-2">
-            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
+          <div class="btn-group-md " role="group" aria-label="homepgbuttons">
+          <a type=button class="btn  navbtn" href="{% url 'logout' %}">Log Out</a>
             {% endif %}
 
             <!-- Visible even when not logged in -->
             {% if not request.user.is_authenticated %}
-            <div class="btn-group-lg" role="group" aria-label="homepgbuttons">
-              <a type=button class="btn button btn-secondary" href="{% url 'login' %}">Login</a>
-              <a type=button class="btn button btn-primary" href="{% url 'signup' %}">Sign Up</a>
-              <a type=button class="btn button btn-primary" href="{% url 'password_reset' %}">Reset Password</a>
+
+              <a type=button class="btn  navbtn" href="{% url 'login' %}">Login</a>
+              <a type=button class="btn  navbtn" href="{% url 'signup' %}">Sign Up</a>
+              <a type=button class="btn  navbtn" href="{% url 'password_reset' %}">Reset Password</a>
               </div>
             <!-- <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login/Register</a></li> -->
             {% endif %}

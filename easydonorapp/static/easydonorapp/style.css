@@ -6,6 +6,12 @@
   padding: 1em;
 }
 
+.navbtn {
+  border: 1px solid gainsboro;
+  background-color: grey;
+  color: black;
+}
+
 /* END Settings for layout.html */
 /* CSS for other */
 
