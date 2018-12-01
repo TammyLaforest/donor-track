@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block body_block %}
+
+
+      <div class="container">
+          <div class="row title"  >
+            <div class="title"><h1>{% block title %}
+                New Donor Contacts
+            {% endblock %}</h1></div>
+            </div>
+              {% if user.is_authenticated %}
+            <div class="row" >
+    <form style="border: 1px solid blue"  class="donor-form" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="save btn btn-default" type="submit">Sign up</button>
+    </form>
+
+        <!-- <form style="border: 1px solid red" action="{% url 'contacts' %}" method="POST" class="DonorForm">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="save btn btn-default">Save</button>
+            </form> -->
+
+    </div>
+</div>
+{% endif %}
+{% endblock %}

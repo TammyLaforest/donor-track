@@ -13,8 +13,16 @@ from django.urls import reverse, reverse_lazy
 # from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from .filters import ContactsNameFilter
-from contacts.models import Contact, ContactForm, Select_ContactForm
+from contacts.models import *
+# from contacts.models import Contact, ContactForm, Select_ContactForm
 
+class All_Categories_View(CreateView):
+    model = Category
+    template_name = 'contacts/contacts.html'
+
+class Subcategories_View(CreateView):
+    model = Subcategory
+    template_name = 'contacts/contacts.html'
 
 class Select_ContactView(CreateView):
     model = Select_ContactForm
@@ -43,29 +51,75 @@ class Select_ContactView(CreateView):
 
 
 
-
-class ContactListView(ListView):
+class ContactsView(ListView):
     model = Contact
-    template_name = 'contacts.html'
+    template_name = 'contacts/contacts.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = ContactsNameFilter(self.request.GET, queryset=self.get_queryset())
         return context
-  
 
-def ContactsTable(request):
-    return render(request, 'contacts/detail.html', {'ContactsTable': Contact.objects.filter(Q(Owner=request.user))})
+class DonorsView(CreateView):
+    model = Contact
+    template_name = 'contacts/donors.html'
+    fields = '__all__'
+
+
 
 
 class contact_new_view(CreateView):
     model = Contact
-    template_name = 'new_contact.html'
-    fields = ('Company', 'First_Name1', 'Last_Name1', 'Address_Number',)
+    template_name = 'contacts/new_contact.html'
+    fields = '__all__'
     #
     def get_success_url(self):
-        return reverse('new_contact.html')
+        return reverse('contacts/new_contact.html')
 
 def contact_new(request):
     form = ContactForm()
     return render(request, 'contacts/new_contact.html', {'form': form})
+
+
+
+class donor_new_view(CreateView):
+    model = Contact
+    template_name = 'contacts/new_donor.html'
+    fields = ['First_Name1', 'Last_Name1', 'First_Name2', 'Last_Name2', ]
+    #
+    def get_success_url(self):
+        return reverse('contacts/new_donor.html')
+
+def donor_new(request):
+    form = DonorForm()
+    return render(request, 'contacts/new_donor.html', {'form': form})
+
+class Donor_Categories_View(CreateView):
+    model = Contact
+    template_name = 'contacts/donor_categories.html'
+    fields = '__all__'
+
+#Vendors Section
+
+class VendorsView(CreateView):
+    model = Contact
+    template_name = 'contacts/vendors.html'
+    fields = '__all__'
+
+
+class vendor_new_view(CreateView):
+    model = Contact
+    template_name = 'contacts/new_vendor.html'
+    fields = ['First_Name1', 'Last_Name1', 'Company' ]
+    #
+    def get_success_url(self):
+        return reverse('contacts/new_vendor.html')
+
+def venfor_new(request):
+    form = VendorForm()
+    return render(request, 'contacts/new_vendor.html', {'form': form})
+
+class Vendor_Categories_View(CreateView):
+    model = Contact
+    template_name = 'contacts/donor_categories.html'
+    fields = '__all__'

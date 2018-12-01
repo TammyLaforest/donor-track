@@ -33,5 +33,8 @@ from django.urls import path, include
 urlpatterns = [
 
     url(r'^brand/(?P<brand>[-\w]+)/all_json_models/', TemplateView.as_view(template_name='brand_model_select.html', content_type='text/plain', )),
+    path('testlist', views.PersonListView.as_view(), name='person_changelist'),
+    path('add/', views.PersonCreateView.as_view(), name='person_add'),
+    path('<int:pk>/', views.PersonUpdateView.as_view(), name='person_change'),
 
     ]

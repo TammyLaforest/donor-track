@@ -34,7 +34,6 @@ INSTALLED_APPS = [
 
     'easydonorapp',
     'contacts',
-    'donors',
     'accounts',
     'testapp',
 

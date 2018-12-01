@@ -11,7 +11,7 @@
             </div>
               {% if user.is_authenticated %}
             <div class="row" >
-    <form style="border: 1px solid blue"  class="vendor-form" method="post">
+    <form style="border: 1px solid blue"  class="donor-couple-form" method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <button class="save btn btn-default" type="submit">Sign up</button>

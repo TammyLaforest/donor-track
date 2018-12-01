@@ -19,8 +19,6 @@ from django.conf.urls import include, url
 
 import accounts
 from accounts import views
-import donors
-from donors import views
 
 import easydonorapp
 import contacts
@@ -42,15 +40,22 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 
-    path('admin/', admin.site.urls),
+
+
+    # Test URLS to be deleted
+    path('brand_model_select/', TemplateView.as_view(template_name='brand_model_select.html'), name='brand_model_select'),
+
+
     path('accounts/', include('django.contrib.auth.urls')),
+    path('testapp/', include('testapp.urls')),
 
     # From urls.py in other apps
-    path('testapp/', include('testapp.urls')),
     path('accounts/', include('accounts.urls')),
 
     # Forms
     path('contacts/new_contact', contacts.views.contact_new_view.as_view(), name='new_contact'),
+    path('contacts/new_donor', contacts.views.donor_new_view.as_view(), name='new_contact'),
+    path('contacts/new_donor', contacts.views.vendor_new_view.as_view(), name='new_contact'),
 
     # Tables
     # url(r'^donors/', donortable),
@@ -58,15 +63,25 @@ urlpatterns = [
 
 
     #Urls by views
-    path('contacts/', contacts.views.ContactListView.as_view(), name='contacts'),
-    path('deposit/', donors.views.DepositView.as_view(),name='deposit',),
-    path('donors/', donors.views.DonorsView.as_view(),name='donors',),
-    path('donor_categories/', donors.views.Donor_Categories_View.as_view(),name='donor_categories',),
-    path('thanks/', donors.views.Thanks_View.as_view(),name='thanks',),
+        #Contacts
+    path('contacts/contacts/', contacts.views.ContactsView.as_view(), name='contacts'),
+    path('contacts/donors/', contacts.views.DonorsView.as_view(),name='donors',),
+    path('contacts/vendors/', contacts.views.VendorsView.as_view(),name='vendors',),
+
+    path('contacts/donor_categories/', contacts.views.Donor_Categories_View.as_view(),name='donor_categories',),
+    path('contacts/new_contact/', contacts.views.DonorsView.as_view(),name='new_contact',),
+    path('contacts/new_donor/', contacts.views.DonorsView.as_view(),name='new_donor',),
+    path('contacts/new_vendor/', contacts.views.DonorsView.as_view(),name='new_vendor',),
+
+        #easydonorapp
+    path('deposit/', easydonorapp.views.DepositView.as_view(),name='deposit',),
+    path('thanks/', easydonorapp.views.Thanks_View.as_view(),name='thanks',),
 
     #Template As View
-    path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('brand_model_select/', TemplateView.as_view(template_name='brand_model_select.html'), name='brand_model_select'),
+
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
+
 
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # This is how you view images from media folder.

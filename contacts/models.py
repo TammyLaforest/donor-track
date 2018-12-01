@@ -16,7 +16,6 @@ class Category(models.Model):
         default='Other',
     )
 
-
 class Subcategory(models.Model):
     Category = models.ForeignKey(Category, on_delete=models.CASCADE)
     SUBCATEGORY_CHOICES =(
@@ -164,8 +163,13 @@ def __init__(self, *args, **kwargs):
     else:
         self.fields['status'].choices = STATUS_CHOICES
 
+class DonorForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
 
-# class VendorForm(ModelForm):
-#     class Meta:
-#         model = Contact
-#         fields = ['Company', 'Address_City', 'Address_State']
+
+class VendorForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['Company', 'Address_City', 'Address_State']
