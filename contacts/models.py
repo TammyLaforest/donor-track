@@ -168,7 +168,6 @@ class DonorForm(ModelForm):
         model = Contact
         fields = '__all__'
 
-
 class VendorForm(ModelForm):
     class Meta:
         model = Contact

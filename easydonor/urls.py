@@ -54,8 +54,8 @@ urlpatterns = [
 
     # Forms
     path('contacts/new_contact', contacts.views.contact_new_view.as_view(), name='new_contact'),
-    path('contacts/new_donor', contacts.views.donor_new_view.as_view(), name='new_contact'),
-    path('contacts/new_donor', contacts.views.vendor_new_view.as_view(), name='new_contact'),
+    path('contacts/new_donor', contacts.views.donor_new_view.as_view(), name='new_donor'),
+    path('contacts/new_vendor', contacts.views.vendor_new_view.as_view(), name='new_vendor'),
 
     # Tables
     # url(r'^donors/', donortable),
@@ -64,24 +64,21 @@ urlpatterns = [
 
     #Urls by views
         #Contacts
-    path('contacts/contacts/', contacts.views.ContactsView.as_view(), name='contacts'),
-    path('contacts/donors/', contacts.views.DonorsView.as_view(),name='donors',),
-    path('contacts/vendors/', contacts.views.VendorsView.as_view(),name='vendors',),
+    path('contacts/contacts/', contacts.views.contacts_view.as_view(), name='contacts'),
+    path('contacts/donors/', contacts.views.donors_view.as_view(),name='donors',),
+    path('contacts/vendors/', contacts.views.vendors_view.as_view(),name='vendors',),
+    path('contacts/donor_categories/', contacts.views.donor_categories_view.as_view(),name='donor_categories',),
 
-    path('contacts/donor_categories/', contacts.views.Donor_Categories_View.as_view(),name='donor_categories',),
-    path('contacts/new_contact/', contacts.views.DonorsView.as_view(),name='new_contact',),
-    path('contacts/new_donor/', contacts.views.DonorsView.as_view(),name='new_donor',),
-    path('contacts/new_vendor/', contacts.views.DonorsView.as_view(),name='new_vendor',),
+    path('contacts/new_contact/', contacts.views.contact_new_view.as_view(),name='new_contact',),
+    path('contacts/new_donor/', contacts.views.donor_new_view.as_view(),name='new_donor',),
+    path('contacts/new_vendor/', contacts.views.vendor_new_view.as_view(),name='new_vendor',),
 
         #easydonorapp
     path('deposit/', easydonorapp.views.DepositView.as_view(),name='deposit',),
     path('thanks/', easydonorapp.views.Thanks_View.as_view(),name='thanks',),
 
     #Template As View
-
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
-
-
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # This is how you view images from media folder.

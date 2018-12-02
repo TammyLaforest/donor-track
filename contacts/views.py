@@ -16,15 +16,15 @@ from .filters import ContactsNameFilter
 from contacts.models import *
 # from contacts.models import Contact, ContactForm, Select_ContactForm
 
-class All_Categories_View(CreateView):
+class all_categories_view(CreateView):
     model = Category
     template_name = 'contacts/contacts.html'
 
-class Subcategories_View(CreateView):
+class subcategories_view(CreateView):
     model = Subcategory
     template_name = 'contacts/contacts.html'
 
-class Select_ContactView(CreateView):
+class select_contact_view(CreateView):
     model = Select_ContactForm
     template_name = 'contacts/detail.html'
     # category = Contact.objects.get(Category)
@@ -51,7 +51,7 @@ class Select_ContactView(CreateView):
 
 
 
-class ContactsView(ListView):
+class contacts_view(ListView):
     model = Contact
     template_name = 'contacts/contacts.html'
 
@@ -59,14 +59,6 @@ class ContactsView(ListView):
         context = super().get_context_data(**kwargs)
         context['filter'] = ContactsNameFilter(self.request.GET, queryset=self.get_queryset())
         return context
-
-class DonorsView(CreateView):
-    model = Contact
-    template_name = 'contacts/donors.html'
-    fields = '__all__'
-
-
-
 
 class contact_new_view(CreateView):
     model = Contact
@@ -81,6 +73,13 @@ def contact_new(request):
     return render(request, 'contacts/new_contact.html', {'form': form})
 
 
+# Donors Section
+
+class donors_view(CreateView):
+    model = Contact
+    template_name = 'contacts/donors.html'
+    fields = '__all__'
+
 
 class donor_new_view(CreateView):
     model = Contact
@@ -94,14 +93,16 @@ def donor_new(request):
     form = DonorForm()
     return render(request, 'contacts/new_donor.html', {'form': form})
 
-class Donor_Categories_View(CreateView):
+class donor_categories_view(CreateView):
     model = Contact
     template_name = 'contacts/donor_categories.html'
     fields = '__all__'
 
-#Vendors Section
 
-class VendorsView(CreateView):
+
+# Vendors Section
+
+class vendors_view(CreateView):
     model = Contact
     template_name = 'contacts/vendors.html'
     fields = '__all__'
@@ -115,11 +116,11 @@ class vendor_new_view(CreateView):
     def get_success_url(self):
         return reverse('contacts/new_vendor.html')
 
-def venfor_new(request):
+def vendor_new(request):
     form = VendorForm()
     return render(request, 'contacts/new_vendor.html', {'form': form})
 
-class Vendor_Categories_View(CreateView):
+class vendor_categories_view(CreateView):
     model = Contact
-    template_name = 'contacts/donor_categories.html'
+    template_name = 'contacts/vendor_categories.html'
     fields = '__all__'

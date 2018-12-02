@@ -30,10 +30,8 @@
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav ml-auto mt-2">
               {% if request.user.is_authenticated %}
+              <!-- Will appear after login -->
                 <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
-
-                <!-- Will appear after login -->
-
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="{% url 'contacts' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Contacts</a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -42,15 +40,22 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Income</a>
+              <a class="nav-link dropdown-toggle" href="{% url 'donors' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Income</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{% url 'deposit' %}">Deposit</a>
                 <a class="dropdown-item" href="{% url 'donors' %}">Donors</a>
-                <a class="dropdown-item" href="#">Donor Categories</a>
+                <a class="dropdown-item" href="{% url 'new_donor' %}">New Donor</a>
+                <a class="dropdown-item" href="{% url 'donor_categories' %}">Donor Categories</a>
                 <a class="dropdown-item" href="#">Thank You Letters</a>
             </div>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#">Expenses</a></li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="{% url 'vendors' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Expenses</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'vendors' %}">Vendors</a>
+            <a class="dropdown-item" href="{% url 'new_vendor' %}">New_Vendor</a>
+        </div>
+        </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
