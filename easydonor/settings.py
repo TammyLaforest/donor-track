@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_filters',
     'materialize',
     'django_tables2',
+    'crispy_forms',
 
 ]
 

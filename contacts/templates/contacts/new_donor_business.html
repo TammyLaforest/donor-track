@@ -11,17 +11,11 @@
             </div>
               {% if user.is_authenticated %}
             <div class="row" >
-    <form style="border: 1px solid blue"  class="donor-form" method="post">
+    <form  class="new_donor_business_form" method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <button class="save btn btn-default" type="submit">Sign up</button>
     </form>
-
-        <!-- <form style="border: 1px solid red" action="{% url 'contacts' %}" method="POST" class="DonorForm">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="save btn btn-default">Save</button>
-            </form> -->
 
     </div>
 </div>

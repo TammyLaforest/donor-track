@@ -14,7 +14,7 @@ from contacts.models import *
 class contact_table_maker(tables.Table):
     class Meta:
         model = Contact
-        template_name = 'contacts/donors.html'
+        template_name = 'contacts/contacts.html'
 
         def get_success_url(self):
             return reverse('contacts/contacts.html')
@@ -23,7 +23,6 @@ class contact_table_maker(tables.Table):
 def contact_table(request):
     table = contact_table_maker(Contact.objects.all())
     return render(request, 'contacts/contacts.html', {'contact_table': Contact.objects.filter(Q(Owner=request.user))})
-
 
 # Donor section
 
@@ -43,14 +42,23 @@ def donor_table(request):
     table = DonorTableMaker(Contact.objects.all())
     return render(request, 'contacts/donors.html', {'donor_table': Contact.objects.filter(Q(Category='regular') | Q(Category='member') | Q(Category='first_time') | Q(Category='Annual') | Q(Category='grant') | Q(Category='otherdonor'))})
 
+
+class VendorTableMaker(tables.Table):
+    class Meta:
+        model = Contact
+        template_name = 'contacts/vendors.html'
+
+        def get_success_url(self):
+            return reverse('contacts/vendors.html')
+
 def vendor_table(request):
-    table = DonorTableMaker(Contact.objects.all())
+    table = VendorTableMaker(Contact.objects.all())
     return render(request, 'contacts/vendors.html', {'vendor_table': Contact.objects.filter(Q(Category='regular') | Q(Category='member') | Q(Category='first_time') | Q(Category='Annual') | Q(Category='grant') | Q(Category='otherdonor'))})
 
-def donor_category_table(request):
-    table = DonorTableMaker(Contact.objects.all())
-    return render(request, 'contacts/donor_categories.html', {'donor_category_table':Contact.objects.raw("SELECT First_Name1, Last_Name1, First_Name2, Last_Name2 FROM donortabletable")})
-
-def vendor_category_table(request):
-    table = DonorTableMaker(Contact.objects.all())
-    return render(request, 'contacts/vendor_categories.html', {'vendor_category_table':Contact.objects.raw("SELECT First_Name1, Last_Name1, First_Name2, Last_Name2 FROM donortabletable")})
+# def donor_category_table(request):
+#     table = DonorTableMaker(Contact.objects.all())
+#     return render(request, 'contacts/donor_categories.html', {'donor_category_table':Contact.objects.raw("SELECT First_Name1, Last_Name1, First_Name2, Last_Name2 FROM donortabletable")})
+#
+# def vendor_category_table(request):
+#     table = DonorTableMaker(Contact.objects.all())
+#     return render(request, 'contacts/vendor_categories.html', {'vendor_category_table':Contact.objects.raw("SELECT First_Name1, Last_Name1, First_Name2, Last_Name2 FROM donortabletable")})

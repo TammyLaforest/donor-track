@@ -31,38 +31,53 @@ class all_categories_view(CreateView):
 class contacts_view(LoggedInMixin, ContactOwnerMixin, DetailView):
     model = Contact
     template_name = 'contacts/contacts.html'
-
-
-class contact_new_view(CreateView):
-    model = Contact
-    template_name = 'contacts/new_contact.html'
     fields = '__all__'
-    #
-    def get_success_url(self):
-        return reverse('contacts/new_contact.html')
-
-
-
-
-# Donors Section
 
 class donors_view(LoggedInMixin, ContactOwnerMixin, DetailView):
     model = Contact
     template_name = 'contacts/donors.html'
     fields = '__all__'
 
+class contact_new_view(CreateView):
+    form_class= generic_contact_form
+    Owner = User
+    template_name = 'contacts/new_contact_generic.html'
 
-class donor_new_view(CreateView):
+    def get_success_url(self):
+        return reverse('contacts/new_contact_generic.html')
+
+class new_donor_individual_view(CreateView):
+    form_class= new_donor_individual_form
     model = Contact
-    template_name = 'contacts/new_donor.html'
-    fields = '__all__'
+    Owner=User
+    Account = 'Last_Name'+'', ''+ 'First_Name'
+    template_name = 'contacts/new_donor_individual.html'
     #
     def get_success_url(self):
-        return reverse('contacts/new_donor.html')
+        return reverse('contacts/new_donor_individual.html')
 
-def donor_new(request):
-    form = DonorForm()
-    return render(request, 'contacts/new_donor.html', {'form': form})
+class new_donor_couple_view(CreateView):
+    form_class= new_donor_couple_form
+    model = Contact
+    Owner=User
+    template_name = 'contacts/new_donor_couple.html'
+    #
+    def get_success_url(self):
+        return reverse('contacts/new_donor_couple.html')
+
+class new_donor_business_view(CreateView):
+    form_class= new_donor_business_form
+    model = Contact
+    Owner=User
+    template_name = 'contacts/new_donor_business.html'
+    #
+    def get_success_url(self):
+        return reverse('contacts/new_donor_business.html')
+
+
+# def donor_new(request):
+#     form = DonorForm()
+#     return render(request, 'contacts/new_donor.html', {'form': form})
 
 class donor_categories_view(LoggedInMixin, ContactOwnerMixin, DetailView):
     model = Contact
@@ -73,23 +88,44 @@ class donor_categories_view(LoggedInMixin, ContactOwnerMixin, DetailView):
 
 # Vendors Section
 
-class vendors_view(LoggedInMixin, ContactOwnerMixin, DetailView):
+class vendors_view( LoggedInMixin, ContactOwnerMixin, DetailView):
     model = Contact
     template_name = 'contacts/vendors.html'
     fields = '__all__'
 
 
-class vendor_new_view(CreateView):
+class new_vendor_view(CreateView):
     model = Contact
     template_name = 'contacts/new_vendor.html'
     fields = '__all__'
     #
     def get_success_url(self):
-        return reverse('contacts/new_vendor.html')
+        return reverse('contacts/vendors.html')
 
 def vendor_new(request):
-    form = VendorForm()
+    form = business_vendor_contact_form()
     return render(request, 'contacts/new_vendor.html', {'form': form})
+
+
+# class new_vendor_view(LoggedInMixin, ContactOwnerMixin, DetailView):
+#     form_class = business_vendor_contact_form()
+#     model = Contact
+#     Owner=User
+#     exclude = ['First_Name2', 'Last_Name2', 'Email2', 'Owner']
+#     success_url = reverse_lazy('vendors')
+#     template_name = 'new_vendor.html'
+
+# class vendor_new_view(CreateView):
+#     model = Contact
+#     template_name = 'contacts/new_vendor.html'
+#     fields = '__all__'
+#
+#     def get_success_url(self):
+#         return reverse('contacts/new_vendor.html')
+
+# def vendor_new(request):
+#     form = VendorForm()
+#     return render(request, 'contacts/new_vendor.html', {'form': form})
 
 class vendor_categories_view(CreateView):
     model = Contact

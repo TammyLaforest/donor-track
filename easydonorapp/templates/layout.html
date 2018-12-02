@@ -44,9 +44,14 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{% url 'deposit' %}">Deposit</a>
                 <a class="dropdown-item" href="{% url 'donors' %}">Donors</a>
-                <a class="dropdown-item" href="{% url 'new_donor' %}">New Donor</a>
-                <a class="dropdown-item" href="{% url 'donor_categories' %}">Donor Categories</a>
-                <a class="dropdown-item" href="#">Thank You Letters</a>
+                <a class="dropdown-item" href="{% url 'thanks' %}">Thank You Letters</a>
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Donor Contact</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'new_donor_individual' %}">Add donor - individual</a>
+                    <a class="dropdown-item" href="{% url 'new_donor_couple' %}">Add donor - Couple</a>
+                <a class="dropdown-item" href="{% url 'new_donor_business' %}">Add donor - Business</a>
+              </div>
+
             </div>
         </li>
         <li class="nav-item dropdown">

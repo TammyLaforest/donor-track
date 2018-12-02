@@ -3,12 +3,16 @@ import django_filters
 from django.db import models
 from django.db.models import Q
 from django.views import generic, View
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, formset_factory, BaseInlineFormSet, ModelForm
 from django.views.generic import ListView, CreateView, DetailView, TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset
+
 
 from contacts.filters import *
 from contacts.tables import *
@@ -16,128 +20,47 @@ from contacts.models import *
 from contacts.views import *
 from contacts.views_auth import *
 
+class generic_contact_form(ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
 
-# inlineformset_factory creates a Class from a parent model (Contact)
-# to a child model (Address)
+class new_donor_individual_form(ModelForm):
+    class Meta:
+        model = Contact
+        Owner=User
+        Contact_Format = 'Individual'
+        Account = 'Last_Name'+'', ''+ 'First_Name'
+        fields = '__all__'
+        exclude =['First_Name2', 'Last_Name2', 'Phone2', 'Email2', 'Company', 'Owner', 'Category', 'Vendor_Subcategory', 'Contact_Format' ]
 
-
-
-def manage_vendor_form_set(request, Contact):
-    Contact = Contact.objects.get(pk=uuid)
-    contact_vendor_form_set = inlineformset_factory(
-        Contact,
-        Company_Vendor,
-        Address,
-        Email,
-        Phone,
-        fields = '__all__')
-    if request.method == "POST":
-        formset = contact_vendor_form_set(request.POST, request.FILES, instance=contact)
-        if formset.is_valid():
-            formset.save()
-            # Do something. Should generally end with a redirect. For example:
-            return HttpResponseRedirect(contact.get_absolute_url())
-    else:
-        formset = contact_vendor_form_set(instance=contact)
-    return render(request, 'vendors.html', {'formset': formset})
-
-def manage_company_form_set(request, Contact):
-    Contact = Contact.objects.get(pk=uuid)
-    contact_company_form_set = inlineformset_factory(
-        Contact,
-        Company_Donor,
-        Address,
-        Email,
-        Phone,
-        fields = '__all__')
-    if request.method == "POST":
-        formset = contact_company_form_set(request.POST, request.FILES, instance=contact)
-        if formset.is_valid():
-            formset.save()
-            # Do something. Should generally end with a redirect. For example:
-            return HttpResponseRedirect(contact.get_absolute_url())
-    else:
-        formset = contact_company_form_set(instance=contact)
-    return render(request, 'donors.html', {'formset': formset})
-
-def manage_individual_form_set(request, Contact):
-    Contact = Contact.objects.get(pk=uuid)
-    contact_individual_form_set = inlineformset_factory(
-        Contact,
-        Individual,
-        Address,
-        Email,
-        Phone,
-        fields = '__all__')
-    if request.method == "POST":
-        formset = contact_individual_form_set(request.POST, request.FILES, instance=contact)
-        if formset.is_valid():
-            formset.save()
-            # Do something. Should generally end with a redirect. For example:
-            return HttpResponseRedirect(contact.get_absolute_url())
-    else:
-        formset = contact_individual_form_set(instance=contact)
-    return render(request, 'donors.html', {'formset': formset})
-
-def manage_couple_form_set(request, Contact):
-    Contact = Contact.objects.get(pk=uuid)
-    contact_couple_form_set = inlineformset_factory(
-        Contact,
-        Couple,
-        Address,
-        Email,
-        Phone,
-        fields = '__all__')
-    if request.method == "POST":
-        formset = contact_couple_form_set(request.POST, request.FILES, instance=contact)
-        if formset.is_valid():
-            formset.save()
-            # Do something. Should generally end with a redirect. For example:
-            return HttpResponseRedirect(contact.get_absolute_url())
-    else:
-        formset = contact_couple_form_set(instance=contact)
-    return render(request, 'donors.html', {'formset': formset})
-
-def manage_other_form_set(request, Contact):
-    Contact = Contact.objects.get(pk=uuid)
-    contact_other_form_set = inlineformset_factory(
-        Contact,
-        Other,
-        Address,
-        Email,
-        Phone,
-        fields = '__all__')
-    if request.method == "POST":
-        formset = contact_other_form_set(request.POST, request.FILES, instance=contact)
-        if formset.is_valid():
-            formset.save()
-            # Do something. Should generally end with a redirect. For example:
-            return HttpResponseRedirect(contact.get_absolute_url())
-    else:
-        formset = coontact_other_form_set(instance=contact)
-    return render(request, 'donors.html', {'formset': formset})
+class new_donor_couple_form(ModelForm):
+    class Meta:
+        model = Contact
+        Owner=User
+        Contact_Format = 'Couple'
+        Account = 'Last_Name'+'', ''+ 'First_Name' + '&' + 'Last_Name2'+'', ''+ 'First_Name2'
+        fields = '__all__'
+        exclude =[ 'Company', 'Owner', 'Category', 'Vendor_Subcategory', 'Contact_Format' ]
 
 
-# class ContactForm(ModelForm):
-#     class Meta:
-#         model = Contact
-#         fields = '__all__'
-#
-# class DonorForm(ModelForm):
-#     class Meta:
-#         model = Donor
-#         fields = '__all__'
-#
-# class VendorForm(ModelForm):
-#     class Meta:
-#         model = Contact
-#         fields = '__all__'
+class new_donor_business_form(ModelForm):
+    class Meta:
+        model = Contact
+        Owner=User
+        Contact_Format = 'Business'
+        Account = 'Company'
+        fields = '__all__'
+        exclude =['First_Name2', 'Last_Name2', 'Phone2', 'Email2', 'Owner', 'Category', 'Vendor_Subcategory', 'Contact_Format' ]
 
 
-# class PartialAuthorForm(ModelForm):
-#     class Meta:
-#         model = Author
-#         exclude = ['title']
+class business_vendor_contact_form(ModelForm):
+    class Meta:
+        model = Contact
+        Owner=User
+        exclude = ['First_Name2', 'Last_Name2', 'Email2', 'Owner']
+
+# LoggedInMixin, ContactOwnerMixin, DetailView
 
 def contact_new(request):
     form = contact_other_form_set()

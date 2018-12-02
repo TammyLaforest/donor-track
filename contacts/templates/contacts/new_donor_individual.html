@@ -6,12 +6,12 @@
       <div class="container">
           <div class="row title"  >
             <div class="title"><h1>{% block title %}
-                New Donor Couple
+                New Donor Contacts
             {% endblock %}</h1></div>
             </div>
               {% if user.is_authenticated %}
             <div class="row" >
-    <form   class="new_donor_coupled_form" method="post">
+    <form  class="individual_donor_contact_form" method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <button class="save btn btn-default" type="submit">Sign up</button>

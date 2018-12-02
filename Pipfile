@@ -15,6 +15,8 @@ django-shortuuidfield = "*"
 bootstrap = "*"
 django-tables2 = "*"
 django-address = "*"
+confusable-homoglyphs = "*"
+django-crispy-forms = "*"
 
 [requires]
 python_version = "3.7"

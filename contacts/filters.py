@@ -12,5 +12,5 @@
 #         fields = '__all__'
         # def get_filterset(self, *args, **kwargs):
         #     fs = super().get_filterset(*args, **kwargs)
-        #     fs.filters['owner'].field.queryset = fs.filters['owner'].field.queryset.filter(user=User)
+        #     fs.filters['Owner'].field.queryset = fs.filters['owner'].field.queryset.filter(user=User)
         #     return fs
