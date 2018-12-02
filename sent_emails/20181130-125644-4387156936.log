@@ -1,0 +1,23 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: EasyDonor password reset
+From: webmaster@localhost
+To: tammylaforest@gmail.com
+Date: Fri, 30 Nov 2018 17:56:44 -0000
+Message-ID: <154360060478.5948.7259554976778341581@Users-iMac.local>
+
+
+To initiate the password reset process for your user EasyDonor Account,
+click the link below:
+
+http://127.0.0.1:8000/accounts/reset/MQ/51q-762903e1d0caecadbd3e/
+
+If clicking the link above doesn't work, please copy and paste the URL in a new browser
+window instead.
+
+Sincerely,
+The EasyDonor Team
+
+
+-------------------------------------------------------------------------------

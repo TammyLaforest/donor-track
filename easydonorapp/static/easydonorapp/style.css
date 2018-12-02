@@ -1,0 +1,47 @@
+
+
+/* CSS for layout.html */
+
+.page-header {
+  padding: 1em;
+}
+
+.navbtn {
+  border: 1px solid gainsboro;
+  background-color: grey;
+  color: black;
+}
+
+/* END Settings for layout.html */
+/* CSS for all pages */
+
+.title {
+margin-top: 2em;
+margin-bottom: .5em;
+}
+
+.homedeck {
+  margin-top: 2em;
+}
+
+/* .halfpage {
+  width: 100%;
+     height: auto;
+
+} */
+
+
+.login {
+  margin-right: 0.5em;
+  background-color: red;
+}
+
+#loginrow {
+  display: none;
+  margin-top: 1em;
+}
+
+#registerrow {
+  display: none;
+  margin-top: 1em;
+}
