@@ -1,17 +1,16 @@
 import django_tables2 as tables
-
 from django.db import models
 from django.db.models import Q
-from contacts.models import *
 from django.http import HttpResponse
-
 from django.shortcuts import render
 
+from contacts.models import *
 
-
+# sequence – reorder columns
+# fields – specify model fields to include
+# exclude – specify model fields to exclude
 
 # Contact section
-
 class contact_table_maker(tables.Table):
     class Meta:
         model = Contact
@@ -23,10 +22,7 @@ class contact_table_maker(tables.Table):
 
 def contact_table(request):
     table = contact_table_maker(Contact.objects.all())
-    return render(request, 'contacts/contacts.html', {'contact_table': Contact.objects.all()})
-
-
-    # return render(request, 'contacts/contacts.html', {'contact_table': Contact.objects.filter(Q(Owner=request.user))})
+    return render(request, 'contacts/contacts.html', {'contact_table': Contact.objects.filter(Q(Owner=request.user))})
 
 
 # Donor section

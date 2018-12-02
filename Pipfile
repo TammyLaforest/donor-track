@@ -14,6 +14,7 @@ django-materialize = "*"
 django-shortuuidfield = "*"
 bootstrap = "*"
 django-tables2 = "*"
+django-address = "*"
 
 [requires]
 python_version = "3.7"

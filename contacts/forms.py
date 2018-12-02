@@ -11,13 +11,13 @@ from django.urls import reverse, reverse_lazy
 
 from django.contrib.auth.models import User
 
-from contacts.filters import *
-# from contacts.forms import *
-from contacts.models import *
-from contacts.tables import *
-# from contacts.views import *
-from contacts.views_auth import *
 
+
+from contacts.filters import *
+from contacts.tables import *
+from contacts.models import *
+from contacts.views import *
+from contacts.views_auth import *
 
 class ListContactView(LoggedInMixin, ListView):
 

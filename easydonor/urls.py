@@ -40,7 +40,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 
-
+    path('admin/', admin.site.urls),
 
     # Test URLS to be deleted
     path('brand_model_select/', TemplateView.as_view(template_name='brand_model_select.html'), name='brand_model_select'),
