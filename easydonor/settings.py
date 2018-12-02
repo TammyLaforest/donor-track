@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'easydonorapp',
     'contacts',
     'accounts',
-    'testapp',
 
     'django.contrib.admin',
     'django.contrib.auth',

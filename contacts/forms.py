@@ -3,15 +3,12 @@ import django_filters
 from django.db import models
 from django.db.models import Q
 from django.views import generic, View
+from django.forms import inlineformset_factory
 from django.views.generic import ListView, CreateView, DetailView, TemplateView
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
-
 from django.contrib.auth.models import User
-
-
 
 from contacts.filters import *
 from contacts.tables import *
@@ -19,128 +16,139 @@ from contacts.models import *
 from contacts.views import *
 from contacts.views_auth import *
 
-class ListContactView(LoggedInMixin, ListView):
 
-    model = Contact
-    template_name = 'contact_list.html'
-
-    def get_queryset(self):
-
-        return Contact.objects.filter(owner=self.request.user)
-from django.core.exceptions import PermissionDenied
-...
-
-
-class ContactView(LoggedInMixin, ContactOwnerMixin, DetailView):
-
-    model = Contact
-    template_name = 'contact.html'
-
-class all_categories_view(CreateView):
-    model = Category
-    template_name = 'contacts/contacts.html'
-
-class subcategories_view(CreateView):
-    model = Subcategory
-    template_name = 'contacts/contacts.html'
-
-class select_contact_view(CreateView):
-    model = Select_ContactForm
-    template_name = 'contacts/detail.html'
-    # category = Contact.objects.get(Category)
-    # # {% for org in organisation %}
-    #     #    <option value="{{org.id}}"
-    #     #        {% if org == current_org %}selected="selected"{% endif %}>
-    #     #        {{org.name|capfirst}}
-    #     #    </option>
-    #     # {% endfor %}
-    #
-    # if  category.lower() == donor:
-    #     if Contact_Format.lower() == company:
-    #         fields = ['Company', 'First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
-    #     elif Contact_Format.lower() == individual:
-    #         fields = ['First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
-    #     elif Contact_Format.lower() == couple:
-    #         fields = ['First_Name1', 'Last_Name1', 'First_Name2', 'Last_Name2','Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Phone2', 'Email2', 'Note']
-    #     else:
-    #         fields ='__all__'
-    # if category.lower() == vendor:
-    #     fields = ['Company', 'First_Name1', 'Last_Name1', 'Address_Number', 'Address_Street', 'Address_Street2', 'Address_City', 'Address_State', 'Address_Postal_Code', 'Address_Country', 'Phone1', 'Email1', 'Note']
-    # else:
-    #     fields ='__all__'
+# inlineformset_factory creates a Class from a parent model (Contact)
+# to a child model (Address)
 
 
 
-class contacts_view(ListView):
-    model = Contact
-    template_name = 'contacts/contacts.html'
+def manage_vendor_form_set(request, Contact):
+    Contact = Contact.objects.get(pk=uuid)
+    contact_vendor_form_set = inlineformset_factory(
+        Contact,
+        Company_Vendor,
+        Address,
+        Email,
+        Phone,
+        fields = '__all__')
+    if request.method == "POST":
+        formset = contact_vendor_form_set(request.POST, request.FILES, instance=contact)
+        if formset.is_valid():
+            formset.save()
+            # Do something. Should generally end with a redirect. For example:
+            return HttpResponseRedirect(contact.get_absolute_url())
+    else:
+        formset = contact_vendor_form_set(instance=contact)
+    return render(request, 'vendors.html', {'formset': formset})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = ContactsNameFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+def manage_company_form_set(request, Contact):
+    Contact = Contact.objects.get(pk=uuid)
+    contact_company_form_set = inlineformset_factory(
+        Contact,
+        Company_Donor,
+        Address,
+        Email,
+        Phone,
+        fields = '__all__')
+    if request.method == "POST":
+        formset = contact_company_form_set(request.POST, request.FILES, instance=contact)
+        if formset.is_valid():
+            formset.save()
+            # Do something. Should generally end with a redirect. For example:
+            return HttpResponseRedirect(contact.get_absolute_url())
+    else:
+        formset = contact_company_form_set(instance=contact)
+    return render(request, 'donors.html', {'formset': formset})
 
-class contact_new_view(CreateView):
-    model = Contact
-    template_name = 'contacts/new_contact.html'
-    fields = '__all__'
-    #
-    def get_success_url(self):
-        return reverse('contacts/new_contact.html')
+def manage_individual_form_set(request, Contact):
+    Contact = Contact.objects.get(pk=uuid)
+    contact_individual_form_set = inlineformset_factory(
+        Contact,
+        Individual,
+        Address,
+        Email,
+        Phone,
+        fields = '__all__')
+    if request.method == "POST":
+        formset = contact_individual_form_set(request.POST, request.FILES, instance=contact)
+        if formset.is_valid():
+            formset.save()
+            # Do something. Should generally end with a redirect. For example:
+            return HttpResponseRedirect(contact.get_absolute_url())
+    else:
+        formset = contact_individual_form_set(instance=contact)
+    return render(request, 'donors.html', {'formset': formset})
+
+def manage_couple_form_set(request, Contact):
+    Contact = Contact.objects.get(pk=uuid)
+    contact_couple_form_set = inlineformset_factory(
+        Contact,
+        Couple,
+        Address,
+        Email,
+        Phone,
+        fields = '__all__')
+    if request.method == "POST":
+        formset = contact_couple_form_set(request.POST, request.FILES, instance=contact)
+        if formset.is_valid():
+            formset.save()
+            # Do something. Should generally end with a redirect. For example:
+            return HttpResponseRedirect(contact.get_absolute_url())
+    else:
+        formset = contact_couple_form_set(instance=contact)
+    return render(request, 'donors.html', {'formset': formset})
+
+def manage_other_form_set(request, Contact):
+    Contact = Contact.objects.get(pk=uuid)
+    contact_other_form_set = inlineformset_factory(
+        Contact,
+        Other,
+        Address,
+        Email,
+        Phone,
+        fields = '__all__')
+    if request.method == "POST":
+        formset = contact_other_form_set(request.POST, request.FILES, instance=contact)
+        if formset.is_valid():
+            formset.save()
+            # Do something. Should generally end with a redirect. For example:
+            return HttpResponseRedirect(contact.get_absolute_url())
+    else:
+        formset = coontact_other_form_set(instance=contact)
+    return render(request, 'donors.html', {'formset': formset})
+
+
+# class ContactForm(ModelForm):
+#     class Meta:
+#         model = Contact
+#         fields = '__all__'
+#
+# class DonorForm(ModelForm):
+#     class Meta:
+#         model = Donor
+#         fields = '__all__'
+#
+# class VendorForm(ModelForm):
+#     class Meta:
+#         model = Contact
+#         fields = '__all__'
+
+
+# class PartialAuthorForm(ModelForm):
+#     class Meta:
+#         model = Author
+#         exclude = ['title']
 
 def contact_new(request):
-    form = ContactForm()
+    form = contact_other_form_set()
     return render(request, 'contacts/new_contact.html', {'form': form})
 
 
-# Donors Section
-
-class donors_view(CreateView):
-    model = Contact
-    template_name = 'contacts/donors.html'
-    fields = '__all__'
-
-
-class donor_new_view(CreateView):
-    model = Contact
-    template_name = 'contacts/new_donor.html'
-    fields = ['First_Name1', 'Last_Name1', 'First_Name2', 'Last_Name2', ]
-    #
-    def get_success_url(self):
-        return reverse('contacts/new_donor.html')
-
 def donor_new(request):
-    form = DonorForm()
+    form = contact_couple_form_set()
     return render(request, 'contacts/new_donor.html', {'form': form})
 
-class donor_categories_view(CreateView):
-    model = Contact
-    template_name = 'contacts/donor_categories.html'
-    fields = '__all__'
-
-
-
-# Vendors Section
-
-class vendors_view(CreateView):
-    model = Contact
-    template_name = 'contacts/vendors.html'
-    fields = '__all__'
-
-
-class vendor_new_view(CreateView):
-    model = Contact
-    template_name = 'contacts/new_vendor.html'
-    fields = ['First_Name1', 'Last_Name1', 'Company' ]
-    #
-    def get_success_url(self):
-        return reverse('contacts/new_vendor.html')
 
 def vendor_new(request):
-    form = VendorForm()
+    form = contact_vendor_form_set()
     return render(request, 'contacts/new_vendor.html', {'form': form})
-
-class vendor_categories_view(CreateView):
-    model = Contact
-    template_name = 'contacts/vendor_categories.html'
-    fields = '__all__'

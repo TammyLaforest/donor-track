@@ -21,15 +21,14 @@ import accounts
 from accounts import views
 
 import easydonorapp
-import contacts
-import testapp
-
 from easydonorapp import views
-from contacts import views
-from testapp import views
+
+import contacts
+from contacts import views, forms, tables
+from contacts.tables import *
 
 from django.contrib.auth.models import User
-from contacts.tables import *
+
 from django.views.generic import TemplateView
 from django.contrib import admin
 from django.urls import path, include
@@ -41,13 +40,7 @@ from django.conf.urls.static import static
 urlpatterns = [
 
     path('admin/', admin.site.urls),
-
-    # Test URLS to be deleted
-    path('brand_model_select/', TemplateView.as_view(template_name='brand_model_select.html'), name='brand_model_select'),
-
-
     path('accounts/', include('django.contrib.auth.urls')),
-    path('testapp/', include('testapp.urls')),
 
     # From urls.py in other apps
     # path('accounts/', include('accounts.urls')),
@@ -72,6 +65,7 @@ urlpatterns = [
     path('contacts/donor_categories/', contacts.views.donor_categories_view.as_view(),name='donor_categories',),
     path('contacts/vendor_categories/', contacts.views.vendor_categories_view.as_view(),name='donor_categories',),
 
+    path('signup/', accounts.views.signup_view.as_view(), name='signup'),
 
 
     path('contacts/new_contact/', contacts.views.contact_new_view.as_view(),name='new_contact',),
@@ -85,5 +79,6 @@ urlpatterns = [
     #Template As View
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('signup/', accounts.views.SignUp.as_view(), name='signup'),
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # This is how you view images from media folder.

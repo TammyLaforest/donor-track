@@ -1,23 +1,15 @@
 
 from django.db import models
-# from django.db.models import Q
-# from django.views import generic, View
-# from django.views.generic import ListView, CreateView, DetailView, TemplateView
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
 
-# from contacts.filters import *
-# from contacts.forms import *
-# from contacts.models import *
-# from contacts.tables import *
-# from contacts.views import *
-# from contact.views_auth import *
-
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+
+# Only logged in user can see their own contacts in list
+# http://www.effectivedjango.com/tutorial/authzn.html
 
 class LoggedInMixin(object):
 

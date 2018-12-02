@@ -12,34 +12,21 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
 
 from contacts.filters import *
-# from contacts.forms import *
+from contacts.forms import *
 from contacts.models import *
 from contacts.tables import *
 # from contacts.views import *
 from contacts.views_auth import *
-
-# class ListContactView(LoggedInMixin, ListView):
-#
-#     model = Contact
-#     template_name = 'contact_list.html'
-#
-#     def get_queryset(self):
-#
-#         return Contact.objects.filter(owner=self.request.user)
-# from django.core.exceptions import PermissionDenied
-# ...
-
 
 
 class all_categories_view(CreateView):
     model = Category
     template_name = 'contacts/contacts.html'
 
-class subcategories_view(CreateView):
-    model = Subcategory
-    template_name = 'contacts/contacts.html'
-
-
+# class subcategories_view(CreateView):
+#     model = Subcategory
+#     template_name = 'contacts/contacts.html'
+#
 
 class contacts_view(LoggedInMixin, ContactOwnerMixin, DetailView):
     model = Contact
@@ -54,9 +41,7 @@ class contact_new_view(CreateView):
     def get_success_url(self):
         return reverse('contacts/new_contact.html')
 
-def contact_new(request):
-    form = ContactForm()
-    return render(request, 'contacts/new_contact.html', {'form': form})
+
 
 
 # Donors Section
@@ -70,7 +55,7 @@ class donors_view(LoggedInMixin, ContactOwnerMixin, DetailView):
 class donor_new_view(CreateView):
     model = Contact
     template_name = 'contacts/new_donor.html'
-    fields = ['First_Name1', 'Last_Name1', 'First_Name2', 'Last_Name2', ]
+    fields = '__all__'
     #
     def get_success_url(self):
         return reverse('contacts/new_donor.html')
@@ -97,7 +82,7 @@ class vendors_view(LoggedInMixin, ContactOwnerMixin, DetailView):
 class vendor_new_view(CreateView):
     model = Contact
     template_name = 'contacts/new_vendor.html'
-    fields = ['First_Name1', 'Last_Name1', 'Company' ]
+    fields = '__all__'
     #
     def get_success_url(self):
         return reverse('contacts/new_vendor.html')
