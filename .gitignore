@@ -7,3 +7,6 @@ myvenv
 migrations
 _init_py
 .idea
+saveforlater.txt
+Migrations
+__init__.py
