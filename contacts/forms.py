@@ -43,35 +43,21 @@ class new_donor_couple_form(ModelForm):
         fields = '__all__'
         exclude =[ 'Company', 'Owner', 'Category', 'Vendor_Subcategory', 'Contact_Format' ]
 
-
-class new_donor_business_form(ModelForm):
-    class Meta:
-        model = Contact
-        Owner=User
-        Contact_Format = 'Business'
-        Account = 'Company'
-        fields = '__all__'
-        exclude =['First_Name2', 'Last_Name2', 'Phone2', 'Email2', 'Owner', 'Category', 'Vendor_Subcategory', 'Contact_Format' ]
-
-
-class business_vendor_contact_form(ModelForm):
-    class Meta:
-        model = Contact
-        Owner=User
-        exclude = ['First_Name2', 'Last_Name2', 'Email2', 'Owner']
-
-# LoggedInMixin, ContactOwnerMixin, DetailView
-
-def contact_new(request):
-    form = contact_other_form_set()
-    return render(request, 'contacts/new_contact.html', {'form': form})
-
-
-def donor_new(request):
-    form = contact_couple_form_set()
-    return render(request, 'contacts/new_donor.html', {'form': form})
-
-
-def vendor_new(request):
-    form = contact_vendor_form_set()
-    return render(request, 'contacts/new_vendor.html', {'form': form})
+# 
+# class new_donor_business_form(ModelForm):
+#     class Meta:
+#         model = Contact
+#         Owner=User
+#         Contact_Format = 'Business'
+#         Account = 'Company'
+#         fields = '__all__'
+#         exclude =['First_Name2', 'Last_Name2', 'Phone2', 'Email2', 'Owner', 'Category', 'Vendor_Subcategory', 'Contact_Format' ]
+#
+#
+# class business_vendor_contact_form(ModelForm):
+#     class Meta:
+#         model = Contact
+#         Owner=User
+#         exclude = ['First_Name2', 'Last_Name2', 'Email2', 'Owner']
+#
+# # LoggedInMixin, ContactOwnerMixin, DetailView

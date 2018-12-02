@@ -69,10 +69,10 @@ urlpatterns = [
     path('contacts/new_contact/', contacts.views.contact_new_view.as_view(),name='new_contact',),
     path('contacts/new_contact_generic/', contacts.views.contact_new_view.as_view(),name='new_contact_generic',),
     # path('contacts/new_donor/', contacts.views.new_donor_view.as_view(),name='new_donor',),
-    path('contacts/new_donor_couple/', contacts.views.new_donor_couple_view.as_view(),name='new_donor_couple',),
-    path('contacts/new_donor_individual/', contacts.views.new_donor_individual_view.as_view(),name='new_donor_individual',),
-    path('contacts/new_donor_business/', contacts.views.new_donor_business_view.as_view(),name='new_donor_business',),
-    path('contacts/new_vendor/', contacts.views.new_vendor_view.as_view(),name='new_vendor',),
+    # path('contacts/new_donor_couple/', contacts.views.new_donor_couple_view.as_view(),name='new_donor_couple',),
+    # path('contacts/new_donor_individual/', contacts.views.new_donor_individual_view.as_view(),name='new_donor_individual',),
+    # path('contacts/new_donor_business/', contacts.views.new_donor_business_view.as_view(),name='new_donor_business',),
+    # path('contacts/new_vendor/', contacts.views.new_vendor_view.as_view(),name='new_vendor',),
 
         #easydonorapp
     path('deposit/', easydonorapp.views.DepositView.as_view(),name='deposit',),
@@ -82,11 +82,11 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
 
-    path('contacts/new_vendor/', TemplateView.as_view(template_name='contacts/new_vendor.html'), name='new_vendor'),
-    path('contacts/new_donor_couple/', TemplateView.as_view(template_name='contacts/new_donor_couple.html'), name='new_donor_couple'),
-    path('contacts/new_donor_individual/', TemplateView.as_view(template_name='contacts/new_donor_individual.html'), name='new_donor_individual'),
-    path('contacts/new_donor_business/', TemplateView.as_view(template_name='contacts/new_donor_business.html'), name='new_donor_business'),
-    path('contacts/new_donor_other/', TemplateView.as_view(template_name='contacts/new_donor_other.html'), name='new_donor_other'),
+    # path('contacts/new_vendor/', TemplateView.as_view(template_name='contacts/new_vendor.html'), name='new_vendor'),
+    # path('contacts/new_donor_couple/', TemplateView.as_view(template_name='contacts/new_donor_couple.html'), name='new_donor_couple'),
+    # path('contacts/new_donor_individual/', TemplateView.as_view(template_name='contacts/new_donor_individual.html'), name='new_donor_individual'),
+    # path('contacts/new_donor_business/', TemplateView.as_view(template_name='contacts/new_donor_business.html'), name='new_donor_business'),
+    # path('contacts/new_donor_other/', TemplateView.as_view(template_name='contacts/new_donor_other.html'), name='new_donor_other'),
     path('contacts/new_contact_generic/', TemplateView.as_view(template_name='contacts/new_contact_generic.html'), name='new_contact_generic'),
 
     path('contacts/contacts/', TemplateView.as_view(template_name='contacts/contacts.html'), name='contacts'),
