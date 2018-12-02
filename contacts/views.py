@@ -1,6 +1,5 @@
 import django_filters
 
-
 from django.db import models
 from django.db.models import Q
 from django.views import generic, View
@@ -12,7 +11,10 @@ from django.urls import reverse, reverse_lazy
 # from django.contrib import auth
 # from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
-from .filters import ContactsNameFilter
+
+from contacts.filters import ContactsNameFilter
+import contacts.tables
+from contacts.tables import *
 from contacts.models import *
 # from contacts.models import Contact, ContactForm, Select_ContactForm
 

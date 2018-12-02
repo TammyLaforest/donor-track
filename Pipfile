@@ -13,6 +13,7 @@ django-filters = "*"
 django-materialize = "*"
 django-shortuuidfield = "*"
 bootstrap = "*"
+django-tables2 = "*"
 
 [requires]
 python_version = "3.7"
