@@ -10,93 +10,46 @@ from django.forms import ModelForm
 
 from django.contrib.auth.models import User
 
+
 # Generic contact model
 class Contact(models.Model):
     Owner = models.ForeignKey(User, on_delete = models.CASCADE)
     uuid = ShortUUIDField(unique=True, primary_key = True,)
     Created_On = models.DateField(auto_now_add=True)
-    CATEGORY_CHOICES = (
-    ('Donor', (
-            ('member', 'Member'),
-            ('regular', 'Regular'),
-            ('first_time', 'First_Time'),
-            ('annual', 'Annual'),
-            ('grant', 'Grant'),
-            ('purchase', 'Purchase'),
-            ('other_donor', 'Other_donor'),
-        )
-    ),
-    ('Vendor', (
-            ('biller', 'Biller'),
-            ('contractor', 'Contractor'),
-            ('seller', 'Seller'),
-            ('othervendor', 'Othervendor'),
-        )
-    ),
-    ('other', 'Other'),
-    )
-    SUBCATEGORY_CHOICES_DONOR = (
-    ('member', 'Member'),
-    ('regular', 'Regular'),
-    ('first_time', 'First_Time'),
-    ('annual', 'Annual'),
-    ('grant', 'Grant'),
-    ('purchase', 'Purchase'),
-    ('other_donor', 'Other_donor'),
-    )
-    Donor_Subcategory = models.CharField(
-        max_length=20,
-        choices=SUBCATEGORY_CHOICES_DONOR,
-        default='other_donor',
-    )
-    SUBCATEGORY_CHOICES_VENDOR =(
-            ('biller', 'Biller'),
-            ('contractor', 'Contractor'),
-            ('seller', 'Seller'),
-            ('other_vendor', 'Other_vendor')
-            )
-    Vendor_Subcategory = models.CharField(
-        max_length=20,
-        choices=SUBCATEGORY_CHOICES_VENDOR,
-        default='othervendor',
-        )
-    Category = models.CharField(
+    CATEGORY_CHOICES = ( ('donor', 'Donor'), ('vendor', 'Vendor'))
+
+    Contact_Category = models.CharField(
         max_length=20,
         choices=CATEGORY_CHOICES,
-        default='Unknown',
-    )
-    FORMAT_CHOICES = (
-        ('business', 'Business'),
-        ('individual', 'Individual'),
-        ('couple', 'Couple'),
-        ('other', 'Other'),
+        default='Donor',
     )
 
-    Contact_Format = models.CharField(
-        max_length=20,
-        choices=FORMAT_CHOICES,
-        default='Other',
-    )
-    Account = models.CharField(max_length=100,blank=True )
+    Account = models.CharField(max_length=100, blank=True)
+
+    Address = models.CharField(max_length=255, blank=True)
+    City = models.CharField(max_length=255,blank=True)
+    State = models.CharField(max_length=2,blank=True)
+    Postal_code = models.CharField(max_length=20,blank=True)
+    Country = models.CharField(max_length=30, default='USA', blank=True )
+
     Company = models.CharField(max_length=50,blank=True )
+
     First_Name = models.CharField(max_length=30, blank=True )
     Last_Name = models.CharField(max_length=30, blank=True )
+    Email = models.EmailField(validators=[validate_email], blank=True )
+    Phone = models.CharField(max_length=20, blank=True )
+
     First_Name2 = models.CharField(max_length=30, blank=True )
     Last_Name2 = models.CharField(max_length=30, blank=True )
-    address_type = models.CharField(max_length=10,blank=True)
-    address = models.CharField(max_length=255, blank=True)
-    city = models.CharField(max_length=255,blank=True)
-    state = models.CharField(max_length=2,blank=True)
-    postal_code = models.CharField(max_length=20,blank=True)
-    country = models.CharField(max_length=30, default='USA', blank=True )
-    Phone = models.CharField(max_length=20, blank=True )
     Phone2 = models.CharField(max_length=20, blank=True )
-    Email = models.EmailField(validators=[validate_email], blank=True )
     Email2 = models.EmailField(validators=[validate_email], blank=True )
     Note = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = 'Contacts'
+
+    # def get_absolute_url(self):
+    #     return u'/some_url/%d' % self.id
 
 #
 # class Format(models.Model):
@@ -267,40 +220,48 @@ class Contact(models.Model):
 #         default='Other',
 #     )
 #
-# class donor_categories(models.Model):
-#     Category = 'donor'
-#     CATEGORY_CHOICES = (
-#     ('member', 'Member'),
-#     ('regular', 'Regular'),
-#     ('first_time', 'First_Time'),
-#     ('annual', 'Annual'),
-#     ('grant', 'Grant'),
-#     ('otherdonor', 'Otherdonor')
-#     )
-#     Category = models.CharField(
-#         max_length=20,
-#         choices=CATEGORY_CHOICES,
-#         default='otherdonor',
-#     )
-#
-# class vendor_categories(models.Model):
-#     Category = 'vendor'
-#     SUBCATEGORY_CHOICES =(
-#             ('biller', 'Biller'),
-#             ('contractor', 'Contractor'),
-#             ('seller', 'Seller'),
-#             ('othervendor', 'Othervendor')
-#             )
-#     Subcategory = models.CharField(
-#         max_length=20,
-#         choices=SUBCATEGORY_CHOICES,
-#         default='othervendor',
-#         )
-#
-# class other_categories(models.Model):
-#     Category = 'other'
-#     Subcategory = 'other'
-#
+class donor_categories(models.Model):
+    Category = 'donor'
+    CATEGORY_CHOICES = (
+    ('member', 'Member'),
+    ('regular', 'Regular'),
+    ('first_time', 'First_Time'),
+    ('annual', 'Annual'),
+    ('grant', 'Grant'),
+    ('otherdonor', 'Otherdonor')
+    )
+    Category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default='otherdonor',
+    )
+    def get_absolute_url(self):
+        return u'/some_url/%d' % self.id
+
+class vendor_categories(models.Model):
+    Category = 'vendor'
+    SUBCATEGORY_CHOICES =(
+            ('biller', 'Biller'),
+            ('contractor', 'Contractor'),
+            ('seller', 'Seller'),
+            ('othervendor', 'Othervendor')
+            )
+    Subcategory = models.CharField(
+        max_length=20,
+        choices=SUBCATEGORY_CHOICES,
+        default='othervendor',
+        )
+    # def get_absolute_url(self):
+    #     return u'/some_url/%d' % self.id
+
+class other_categories(models.Model):
+    Category = 'other'
+    Subcategory = 'other'
+
+    # def get_absolute_url(self):
+    #     return u'/some_url/%d' % self.id
+
+
 
 # # Allows for multiple addresses
 # class Address(models.Model):

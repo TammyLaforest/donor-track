@@ -24,9 +24,9 @@ import easydonorapp
 from easydonorapp import views
 
 import contacts
-from contacts import views, forms, tables
+from contacts import views, tables, models
 from contacts.tables import *
-
+from contacts.models import Contact
 from django.contrib.auth.models import User
 
 from django.views.generic import TemplateView
@@ -39,57 +39,49 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 
+
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
+
+    path('deposit/', easydonorapp.views.DepositView.as_view(),name='deposit',),
 
     # From urls.py in other apps
     path('accounts/', include('accounts.urls')),
 
-    # Forms
-    path('contacts/new_contact', contacts.views.contact_new_view.as_view(), name='new_contact'),
-    # path('contacts/new_donor', contacts.views.new_donor_view.as_view(), name='new_donor'),
-    # path('contacts/new_vendor', contacts.views.new_vendor_view.as_view(), name='new_vendor'),
-#
-    # Tables
-    url(r'^contacts/contacts/', contact_table),
-    url(r'^contacts/donors/', donor_table),
+
+
+    # path('', views.post_list, name='post_list'),
+    # path('post/<int:pk>/', views.post_detail, name='post_detail'),
+    # path('post/new/', views.post_new, name='post_new'),
+    # path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
+
+
+    url(r'^contacts/', contact_table),
+    path('contacts/', TemplateView.as_view(template_name='contacts.html'), name='contacts'),
+    # path('contacts/', views.contacts_view, name='contacts'),
+    path('contacts/<int:pk>/', views.contacts_detail_view, name='detail'),
+    path('new', views.contacts_new, name='new'),
+    path('<int:pk>/edit/', views.contacts_edit, name='edit'),
+
+    # path('new_contact_generic/', contacts.views.contact_new_generic_view.as_view(),name='new_contact_generic',),
+    # path('new_contact_generic/', TemplateView.as_view(template_name='new_contact_generic.html'), name='new_contact_generic'),
+
+    # Other Tables
+
+
+    url(r'^donors/', donor_table),
+    path('donors/', TemplateView.as_view(template_name='donors.html'), name='donors'),
+
     url(r'^contacts/vendors/',vendor_table),
-
-
-    #Urls by views
-        #Contacts
-    path('contacts/contacts/', contacts.views.contacts_view.as_view(), name='contacts'),
-    path('contacts/donors/', contacts.views.donors_view.as_view(),name='donors',),
     path('contacts/vendors/', contacts.views.vendors_view.as_view(),name='vendors',),
 
-    path('contacts/donor_categories/', contacts.views.donor_categories_view.as_view(),name='donor_categories',),
+    url(r'^contacts/vendor_categories/',vendor_categories_table),
     path('contacts/vendor_categories/', contacts.views.vendor_categories_view.as_view(),name='vendor_categories',),
 
-
-    path('contacts/new_contact/', contacts.views.contact_new_view.as_view(),name='new_contact',),
-    path('contacts/new_contact_generic/', contacts.views.contact_new_view.as_view(),name='new_contact_generic',),
-    # path('contacts/new_donor/', contacts.views.new_donor_view.as_view(),name='new_donor',),
-    # path('contacts/new_donor_couple/', contacts.views.new_donor_couple_view.as_view(),name='new_donor_couple',),
-    # path('contacts/new_donor_individual/', contacts.views.new_donor_individual_view.as_view(),name='new_donor_individual',),
-    # path('contacts/new_donor_business/', contacts.views.new_donor_business_view.as_view(),name='new_donor_business',),
-    # path('contacts/new_vendor/', contacts.views.new_vendor_view.as_view(),name='new_vendor',),
-
-        #easydonorapp
-    path('deposit/', easydonorapp.views.DepositView.as_view(),name='deposit',),
-    path('thanks/', easydonorapp.views.Thanks_View.as_view(),name='thanks',),
-
-    #Template As View
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
-
-    # path('contacts/new_vendor/', TemplateView.as_view(template_name='contacts/new_vendor.html'), name='new_vendor'),
-    # path('contacts/new_donor_couple/', TemplateView.as_view(template_name='contacts/new_donor_couple.html'), name='new_donor_couple'),
-    # path('contacts/new_donor_individual/', TemplateView.as_view(template_name='contacts/new_donor_individual.html'), name='new_donor_individual'),
-    # path('contacts/new_donor_business/', TemplateView.as_view(template_name='contacts/new_donor_business.html'), name='new_donor_business'),
-    # path('contacts/new_donor_other/', TemplateView.as_view(template_name='contacts/new_donor_other.html'), name='new_donor_other'),
-    path('contacts/new_contact_generic/', TemplateView.as_view(template_name='contacts/new_contact_generic.html'), name='new_contact_generic'),
-
-    path('contacts/contacts/', TemplateView.as_view(template_name='contacts/contacts.html'), name='contacts'),
+    url(r'^contacts/donor_categories/',donor_categories_table),
+    path('contacts/donor_categories/', contacts.views.donor_categories_view.as_view(),name='donor_categories',),
 
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # This is how you view images from media folder.
