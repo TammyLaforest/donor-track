@@ -18,30 +18,26 @@ class Thanks_View(CreateView):
     template_name = 'thanks.html'
     fields = '__all__'
 
-# class MySearchForm(SearchForm):
-#     # model = Contact
-#     searchbar = forms.CharField(required=True)
-#     def search(self):
-#         # First, store the SearchQuerySet received from other processing.
-#         sqs = super(MySearchForm, self).search()
-#         if not self.is_valid():
-#             return self.no_query_found()
-#
-#         if self.cleaned_data['searchbar']:
-#             sqs = sqs.filter(First_Name__Contact=self.cleaned_data['searchbar'])
-#
-#         return sqs
-#
-#
-#
-# class MySearchView(SearchView):
-#     # model = Contact
-#     def get_queryset(self):
-#         queryset = super(MySearchView, self).get_queryset()
-#         # further filter queryset based on some set of criteria
-#         return queryset.filter(pub_date__gte=date(2015, 1, 1))
-#
-#     def get_context_data(self, *args, **kwargs):
-#         context = super(MySearchView, self).get_context_data(*args, **kwargs)
-#         # do something
-#         return context
+class DepositView(CreateView):
+
+    model = Contact
+    template_name = 'deposit.html'
+    fields ='__all__'
+
+class DonorDepositView(generic.ListView):
+    model = Contact
+    paginate_by = 10
+    def get_context_data(self, **kwargs):
+        context = super(DonorDepositView, self).get_context_data(**kwargs)
+        # Need Paginator info
+        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
+        return context
+
+
+class DonorListDepositView(DetailView):
+    model = Contact
+
+    def get_deposit_data(self, **kwargs):
+        context = super(DonorListDepositView, self).get_deposit_data(**kwargs)
+        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
+        return context

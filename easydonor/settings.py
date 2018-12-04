@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'shortuuidfield',
     'django_filters',
     'materialize',
-    'django_tables2',
     'crispy_forms',
     'haystack',
 

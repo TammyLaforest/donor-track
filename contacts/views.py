@@ -61,7 +61,6 @@ def contacts_new(request):
                 return redirect('contacts')
         else:
             return redirect('nope')
-
     else:
         form = generic_contact_form()
         return render(request, 'contacts/new.html', {'form': form})
@@ -80,6 +79,7 @@ def contacts_edit(request, pk):
     else:
         form = generic_contact_form(instance=Contact)
     return render(request, '/edit.html', {'form': form})
+
 
 # Views for forms
 class contacts_new_view(FormView):
@@ -100,6 +100,7 @@ class contacts_edit_view(FormView):
         def contacts_edit():
             return super().form_valid(form)
 
+# Not coded yet
 class contacts_delete_view(FormView):
     template_name = 'delete.html'
     form_class = generic_contact_form
@@ -108,101 +109,3 @@ class contacts_delete_view(FormView):
     def form_valid(self, form):
         def contacts_edit():
             return super().form_valid(form)
-
-
-class donors_view(generic.ListView):
-    model = Contact
-    template_name = 'donors.html'
-    fields = '__all__'
-
-
-class vendors_view( generic.ListView):
-    model = Contact
-    template_name = 'vendors.html'
-    fields = '__all__'
-
-
-class ContactForm(forms.ModelForm):
-      class Meta:
-            model = Contact
-            fields = '__all__'
-            localized_fields = '__all__'
-
-class DepositView(CreateView):
-
-    model = Contact
-    template_name = 'deposit.html'
-    fields ='__all__'
-
-
-class DonorDepositView(generic.ListView):
-    model = Contact
-    paginate_by = 10
-    def get_context_data(self, **kwargs):
-        context = super(DonorDepositView, self).get_context_data(**kwargs)
-        # Need Paginator info
-        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
-        return context
-
-
-class DonorListDepositView(DetailView):
-    model = Contact
-
-    def get_deposit_data(self, **kwargs):
-        context = super(DonorListDepositView, self).get_deposit_data(**kwargs)
-        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
-        return context
-
-
-    # path('contacts/', views.contacts_view, name='contacts'),
-    # path('contacts/new', views.contacts_new_view, name='new'),
-    # path('contacts/<int:pk>/', views.contacts_detail_view, name='detail'),
-    # path('contacts/<int:pk>/edit/', views.contacts_edit_view, name='edit'),
-
-
-# class new_donor_individual_form(ModelForm):
-#     class Meta:
-#         model = Contact
-#         Owner=User
-#         Contact_Format = 'Individual'
-#         Account = 'Last_Name'+'', ''+ 'First_Name'
-#         fields = '__all__'
-#         exclude =['First_Name2', 'Last_Name2', 'Phone2', 'Email2', 'Company', 'Owner', 'Category', 'Vendor_Subcategory', 'Contact_Format' ]
-#
-# class new_donor_couple_form(ModelForm):
-#     class Meta:
-#         model = Contact
-#         Owner=User
-#         Contact_Format = 'Couple'
-#         Account = 'Last_Name'+'', ''+ 'First_Name' + '&' + 'Last_Name2'+'', ''+ 'First_Name2'
-#         fields = '__all__'
-#         exclude =[ 'Company', 'Owner', 'Category', 'Vendor_Subcategory', 'Contact_Format' ]
-#
-# # Views for forms
-def contact_new(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = generic_contact_form(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/contacts/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = generic_contact_form()
-
-    return render(request, 'contacts/new_contact_generic.html', {'form': form})
-
-
-# class contact_new_generic_view(CreateView):
-#     Owner = User
-#     form_class= generic_contact_form
-#     template_name = 'contacts/new_contact_generic.html'
-#     return HttpResponseRedirect('/contacts/')
-#
-#     def get_success_url(self):
-#         return redirect('contacts')
