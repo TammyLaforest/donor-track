@@ -32,10 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
 
-    'easydonorapp',
-    'contacts',
-    'accounts',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +44,11 @@ INSTALLED_APPS = [
     'materialize',
     'django_tables2',
     'crispy_forms',
+    'haystack',
+
+    'easydonorapp',
+    'contacts',
+    'accounts',
 
 ]
 
@@ -99,6 +100,15 @@ DATABASES = {
 }
 
 FORM_RENDERER ='django.forms.renderers.DjangoTemplates'
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

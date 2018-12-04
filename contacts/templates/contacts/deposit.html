@@ -6,6 +6,39 @@
       <div class="title"><h1>{% block title %}
           Deposit Slip
       {% endblock %}</h1></div>
+
+    </div>
+    {% if user.is_authenticated %}
+
+    <div class="row" >
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h2>Edit Contact</h2>
+              <form method="POST" class="form-group generic_contact_form">
+  {% csrf_token %}
+   <table border="1">
+
+{% if object_list %}
+<div class="form-group">
+    <label for="exampleFormControlSelect1">Example select</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+{% for book in object_list %}
+
+
+      <option>{{ book.Last_Name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+
+
+  <button type="submit">Submit</button>
+</form>
+        </div>
+        <div class="panel-footer">Panel footer</div>
+      </div>
+
+
       </div>
       <div class="row" >
 <!-- <p>https://bootsnipp.com/snippets/OPzW8 snippit to learn accordion dropdown</p> -->
@@ -136,5 +169,6 @@
         </div>
     </div>
 </div>
+{% endif %}
 {% endif %}
 {% endblock %}

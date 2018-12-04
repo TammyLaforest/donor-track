@@ -20,6 +20,10 @@ django-crispy-forms = "*"
 terminaltables = "*"
 sqlite3 = "*"
 libsqlite3-dev = "*"
+install = "*"
+django-haystack = "*"
+elasticsearch = "*"
+django-model-utils = "*"
 
 [requires]
 python_version = "3.7"

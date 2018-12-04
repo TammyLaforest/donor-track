@@ -22,10 +22,10 @@ from accounts import views
 
 import easydonorapp
 from easydonorapp import views
+from easydonorapp.views import *
 
 import contacts
-from contacts import views, tables, models
-from contacts.tables import *
+from contacts import views, models
 from contacts.models import Contact
 from contacts.views import *
 
@@ -37,37 +37,37 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django_filters.views import FilterView
 
 urlpatterns = [
 
+    # url(r'^search/', include('haystack.urls')),
+    # url(r'^/search/?$', MySearchView.as_view(), name='search_view'),
+    path('search/', views.ContactListView.as_view(),name='search',),
 
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
     path('nope/', TemplateView.as_view(template_name='nope.html'), name='nope'),
+    path('deposit/', contacts.views.DonorDepositView.as_view(),name='deposit',),
 
-    path('deposit/', easydonorapp.views.DepositView.as_view(),name='deposit',),
-    url(r'^(?P<pk>\d+)/$', easydonorapp.views.DonorListDepositView.as_view(), name='deposit'),
+    path('deposit_list/', contacts.views.DepositView.as_view(),name='deposit_list',),
+    url(r'^(?P<pk>\d+)/$', contacts.views.DonorListDepositView.as_view(), name='deposit_list'),
 
     path('accounts/', include('accounts.urls')),
 
     path('contacts/', views.ContactListView.as_view(), name='contacts'),
-    url(r'^contact/donors/(?P<pk>\d+)/$', views.DonorListView.as_view(), name='donors'),
+
     path('contacts/donors/', views.donors_view.as_view(), name='donors'),
+    url(r'^contact/donors/(?P<pk>\d+)/$', views.DonorListView.as_view(), name='donors'),
+
     path('vendors/', views.VendorListView.as_view(), name='vendors'),
+
     path('contacts/new', views.contacts_new, name='new'),
+
     path('<int:pk>/edit/', views.contacts_edit, name='edit'),
 
-    # url(r'^contacts/vendors/',vendor_table),
-    # path('contacts/vendors/', contacts.views.vendors_view.as_view(),name='vendors',),
-
-    url(r'^contacts/vendor_categories/',vendor_categories_table),
-    path('contacts/vendor_categories/', contacts.views.vendor_categories_view.as_view(),name='vendor_categories',),
-
-    url(r'^contacts/donor_categories/',donor_categories_table),
-    path('contacts/donor_categories/', contacts.views.donor_categories_view.as_view(),name='donor_categories',),
 
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # This is how you view images from media folder.
@@ -75,10 +75,6 @@ urlpatterns = [
         # url(r'^$', ContactsListView.as_view(), name='contacts'),
 
 
-        # path('', views.post_list, name='post_list'),
-        # path('post/<int:pk>/', views.post_detail, name='post_detail'),
-        # path('post/new/', views.post_new, name='post_new'),
-        # path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
 
 
         # url(r'^contacts/', contact_table),

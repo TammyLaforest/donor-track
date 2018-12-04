@@ -14,57 +14,28 @@ from crispy_forms.layout import Layout, Fieldset
 
 from django.contrib.auth.models import User
 from contacts.models import *
-from contacts.tables import *
+
 from contacts.views_auth import *
 
 from django.core.paginator import Paginator
-
-
-
-
-#
-# class contact_table_maker(tables.Table):
-#     class Meta:
-#         model = Contact
-#         template_name = 'contacts.html'
-#
-#         def get_success_url(self):
-#             return reverse('/contacts.html')
-#
-#
-# def contact_table(request):
-#     table = contact_table_maker(Contact.objects.all( ))
-#     return render(request, 'contacts/contacts.html', {'contact_table': Contact.objects.filter(Q(Owner=request.user))})
-
-
 
 # Main Contcts List as_view
 class ContactListView(generic.ListView):
     model = Contact
     paginate_by = 10
-
     def get_context_data(self, **kwargs):
     # Call the base implementation first to get the context
         context = super(ContactListView, self).get_context_data(**kwargs)
-        # paginator = Paginator(list_exam, self.paginate_by)
-        # page = self.request.GET.get('page')
-        #
-        # try:
-        #     file_exams = paginator.page(page)
-        # except PageNotAnInteger:
-        #     file_exams = paginator.page(1)
-        # except EmptyPage:
-        #     file_exams = paginator.page(paginator.num_pages)
-
+        # Need Paginator info
         context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
         return context
 
 class DonorListView(generic.ListView):
     model = Contact
-def get_context_data(self, **kwargs):
-    context = super(DonorListView, self).get_context_data(**kwargs)
-    context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('First_Name')
-    return context
+    def get_context_data(self, **kwargs):
+        context = super(DonorListView, self).get_context_data(**kwargs)
+        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
+        return context
 
 class VendorListView(generic.ListView):
     model = Contact
@@ -78,20 +49,19 @@ class generic_contact_form(ModelForm):
         model = Contact
         fields = '__all__'
 
-
 def contacts_new(request):
     if request.method == "POST":
         form = generic_contact_form(request.POST)
         if form.is_valid():
                 Contact = form.save(commit=False)
                 Contact.Owner = request.user
-                Contact.Account = 'account'
+                if not Company and not Last_Name:
+                    raise forms.ValidationError('Please include a contact name or company!')
                 Contact.save()
                 return redirect('contacts')
         else:
             return redirect('nope')
 
-                # return redirect('contacts/detail',pk = uuid)
     else:
         form = generic_contact_form()
         return render(request, 'contacts/new.html', {'form': form})
@@ -103,6 +73,8 @@ def contacts_edit(request, pk):
         if form.is_valid():
             Contact = form.save(commit=False)
             Contact.Owner = request.user
+            if not Company and not Last_Name:
+                raise forms.ValidationError('Please include a contact name or company!')
             Contact.save()
             return redirect('edit', pk=Contact.uuid)
     else:
@@ -122,36 +94,65 @@ class contacts_new_view(FormView):
 class contacts_edit_view(FormView):
     template_name = 'edit.html'
     form_class = generic_contact_form
-    success_url = '/home/'
+    success_url = '/contacts/'
 
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
+        def contacts_edit():
+            return super().form_valid(form)
+
+class contacts_delete_view(FormView):
+    template_name = 'delete.html'
+    form_class = generic_contact_form
+    success_url = '/contacts/'
+
+    def form_valid(self, form):
         def contacts_edit():
             return super().form_valid(form)
 
 
-class donors_view(LoggedInMixin, ContactOwnerMixin, DetailView):
+class donors_view(generic.ListView):
     model = Contact
     template_name = 'donors.html'
     fields = '__all__'
 
 
-class donor_categories_view(LoggedInMixin, ContactOwnerMixin, DetailView):
-    model = Contact
-    template_name = 'contacts/donor_categories.html'
-    fields = '__all__'
-
-class vendor_categories_view(CreateView):
-    model = Contact
-    template_name = 'contacts/vendor_categories.html'
-    fields = '__all__'
-
-
-class vendors_view( LoggedInMixin, ContactOwnerMixin, DetailView):
+class vendors_view( generic.ListView):
     model = Contact
     template_name = 'vendors.html'
     fields = '__all__'
+
+
+class ContactForm(forms.ModelForm):
+      class Meta:
+            model = Contact
+            fields = '__all__'
+            localized_fields = '__all__'
+
+class DepositView(CreateView):
+
+    model = Contact
+    template_name = 'deposit.html'
+    fields ='__all__'
+
+
+class DonorDepositView(generic.ListView):
+    model = Contact
+    paginate_by = 10
+    def get_context_data(self, **kwargs):
+        context = super(DonorDepositView, self).get_context_data(**kwargs)
+        # Need Paginator info
+        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
+        return context
+
+
+class DonorListDepositView(DetailView):
+    model = Contact
+
+    def get_deposit_data(self, **kwargs):
+        context = super(DonorListDepositView, self).get_deposit_data(**kwargs)
+        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
+        return context
+
 
     # path('contacts/', views.contacts_view, name='contacts'),
     # path('contacts/new', views.contacts_new_view, name='new'),
@@ -178,24 +179,24 @@ class vendors_view( LoggedInMixin, ContactOwnerMixin, DetailView):
 #         exclude =[ 'Company', 'Owner', 'Category', 'Vendor_Subcategory', 'Contact_Format' ]
 #
 # # Views for forms
-# def contact_new(request):
-#     # if this is a POST request we need to process the form data
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         form = generic_contact_form(request.POST)
-#         # check whether it's valid:
-#         if form.is_valid():
-#             # process the data in form.cleaned_data as required
-#             # ...
-#             # redirect to a new URL:
-#             return HttpResponseRedirect('/contacts/')
-#
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         form = generic_contact_form()
-#
-#     return render(request, 'contacts/new_contact_generic.html', {'form': form})
-#
+def contact_new(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = generic_contact_form(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/contacts/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = generic_contact_form()
+
+    return render(request, 'contacts/new_contact_generic.html', {'form': form})
+
 
 # class contact_new_generic_view(CreateView):
 #     Owner = User

@@ -15,15 +15,31 @@
                 <a type=button class="btn btn-primary" href="{% url 'contacts' %}">All</a>
                 <a type=button class="btn btn-primary" href="{% url 'donors' %}">Donors</a>
                 <a type=button class="btn btn-primary" href="{% url 'vendors' %}">Vendors</a>
+                <a type=button class="btn btn-primary" href="{% url 'deposit' %}">Deposit</a>
+
                 </div>
               </div>
             <div class="row">
 {% if object_list %}
 <div class="table-responsive">
-<table class="table-sm table-hover table-striped ">
+   <table class="table-sm table-hover table-bordered table-striped"{% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
+       {% block table.thead %}
+       <thead>
+           <tr>
+               <th><a href="{% url "new" %}" class="btn btn-small btn-primary dark"><span class="hidden-phone"><i class="fa fa-user-plus"></i> Add Contact</span></a>
 
-  <thead>
-  <tr>
+               </th>
+               <th colspan="6">
+                   <form action="{% url 'search' %}" method="post" class="form-inline form-search pull-right">
+                     {% csrf_token %}
+                       <div>
+                         <input id="search_form_id" name="search" type="text"   disabled class="form-control col-lg-12 "  placeholder="feature unavailable"{% if search %} value="{{ search }}"{% endif %}>
+                         <button  class="btn btn-small btn-dark disabled " disable disabled><i class="fa fa-search"></i> Search</button>
+                       </div>
+                   </form>
+               </th>
+           </tr>
+<tr>
     <th scope="col">Category</th>
     <th scope="col">First Name</th>
     <th scope="col">Last Name</th>
@@ -36,6 +52,7 @@
     <th scope="col">Phone</th>
   </tr>
 </thead>
+{% endblock %}
 <tbody>
 {% for book in object_list %}
   <tr>
@@ -53,21 +70,26 @@
   </tr>
   </tbody>
   </table>
-  {# .... **Now the pagination section** .... #}
 {% if is_paginated %}
-    <div class="pagination">
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
         <span class="page-links">
             {% if page_obj.has_previous %}
-                <a href="/contacts?page={{ page_obj.previous_page_number }}">previous</a>
+              <li>
+                <a  aria-label="Previous" href="/contacts?page={{ page_obj.previous_page_number }}"><span aria-hidden="true">&laquo;</span>previous
+                  </a>
+                      </li>
             {% endif %}
             <span class="page-current">
                 Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
             </span>
             {% if page_obj.has_next %}
-                <a href="/contacts?page={{ page_obj.next_page_number }}">next</a>
+              <li>  <a href="/contacts?page={{ page_obj.next_page_number }}" aria-label="Next">next<span aria-hidden="true">&raquo;</span></a></li>
             {% endif %}
         </span>
-    </div>
+      </ul>
+    </nav>
+
 {% endif %}
 </div>
   {% else %}
