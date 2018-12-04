@@ -17,6 +17,9 @@ django-tables2 = "*"
 django-address = "*"
 confusable-homoglyphs = "*"
 django-crispy-forms = "*"
+terminaltables = "*"
+sqlite3 = "*"
+libsqlite3-dev = "*"
 
 [requires]
 python_version = "3.7"

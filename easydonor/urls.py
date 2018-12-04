@@ -27,6 +27,8 @@ import contacts
 from contacts import views, tables, models
 from contacts.tables import *
 from contacts.models import Contact
+from contacts.views import *
+
 from django.contrib.auth.models import User
 
 from django.views.generic import TemplateView
@@ -49,7 +51,7 @@ urlpatterns = [
 
     # From urls.py in other apps
     path('accounts/', include('accounts.urls')),
-
+    # url(r'^$', ContactsListView.as_view(), name='contacts'),
 
 
     # path('', views.post_list, name='post_list'),
@@ -58,9 +60,9 @@ urlpatterns = [
     # path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
 
 
-    url(r'^contacts/', contact_table),
-    path('contacts/', TemplateView.as_view(template_name='contacts.html'), name='contacts'),
-    # path('contacts/', views.contacts_view, name='contacts'),
+    # url(r'^contacts/', contact_table),
+    # path('contacts/', TemplateView.as_view(template_name='contacts.html'), name='contacts'),
+    path('contacts/', views.BookListView.as_view(), name='contacts'),
     path('contacts/<int:pk>/', views.contacts_detail_view, name='detail'),
     path('new', views.contacts_new, name='new'),
     path('<int:pk>/edit/', views.contacts_edit, name='edit'),

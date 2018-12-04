@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block body_block %}
+
+<!-- CREATE TABLE IF NOT EXISTS "contacts_contact" ("Owner_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED, "uuid" varchar(22) NOT NULL PRIMARY KEY, "Created_On" date NOT NULL, "Contact_Category" varchar(20) NOT NULL, "Account" varchar(100) NOT NULL, "Address" varchar(255) NOT NULL, "City" varchar(255) NOT NULL, "State" varchar(2) NOT NULL, "Postal_code" varchar(20) NOT NULL, "Country" varchar(30) NOT NULL, "Company" varchar(50) NOT NULL, "First_Name" varchar(30) NOT NULL, "Last_Name" varchar(30) NOT NULL, "Email" varchar(254) NOT NULL, "Phone" varchar(20) NOT NULL, "First_Name2" varchar(30) NOT NULL, "Last_Name2" varchar(30) NOT NULL, "Phone2" varchar(20) NOT NULL, "Email2" varchar(254) NOT NULL, "Note" text NOT NULL);
+CREATE INDEX "contacts_contact_Owner_id_3d7a8cab" ON "contacts_contact" ("Owner_id"); -->
+
+<div class="container"
+<div class="row">
+<h1>Contacts</h1>
+</div>
+<div class="row">
+{{ Contact }}
+</div>
+<div class="row">
+
+  <ul>
+  {% for contact in object_list %}
+      <li>{{ contact.City }}
+  {% endfor %}
+  </ul>
+  <ul>
+  {% for contact in table %}
+      <li>{{ contact.First_Name }}</li>
+  {% endfor %}
+  </ul>
+
+<table>
+  <tr>
+
+    <td>{{ contact.item }}</td>
+    <td>{{ contacts.item}}</td>
+  {{ Contacts }}
+  {{ table }}
+  {{ contacts }}
+
+  {{ contacts.contacts }}
+  {{ contacts.contacts }}
+  {% for row in column %}
+  {{ output.row }}
+  {{ column.row }}
+  {{ row }}
+  {% endfor  %}
+
+  </table>
+</div>
+<div class="row">
+  <p>Other words here</p>
+</div>
+<div class="row">
+
+  {% endblock  %}

@@ -48,6 +48,10 @@ class Contact(models.Model):
     class Meta:
         verbose_name_plural = 'Contacts'
 
+    def to_class_name(value):
+        return value.__class__.__name__
+
+
     # def get_absolute_url(self):
     #     return u'/some_url/%d' % self.id
 

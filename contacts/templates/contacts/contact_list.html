@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body_block %}
+  <h1>Book List</h1>
+  {% if object_list %}
+  <ul>
+    {% for book in object_list %}
+      <li>
+{{ book.First_Name }}</a> ({{book.Last_Name}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no books in the library.</p>
+  {% endif %}
+{% endblock %}
