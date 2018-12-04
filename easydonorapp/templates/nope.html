@@ -1,0 +1,21 @@
+
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block body_block %}
+
+
+<div class="container" >
+    <div class="row title"  >
+      <div class="title"><h1>{% block title %}
+          Something went wrong
+      {% endblock %}</h1>
+
+
+    </div>
+    </div>
+<div class="row">
+  <p>Contact already exists</p>
+</div>
+    {% endblock %}

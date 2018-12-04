@@ -17,6 +17,10 @@ from contacts.models import *
 from contacts.tables import *
 from contacts.views_auth import *
 
+from django.core.paginator import Paginator
+
+
+
 
 #
 # class contact_table_maker(tables.Table):
@@ -35,22 +39,39 @@ from contacts.views_auth import *
 
 
 # Main Contcts List as_view
-class BookListView(generic.ListView):
+class ContactListView(generic.ListView):
     model = Contact
+    paginate_by = 10
+
     def get_context_data(self, **kwargs):
     # Call the base implementation first to get the context
-        context = super(BookListView, self).get_context_data(**kwargs)
-    # Create any data and add it to the context
+        context = super(ContactListView, self).get_context_data(**kwargs)
+        # paginator = Paginator(list_exam, self.paginate_by)
+        # page = self.request.GET.get('page')
+        #
+        # try:
+        #     file_exams = paginator.page(page)
+        # except PageNotAnInteger:
+        #     file_exams = paginator.page(1)
+        # except EmptyPage:
+        #     file_exams = paginator.page(paginator.num_pages)
+
         context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
         return context
 
 class DonorListView(generic.ListView):
     model = Contact
-    def get_context_data(self, **kwargs):
-        context = super(DonorListView, self).get_context_data(**kwargs)
-        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('First_Name')
-        return context
+def get_context_data(self, **kwargs):
+    context = super(DonorListView, self).get_context_data(**kwargs)
+    context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('First_Name')
+    return context
 
+class VendorListView(generic.ListView):
+    model = Contact
+    def get_context_data(self, **kwargs):
+        context = super(VendorListView, self).get_context_data(**kwargs)
+        context['object_list'] = Contact.objects.filter(Q(Contact_Category='vendor')).order_by('Company')
+        return context
 
 class generic_contact_form(ModelForm):
     class Meta:
@@ -66,7 +87,10 @@ def contacts_new(request):
                 Contact.Owner = request.user
                 Contact.Account = 'account'
                 Contact.save()
-                return redirect('contacts/new', pk=Contact.uuid)
+                return redirect('contacts')
+        else:
+            return redirect('nope')
+
                 # return redirect('contacts/detail',pk = uuid)
     else:
         form = generic_contact_form()
@@ -80,18 +104,10 @@ def contacts_edit(request, pk):
             Contact = form.save(commit=False)
             Contact.Owner = request.user
             Contact.save()
-            return redirect('contacts/edit', pk=Contact.uuid)
+            return redirect('edit', pk=Contact.uuid)
     else:
         form = generic_contact_form(instance=Contact)
     return render(request, '/edit.html', {'form': form})
-
-# Views for form results tables
-from django.views.generic.list import ListView
-
-
-
-
-
 
 # Views for forms
 class contacts_new_view(FormView):
@@ -117,7 +133,7 @@ class contacts_edit_view(FormView):
 
 class donors_view(LoggedInMixin, ContactOwnerMixin, DetailView):
     model = Contact
-    template_name = 'contacts/donors.html'
+    template_name = 'donors.html'
     fields = '__all__'
 
 
@@ -134,7 +150,7 @@ class vendor_categories_view(CreateView):
 
 class vendors_view( LoggedInMixin, ContactOwnerMixin, DetailView):
     model = Contact
-    template_name = 'contacts/vendors.html'
+    template_name = 'vendors.html'
     fields = '__all__'
 
     # path('contacts/', views.contacts_view, name='contacts'),

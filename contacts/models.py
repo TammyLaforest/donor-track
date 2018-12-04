@@ -45,8 +45,13 @@ class Contact(models.Model):
     Email2 = models.EmailField(validators=[validate_email], blank=True )
     Note = models.TextField(blank=True)
 
+
+
     class Meta:
         verbose_name_plural = 'Contacts'
+        unique_together = (("Last_Name", "First_Name"),)
+        unique_together = (("Last_Name2", "First_Name2"),)
+        unique_together = (("Company", "Owner"),)
 
     def to_class_name(value):
         return value.__class__.__name__
