@@ -1,5 +1,3 @@
-import django_filters
-
 from django.db import models
 from django.db.models import Q
 from django.views import generic, View
@@ -20,18 +18,39 @@ from contacts.tables import *
 from contacts.views_auth import *
 
 
-# Forms
+#
+# class contact_table_maker(tables.Table):
+#     class Meta:
+#         model = Contact
+#         template_name = 'contacts.html'
+#
+#         def get_success_url(self):
+#             return reverse('/contacts.html')
+#
+#
+# def contact_table(request):
+#     table = contact_table_maker(Contact.objects.all( ))
+#     return render(request, 'contacts/contacts.html', {'contact_table': Contact.objects.filter(Q(Owner=request.user))})
 
 
+
+# Main Contcts List as_view
 class BookListView(generic.ListView):
     model = Contact
-
     def get_context_data(self, **kwargs):
     # Call the base implementation first to get the context
         context = super(BookListView, self).get_context_data(**kwargs)
     # Create any data and add it to the context
-        context['some_data'] = 'This is just some data'
+        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
         return context
+
+class DonorListView(generic.ListView):
+    model = Contact
+    def get_context_data(self, **kwargs):
+        context = super(DonorListView, self).get_context_data(**kwargs)
+        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('First_Name')
+        return context
+
 
 class generic_contact_form(ModelForm):
     class Meta:
@@ -70,29 +89,9 @@ def contacts_edit(request, pk):
 from django.views.generic.list import ListView
 
 
-class ContactsListView(ListView):
-    model = Contact
-    def get_context_data(self, **kwargs):
-        context = super(ContactsListView, self).get_context_data(**kwargs)
-        return context
-
-#
-# class contacts_view(ListView):
-#     model = Contact
-#
-#     def index(request):
-#         contacts = Contact.objects.all()
-#         template = loader.get_template('contacts.html')
-#         context = {
-#             'Contact': Contact,
-#         }
-#         return render(request, 'contacts.html', context)
 
 
-class contacts_detail_view(LoggedInMixin, ContactOwnerMixin, DetailView):
-    model = Contact
-    template_name = 'contacts/detail.html'
-    fields = '__all__'
+
 
 # Views for forms
 class contacts_new_view(FormView):
