@@ -1,20 +1,20 @@
 from django.db import models
-from django import forms
-
+from django.conf import settings
 from django.urls import reverse
-
 from shortuuidfield import ShortUUIDField
-
 from django.core.validators import validate_email
-from django.forms import ModelForm
 
-from django.contrib.auth.models import User
-from model_utils import Choices
-from .views import UserManager
+from django.forms import forms
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Generic contact model
 class Contact(models.Model):
-    Owner = models.ForeignKey(User, on_delete = models.CASCADE)
+
+    Owner = models.ForeignKey(
+      settings.AUTH_USER_MODEL,
+      on_delete=models.CASCADE
+    )
     uuid = ShortUUIDField(unique=True, primary_key = True,)
     Created_On = models.DateField(auto_now_add=True)
     CATEGORY_CHOICES = ( ('donor', 'Donor'), ('vendor', 'Vendor'))
@@ -49,10 +49,6 @@ class Contact(models.Model):
         unique_together = (("Last_Name", "First_Name"),)
         unique_together = (("Last_Name2", "First_Name2"),)
         unique_together = (("Company", "Owner"),)
-
-    def save_model(self, request, obj, form, change):
-        obj.Owner_id = request.user
-        super().save_model(request, obj, form, change)
 
 
 class Format(models.Model):

@@ -6,22 +6,18 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-materialize = "*"
-django = "*"
-django-filter = "*"
-django-filters = "*"
-django-materialize = "*"
+Django = "*"
 django-shortuuidfield = "*"
-bootstrap = "*"
 django-address = "*"
-confusable-homoglyphs = "*"
 django-crispy-forms = "*"
 terminaltables = "*"
 sqlite3 = "*"
 libsqlite3-dev = "*"
-django-haystack = "*"
-elasticsearch = "*"
+pillow = "*"
+pipenv-resolver = "*"
+model-utils = "*"
 django-model-utils = "*"
+django-allauth = "*"
 
 [requires]
 python_version = "3.7"

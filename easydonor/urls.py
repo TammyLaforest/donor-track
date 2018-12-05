@@ -13,12 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.db import models
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import include, url
-
-import accounts
-from accounts import views
 
 import easydonorapp
 from easydonorapp import views
@@ -30,30 +29,32 @@ from contacts import views, models
 from contacts.models import *
 from contacts.views import *
 
-from django.contrib.auth.models import User
-
-from django.views.generic import TemplateView
 from django.contrib import admin
 from django.urls import path, include
 
-from django.conf import settings
+
 from django.conf.urls.static import static
-from django_filters.views import FilterView
+
+
 
 urlpatterns = [
 
-    # url(r'^search/', include('haystack.urls')),
-    # url(r'^/search/?$', MySearchView.as_view(), name='search_view'),
-    path('search/', views.ContactListView.as_view(),name='search',),
+
+    path('', include('easydonorapp.urls')),
+    path('users', include('users.urls')),
+    path('accounts/', include('allauth.urls')),
+
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
+
+    path('search/', views.ContactListView.as_view(),name='search',),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # path('users/', include('django.contrib.auth.urls')),
+    path('admin/', admin.site.urls),
+
     path('nope/', TemplateView.as_view(template_name='nope.html'), name='nope'),
     path('deposit/', easydonorapp.views.DonorDepositView.as_view(),name='deposit',),
     path('deposit_list/', easydonorapp.views.DepositView.as_view(),name='deposit_list',),
     url(r'^(?P<pk>\d+)/$', easydonorapp.views.DonorListDepositView.as_view(), name='deposit_list'),
-    path('accounts/', include('accounts.urls')),
     path('contacts/', views.ContactListView.as_view(), name='contacts'),
     url(r'^contact/donors/(?P<pk>\d+)/$', views.DonorListView.as_view(), name='donors'),
     path('donors/', views.DonorListView.as_view(), name='donors'),
@@ -64,5 +65,3 @@ urlpatterns = [
 
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # This is how you view images from media folder.
-
-        

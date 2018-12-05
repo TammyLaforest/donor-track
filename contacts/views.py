@@ -16,21 +16,13 @@ from crispy_forms.layout import Layout, Fieldset
 
 from django.contrib.auth.models import User
 from contacts import models
-from contacts.models import *
-
-from contacts.views_auth import *
-
+from contacts.models import Contact
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
-
-users = User.objects.all().select_related('profile')
-
-
-# class Course(models.Model):
-#     slug = models.SlugField(max_length=100)
-#     name = models.CharField(max_length=100)
-#     tutor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+from django.contrib.auth import get_user_model
+User = get_user_model()
+# users = User.objects.all().select_related('profile')
 
 class ContactListView(generic.ListView):
     model = Contact

@@ -1,7 +1,8 @@
 
 {% extends "layout.html" %}
 {% load static %}
-
+<!-- templates/home.html -->
+{% load socialaccount %}
 
 {% block body_block %}
 
@@ -13,20 +14,20 @@
       {% endblock %}</h1>
     </div>
     </div>
-
-{% if not request.user.is_authenticated %}
     <div class="row" >
-        <h4>Welcome to EasyDonor- the app that doesn't work yet.</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus ex nec est dignissim, in vestibulum nibh lacinia. Maecenas ac sapien et nisi facilisis congue. Praesent ut nisi sodales, tincidunt odio at, vulputate nisl. Mauris facilisis neque non neque posuere, efficitur interdum nunc venenatis. Nullam rhoncus nisl nec libero porttitor, finibus convallis lorem condimentum. In ante libero, lacinia vel neque nec, congue fringilla ligula. Maecenas vitae dolor pharetra, pellentesque nisi a, lacinia enim. Cras vel lectus mauris.</p>
+{% if user.is_authenticated %}
 
-        <p>Ut mattis luctus magna, eget sollicitudin arcu dignissim a. Integer id augue mauris. Morbi hendrerit tellus facilisis, tempor sapien porttitor, venenatis velit. In euismod ex a orci posuere faucibus. Quisque faucibus sem et justo mattis ultricies. Morbi vehicula euismod egestas. Proin vulputate elit orci, id auctor dolor tristique fermentum. Nulla et enim dignissim, ultrices quam eu, vulputate metus.</p>
+        <p>Welcome {{ user.username }} !!!</p>
+<p><a href="{% url 'account_logout' %}">Log out</a>
     </div>
-    <!-- <div class="row">
-      <img class="halfpage"src='{% static "easydonorapp/media/easydonorimage.png" %}'>
-    </div> -->
+{% else %}
+<p><a href="{% url 'account_signup' %}">Sign Up</a></p>
+<p><a href="{% url 'account_login' %}">Log In </a></p>
+<p><a href="{% provider_login_url 'google' %}">Log In with Gmail</a></p>
+</div>
 {% endif %}
 
-{% if request.user.is_authenticated %}
+{% if user.is_authenticated %}
 <div class="row" >
     <h4>Your Home Page</h4>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus ex nec est dignissim, in vestibulum nibh lacinia. Maecenas ac sapien et nisi facilisis congue. Praesent ut nisi sodales, tincidunt odio at, vulputate nisl. Mauris facilisis neque non neque posuere, efficitur interdum nunc venenatis. Nullam rhoncus nisl nec libero porttitor, finibus convallis lorem condimentum. In ante libero, lacinia vel neque nec, congue fringilla ligula. Maecenas vitae dolor pharetra, pellentesque nisi a, lacinia enim. Cras vel lectus mauris.</p>

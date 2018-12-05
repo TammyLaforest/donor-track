@@ -1,5 +1,5 @@
 from django.db import models
-from django import forms
+from django.conf import settings
 
 from django.urls import reverse
 
@@ -8,7 +8,8 @@ from shortuuidfield import ShortUUIDField
 from django.core.validators import validate_email
 from django.forms import ModelForm
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from contacts.models import Contact
 from model_utils import Choices
 
@@ -42,7 +43,10 @@ FEES_CHOICES =  Choices (
 )
 
 class Pledges(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.CASCADE)
+    owner = models.ForeignKey(
+      settings.AUTH_USER_MODEL,
+      on_delete=models.CASCADE
+    )
     donor = models.ForeignKey(Contact, on_delete=models.CASCADE)
     pledge_number = models.AutoField(primary_key=True)
     pledge_date = models.DateField(auto_now_add=True, blank=False)
@@ -57,7 +61,10 @@ class Pledges(models.Model):
 
 
 class DepositSlip(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.CASCADE)
+    owner = models.ForeignKey(
+      settings.AUTH_USER_MODEL,
+      on_delete=models.CASCADE
+    )
     deposit_number = models.AutoField(primary_key=True, unique=True)
     deposit_date = models.DateField(auto_now_add=True, blank=False)
     bank_account = models.CharField(
@@ -71,7 +78,10 @@ class DepositSlip(models.Model):
 
 
 class Payments(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.CASCADE, blank=False)
+    owner = models.ForeignKey(
+      settings.AUTH_USER_MODEL,
+      on_delete=models.CASCADE
+    )
     donor = models.OneToOneField(Contact, on_delete = models.CASCADE, blank=False)
     deposit_number = models.ForeignKey(DepositSlip, on_delete=models.CASCADE, blank=False)
     payment_number = models.AutoField(primary_key=True)

@@ -1,17 +1,18 @@
-from contacts.models import Contact
-
 from django.db import models
+from django.conf import settings
 from django.db.models import Q
 from django.views import generic, View
 from django.views.generic import ListView, CreateView, DetailView, TemplateView
-import django_filters
-from django_filters.views import FilterView
-
-from elasticsearch import Elasticsearch
-from datetime import date
-from haystack.generic_views import SearchView
 from django import forms
-from haystack.forms import SearchForm
+from django.forms import ModelForm
+from contacts.models import Contact
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
+# pages/views.py
+class HomePageView(TemplateView):
+    template_name = 'home.html'
+
 
 class Thanks_View(CreateView):
     model = Contact
