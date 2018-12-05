@@ -10,6 +10,7 @@ from django.forms import ModelForm
 
 from django.contrib.auth.models import User
 from model_utils import Choices
+from .views import UserManager
 
 # Generic contact model
 class Contact(models.Model):
@@ -48,6 +49,10 @@ class Contact(models.Model):
         unique_together = (("Last_Name", "First_Name"),)
         unique_together = (("Last_Name2", "First_Name2"),)
         unique_together = (("Company", "Owner"),)
+
+    def save_model(self, request, obj, form, change):
+        obj.Owner_id = request.user
+        super().save_model(request, obj, form, change)
 
 
 class Format(models.Model):

@@ -10,7 +10,12 @@
 
       <div class="row" >
 
-<p>Profile here</p>
+          <form method="post">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <button type="submit">Save changes</button>
+      </form>
 
       {% endblock %}
 </div>

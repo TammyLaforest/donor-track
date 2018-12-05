@@ -24,6 +24,9 @@ margin-bottom: .5em;
   margin-top: 2em;
 }
 
+.hide {
+  display: none;
+}
 /* .halfpage {
   width: 100%;
      height: auto;
