@@ -11,10 +11,7 @@ User = get_user_model()
 # Generic contact model
 class Contact(models.Model):
 
-    Owner = models.ForeignKey(
-      settings.AUTH_USER_MODEL,
-      on_delete=models.CASCADE
-    )
+    Owner = models.OneToOneField(User, on_delete=models.SET_NULL, related_name="Owner", null=True, blank=True)
     uuid = ShortUUIDField(unique=True, primary_key = True,)
     Created_On = models.DateField(auto_now_add=True)
     CATEGORY_CHOICES = ( ('donor', 'Donor'), ('vendor', 'Vendor'))

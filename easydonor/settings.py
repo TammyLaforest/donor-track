@@ -9,8 +9,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from django.conf import settings
-from django.urls import reverse_lazy
-
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -252,9 +250,9 @@ ACCOUNT_USERNAME_REQUIRED = False
 #
 AUTH_USER_MODEL = 'auth.User'
 # USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
-USER_MODEL = AUTH_USER_MODEL,
-LOGIN_REDIRECT_URL = reverse_lazy('home')
-LOGIN_URL = reverse_lazy('account:login')
-LOGOUT_REDIRECT_URL = reverse_lazy('account:logout')
+USER_MODEL = AUTH_USER_MODEL
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login'
+LOGOUT_REDIRECT_URL = '/logout'
 #
 # EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")

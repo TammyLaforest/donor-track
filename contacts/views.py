@@ -24,30 +24,46 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 # users = User.objects.all().select_related('profile')
 
+from django.views import generic
+
+
+class ContactsView(TemplateView):
+    model = Contact
+    template_name = "contacts.html"
+
+    # def get_context_data(self, **kwargs):
+    #     url = reverse('contacts')
+    #     context = super().get_context_data(**kwargs)
+    #     context['contact'] = Contact.objects.all()[:5]
+    #     return context
+
 class ContactListView(generic.ListView):
     model = Contact
     paginate_by = 10
-    def get_context_data(self, **kwargs):
-    # Call the base implementation first to get the context
-        context = super(ContactListView, self).get_context_data(**kwargs)
-        # Need Paginator info
-        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
-        return context
+    # def get_context_data(self, **kwargs):
+    # # Call the base implementation first to get the context
+    #     context = super(ContactListView, self).get_context_data(**kwargs)
+    #     # Need Paginator info
+    #     context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
+    #     return context
+
+class ContactDetailView(generic.DetailView):
+    model = Contact
 
 class DonorListView(generic.ListView):
     model = Contact
-    def get_context_data(self, **kwargs):
-        context = super(DonorListView, self).get_context_data(**kwargs)
-        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(DonorListView, self).get_context_data(**kwargs)
+    #     context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
+    #     return context
 
 class VendorListView(generic.ListView):
     model = Contact
-    def get_context_data(self, **kwargs):
-        context = super(VendorListView, self).get_context_data(**kwargs)
-        Owner = User
-        context['object_list'] = Contact.objects.filter(Q(Contact_Category='vendor')).order_by('Company')
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(VendorListView, self).get_context_data(**kwargs)
+    #     Owner = User
+    #     context['object_list'] = Contact.objects.filter(Q(Contact_Category='vendor')).order_by('Company')
+    #     return context
 
 class generic_contact_form(ModelForm):
     class Meta:
@@ -65,7 +81,7 @@ def contacts_new(request):
                     obj.Owner_id = request.user
                     super().save_model(request, obj, form, change)
                 Contact.save()
-                return redirect('contacts_list')
+                return redirect('contact-list')
         else:
             return redirect('nope')
     else:
@@ -83,7 +99,7 @@ def contacts_edit(request, pk):
             if not Company and not Last_Name:
                 raise forms.ValidationError('Please include a contact name or company!')
             Contact.save()
-            return redirect('edit_contact', pk=Contact.uuid)
+            return redirect('contact-list', pk=Contact.uuid)
     else:
         form = generic_contact_form(instance=Contact)
     return render(request, 'contacts/edit_contact.html', {'form': form})
@@ -93,7 +109,7 @@ def contacts_edit(request, pk):
 class contacts_new_view(FormView):
     template_name = 'new_contact.html'
     form_class = generic_contact_form
-    success_url = '/contacts-list/'
+    success_url = '/contact-list/'
 
     def form_valid(self, form):
         def contacts_new():
@@ -102,7 +118,7 @@ class contacts_new_view(FormView):
 class contacts_edit_view(FormView):
     template_name = 'edit_contact.html'
     form_class = generic_contact_form
-    success_url = '/contacts-list/'
+    success_url = '/contact-list/'
 
     def form_valid(self, form):
         def contacts_edit():
@@ -112,7 +128,7 @@ class contacts_edit_view(FormView):
 class contacts_delete_view(FormView):
     template_name = 'delete_contact.html'
     form_class = generic_contact_form
-    success_url = '/contacts-contacts_list/'
+    success_url = 'home'
 
     def form_valid(self, form):
         def contacts_edit():

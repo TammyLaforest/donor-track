@@ -28,7 +28,7 @@
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-md navbar-light bg-light border">
-        <a class="navbar-brand" href="/">EasyDonor</a>{% if request.user.is_authenticated %}<span> Hi, {{ user.username }} {{ user.id }}!</span> {% else %}<span>You are not logged in.</span>{% endif %}
+        <a class="navbar-brand" href="{% url 'index' %}">EasyDonor</a>{% if request.user.is_authenticated %}<span> Hi, {{ user.username }} {{ user.id }}!</span> {% else %}<span>You are not logged in.</span>{% endif %}
         <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -38,15 +38,16 @@
               <!-- Will appear after login -->
                 <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="contacts:contacts" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Contacts</a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{% url 'contacts:contacts_list' %}">Contacts Table</a>
-                    <a class="dropdown-item" href="{% url 'contacts:new_contact' %}">New Contact</a>
+                    <a class="nav-link dropdown-toggle" href="contacts" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Contacts</a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                         <a class="dropdown-item" href="{% url 'new_contact' %}">New Contact</a>
+                         <a class="dropdown-item" href="{% url 'contact-list' %}">New Contact</a>
+
                 </div>
             </li>
             <li class="nav-item"><a class="nav-link" href={% url 'deposit' %}>Deposit</a></li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="{% url 'contacts:donors' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="{% url 'socialaccount_connections' %}">Social Accounts</a>
                 <a class="dropdown-item" href="{% url 'account_reset_password' %}">Reset Password</a>
@@ -75,10 +76,11 @@
 <!-- End of navigation -->
 <div class="content container">
     <div class="row">
+        <div class="container">
             {% block content %}
             You Shouldn't see this
             {% endblock  %}
-
+        </div>
     </div>
 </div>
 <footer>

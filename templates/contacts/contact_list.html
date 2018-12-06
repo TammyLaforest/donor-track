@@ -12,7 +12,7 @@
             {% if user.is_authenticated %}
             <div class="row">
               <div class="btn-group" role="group" aria-label="group">
-                <a type=button class="btn btn-primary" href="{% url 'contacts' %}">All</a>
+                <a type=button class="btn btn-primary" href="">All</a>
                 <a type=button class="btn btn-primary" href="{% url 'donors' %}">Donors</a>
                 <a type=button class="btn btn-primary" href="{% url 'vendors' %}">Vendors</a>
                 <a type=button class="btn btn-primary" href="{% url 'deposit' %}">Deposit</a>
@@ -26,14 +26,14 @@
        {% block table.thead %}
        <thead>
            <tr>
-               <th><a href="{% url "new" %}" class="btn btn-small btn-primary dark"><span class="hidden-phone"><i class="fa fa-user-plus"></i> Add Contact</span></a>
+               <th><a href="{% url "new_contact" %}" class="btn btn-small btn-primary dark"><span class="hidden-phone"><i class="fa fa-user-plus"></i> Add Contact</span></a>
 
                </th>
                <th colspan="6">
-                   <form action="{% url 'search' %}" method="post" class="form-inline form-search pull-right">
+                   <form action="{% url 'searc" method="post" class="form-inline form-search pull-right">
                      {% csrf_token %}
                        <div>
-                         <input id="search_form_id" name="search" type="text"   disabled class="form-control col-lg-12 "  placeholder="feature unavailable"{% if search %} value="{{ search }}"{% endif %}>
+                         <input id="search_form_id" name="search" type="text"   disabled class="form-control col-lg-12 "  placeholder="feature unavailable"{% if search %} value="{{ search "{% endif %}>
                          <button  class="btn btn-small btn-dark disabled " disable disabled><i class="fa fa-search"></i> Search</button>
                        </div>
                    </form>
@@ -70,25 +70,6 @@
   </tr>
   </tbody>
   </table>
-{% if is_paginated %}
-  <nav aria-label="Page navigation">
-    <ul class="pagination">
-        <span class="page-links">
-            {% if page_obj.has_previous %}
-              <li>
-                <a  aria-label="Previous" href="/contacts?page={{ page_obj.previous_page_number }}"><span aria-hidden="true">&laquo;</span>previous
-                  </a>
-                      </li>
-            {% endif %}
-            <span class="page-current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-            {% if page_obj.has_next %}
-              <li>  <a href="/contacts?page={{ page_obj.next_page_number }}" aria-label="Next">next<span aria-hidden="true">&raquo;</span></a></li>
-            {% endif %}
-        </span>
-      </ul>
-    </nav>
 
 {% endif %}
 </div>
@@ -96,5 +77,5 @@
     <p>There are no contacts in this list.</p>
   {% endif %}
     {% endif %}
-    {% endif %}
+
 {% endblock %}

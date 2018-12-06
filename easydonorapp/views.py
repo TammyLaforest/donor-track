@@ -10,6 +10,49 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.shortcuts import redirect
 from django.urls import reverse
+
+from contacts.models import Contact
+from users.models import Profile
+
+def index(request):
+    """View function for home page of site."""
+
+    # Generate counts of some of the main objects
+    num_contacts = Contact.objects.all().count()
+    num_instances = ContactInstance.objects.all().count()
+
+    # Available books (status = 'a')
+    num_instances_available = ContactInstance.objects.filter(status__exact='a').count()
+
+    # The 'all()' is implied by default.
+    num_profiles = Profile.objects.count()
+
+    context = {
+        'num_contacts': num_contacts,
+        'num_instances': num_instances,
+        'num_instances_available': num_instances_available,
+        'num_profiles': num_profiles,
+    }
+
+    # Render the HTML template index.html with the data in the context variable
+    return render(request, 'index.html', context=context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def my_view(request):
     ...
     obj = MyModel.objects.get(...)
@@ -19,7 +62,6 @@ def my_view(request):
 # pages/views.py
 class HomePageView(TemplateView):
     template_name = 'home.html'
-
 
 class Thanks_View(CreateView):
     model = Contact
@@ -32,20 +74,14 @@ class DepositView(CreateView):
     template_name = 'deposit.html'
     fields ='__all__'
 
-class DonorDepositView(generic.ListView):
+class DonorListDepositView(ListView):
+
     model = Contact
-    paginate_by = 10
-    def get_context_data(self, **kwargs):
-        context = super(DonorDepositView, self).get_context_data(**kwargs)
-        # Need Paginator info
-        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
-        return context
+    template_name = 'deposit.html'
+    fields ='__all__'
 
+class DonorDepositView(CreateView):
 
-class DonorListDepositView(DetailView):
     model = Contact
-
-    def get_deposit_data(self, **kwargs):
-        context = super(DonorListDepositView, self).get_deposit_data(**kwargs)
-        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
-        return context
+    template_name = 'deposit.html'
+    fields ='__all__'
