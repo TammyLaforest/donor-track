@@ -23,9 +23,7 @@
 {% else %}
 <p><a href="{% url 'account_signup' %}">Sign Up</a></p>
 <p><a href="{% url 'account_login' %}">Log In </a></p>
-{% load socialaccount %}
-<a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id
-˓→" next="/success/url/" %}">Log in with Gmail</a>
+
 </div>
 {% endif %}
 

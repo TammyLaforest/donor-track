@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from django.conf import settings
+from django.urls import reverse_lazy
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -37,7 +39,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.facebook',
 
     'django.contrib.auth',
@@ -158,31 +160,35 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 10
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 # 1 day. This does ot prevent admin login frombeing brut forced.
-ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login/' #or any other page
-LOGIN_REDIRECT_URL = '/accounts/email/' # redirects to profile page by default
+ACCOUNT_LOGOUT_REDIRECT_URL ='/account/login/' #or any other page
+LOGIN_REDIRECT_URL = '/account/email/' # redirects to profile page by default
 ACCOUNT_PRESERVE_USERNAME_CASING = False # reduces the delays in iexact lookups
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 ACCOUNT_UNIQUE_EMAIL=True
 ACCOUNT_USERNAME_MIN_LENGTH = 5
 ACCOUNT_USERNAME_REQUIRED =True
 ACCOUNT_USERNAME_VALIDATORS = None
-
+APPEND_SLASH = True
 #Account adapters
 ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+
 FORM_RENDERER ='django.forms.renderers.DjangoTemplates'
-
-ACCOUNT_FORMS = {'add_email': 'allauth.account.forms.AddEmailForm',}
-ACCOUNT_FORMS = {'change_password': 'allauth.account.forms.ChangePasswordForm',}
-ACCOUNT_FORMS = {'disconnect': 'allauth.socialaccount.forms.DisconnectForm',}
-ACCOUNT_FORMS = {'login': 'allauth.account.forms.LoginForm',}
-ACCOUNT_FORMS = {'reset_password': 'allauth.account.forms.ResetPasswordForm',}
-ACCOUNT_FORMS = {'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',}
-ACCOUNT_FORMS = {'set_password': 'allauth.account.forms.SetPasswordForm',}
-ACCOUNT_FORMS = {'signup': 'allauth.account.forms.SignupForm',}
-ACCOUNT_FORMS = {'signup': 'allauth.socialaccount.forms.SignupForm',}
-
+ACCOUNT_FORMS = {
+'login': 'allauth.account.forms.LoginForm',
+'signup': 'allauth.account.forms.SignupForm',
+'add_email': 'allauth.account.forms.AddEmailForm',
+'change_password': 'allauth.account.forms.ChangePasswordForm',
+'set_password': 'allauth.account.forms.SetPasswordForm',
+'reset_password': 'allauth.account.forms.ResetPasswordForm',
+'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
+'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+}
+# SOCIALACCOUNT_FORMS = {
+# 'login': 'allauth.socialaccount.forms.DisconnectForm',
+# 'signup': 'allauth.socialaccount.forms.SignupForm',
+# }
 #Social Account Settings
-SOCIALACCOUNT_PROVIDERS = {
+# SOCIALACCOUNT_PROVIDERS = {
     # 'facebook': {
     #     'METHOD': 'oauth2',
     #     'SCOPE': ['email', 'public_profile', 'user_friends'],
@@ -206,19 +212,19 @@ SOCIALACCOUNT_PROVIDERS = {
     #     'VERIFIED_EMAIL': False,
     #     'VERSION': 'v2.12',
     # },
-     'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
-SOCIALACCOUNT_QUERY_EMAIL=ACCOUNT_EMAIL_REQUIRED
-SOCIALACCOUNT_EMAIL_REQUIRED=ACCOUNT_EMAIL_REQUIRED
-SOCIALACCOUNT_STORE_TOKENS=False
+#      'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         }
+#     }
+# }
+# SOCIALACCOUNT_QUERY_EMAIL=ACCOUNT_EMAIL_REQUIRED
+# SOCIALACCOUNT_EMAIL_REQUIRED=ACCOUNT_EMAIL_REQUIRED
+# SOCIALACCOUNT_STORE_TOKENS=False
 
 
 
@@ -239,8 +245,8 @@ ACCOUNT_USERNAME_REQUIRED = False
 AUTH_USER_MODEL = 'auth.User'
 # USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 USER_MODEL = AUTH_USER_MODEL,
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
-# LOGIN_URL = 'django.contrib.auth.views.login'
+LOGIN_REDIRECT_URL = reverse_lazy('home')
+LOGIN_URL = reverse_lazy('account:login')
+LOGOUT_REDIRECT_URL = reverse_lazy('account:logout')
 #
 # EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")

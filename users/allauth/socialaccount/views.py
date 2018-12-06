@@ -26,6 +26,13 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
     template_name = (
         'socialaccount/signup.' + account_settings.TEMPLATE_EXTENSION)
 
+
+        ...
+    }
+    return render(request, template_name, context, current_app=r.namespace)
+
+
+
     def get_form_class(self):
         return get_form_class(app_settings.FORMS,
                               'signup',
@@ -92,6 +99,9 @@ class ConnectionsView(AjaxCapableProcessFormViewMixin, FormView):
         account_settings.TEMPLATE_EXTENSION)
     form_class = DisconnectForm
     success_url = reverse_lazy("socialaccount_connections")
+
+    # def get_full_url(self, namespace):
+    #     return self.socialaccount_connections + reverse(namespace)
 
     def get_form_class(self):
         return get_form_class(app_settings.FORMS,

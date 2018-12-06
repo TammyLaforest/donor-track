@@ -1,12 +1,12 @@
 from django.conf.urls import url
 
-from allauth.account import views
+from . import views, models, forms
 from allauth import templates
-
+from django.urls import reverse
 
 urlpatterns = [
     url(r"^signup/$", views.signup, name="account_signup"),
-    url(r"^login/$", views.login, name="account_login"),
+    url(r"^account/login/$", views.login, name="account_login"),
     url(r"^logout/$", views.logout, name="account_logout"),
 
     url(r"^password/change/$", views.password_change,

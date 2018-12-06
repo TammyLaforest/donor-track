@@ -9,7 +9,7 @@ from contacts.models import Contact
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.shortcuts import redirect
-
+from django.urls import reverse
 def my_view(request):
     ...
     obj = MyModel.objects.get(...)
