@@ -3,13 +3,19 @@
 /* CSS for layout.html */
 
 .page-header {
-  padding: 1em;
+    padding: 1em;
 }
 
 .navbtn {
-  border: 1px solid gainsboro;
-  background-color: grey;
-  color: black;
+    border: 1px solid gainsboro;
+    background-color: grey;
+    color: black;
+}
+
+.navbtn {
+    border: 1px solid gainsboro;
+    background-color: ;
+    color: black;
 }
 
 /* END Settings for layout.html */
@@ -17,23 +23,23 @@
 
 
 .title {
-margin-top: 2em;
-margin-bottom: .5em;
+    margin-top: 2em;
+    margin-bottom: .5em;
 }
 
 .homedeck {
-  margin-top: 2em;
+    margin-top: 2em;
 }
 
 .hide {
-  display: none;
+    display: none;
 }
 
 .homeimg
 {
-  max-width: 100%;
-  align-items: center;
-  height: auto;
+    max-width: 100%;
+    align-items: center;
+    height: auto;
 }
 
 /* Login Page Styles*/

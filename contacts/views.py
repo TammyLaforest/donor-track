@@ -29,6 +29,7 @@ from django.views import generic
 
 class ContactsView(TemplateView):
     model = Contact
+    paginate_by = 2
     template_name = "contacts.html"
 
     # def get_context_data(self, **kwargs):
@@ -39,31 +40,31 @@ class ContactsView(TemplateView):
 
 class ContactListView(generic.ListView):
     model = Contact
-    paginate_by = 10
-    # def get_context_data(self, **kwargs):
-    # # Call the base implementation first to get the context
-    #     context = super(ContactListView, self).get_context_data(**kwargs)
-    #     # Need Paginator info
-    #     context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
-    #     return context
+    paginate_by = 2
+    def get_context_data(self, **kwargs):
+    # Call the base implementation first to get the context
+        context = super(ContactListView, self).get_context_data(**kwargs)
+        # Need Paginator info
+        context['object_list'] = Contact.objects.all().order_by('Last_Name')
+        return context
 
 class ContactDetailView(generic.DetailView):
     model = Contact
 
 class DonorListView(generic.ListView):
     model = Contact
-    # def get_context_data(self, **kwargs):
-    #     context = super(DonorListView, self).get_context_data(**kwargs)
-    #     context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(DonorListView, self).get_context_data(**kwargs)
+        context['object_list'] = Contact.objects.filter(Q(Contact_Category='donor')).order_by('Last_Name')
+        return context
 
 class VendorListView(generic.ListView):
     model = Contact
-    # def get_context_data(self, **kwargs):
-    #     context = super(VendorListView, self).get_context_data(**kwargs)
-    #     Owner = User
-    #     context['object_list'] = Contact.objects.filter(Q(Contact_Category='vendor')).order_by('Company')
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(VendorListView, self).get_context_data(**kwargs)
+        Owner = User
+        context['object_list'] = Contact.objects.filter(Q(Contact_Category='vendor')).order_by('Company')
+        return context
 
 class generic_contact_form(ModelForm):
     class Meta:

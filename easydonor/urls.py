@@ -45,11 +45,12 @@ urlpatterns = [
     # path('search/', contacts.views.ContactListView.as_view(),name='search',),
     path('contact-list/', contacts.views.ContactListView.as_view(), name="contact-list"),
     path('contacts/<int:pk>', contacts.views.ContactDetailView.as_view(), name='contact-detail'),
-
+    path('contact/<int:pk>', contacts.views.ContactDetailView.as_view(), name='contact-detail'),
 
     path('new_contact', contacts.views.contacts_new, name='new_contact'),
     path('<int:pk>/edit/', contacts.views.contacts_edit, name='edit'),
 
+    path('contacts/', contacts.views.ContactListView.as_view(), name='contacts'),
     path('donors/', contacts.views.DonorListView.as_view(), name='donors'),
     path('vendors/', contacts.views.VendorListView.as_view(), name='vendors'),
 
