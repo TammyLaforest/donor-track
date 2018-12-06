@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+<!-- from tutorial https://wsvincent.com/django-user-authentication-tutorial-signup/ -->
+
+{% block content %}
+<div class="container">
+    <div class="row title"  >
+      <div class="title"><h1>{% block title %}
+          Sign up
+      {% endblock %}</h1></div>
+      </div>
+
+      <div class="row" >
+
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Sign up</button>
+        </form>
+
+      {% endblock %}
+</div>
+<!-- <div class="row" >
+
+
+        <button type="button" id="loginbutton" class="btn btn-primary btn-lg login ">Login</button>
+        <button type="button" id="registerbutton" class="btn btn-secondary btn-lg login">Register</button>
+    </div>
+    <br>
+    <div class="row" id="loginrow">
+        <form action="/login" method="post">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="password" placeholder="Password" type="password">
+            </div>
+            <button class="btn btn-primary" type="submit">Log In</button>
+        </form>
+    </div>
+    <br>
+    <div class="row " id="registerrow">
+        <form action="/register" method="post">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="password" placeholder="Password" type="password">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="verification" placeholder="Repeat Password" type="password">
+            </div>
+            <button class="btn btn-primary" type="submit">Register</button>
+        </form>
+    </div>
+</div>
+<script>
+  let loginbutton = document.getElementById('loginbutton');
+  let loginrow = document.getElementById('loginrow');
+  let registerbutton = document.getElementById("registerbutton");
+  let registerrow = document.getElementById("registerrow");
+
+  loginbutton.onclick = function showLogin(){
+    console.log("login");
+    loginrow.style.display = "block";
+    registerrow.style.display = "none";
+  }
+  registerbutton.onclick = function showRegister(){
+    console.log("register");
+    loginrow.style.display = "none";
+    registerrow.style.display = "block";
+  }
+  </script> -->

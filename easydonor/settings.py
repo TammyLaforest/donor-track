@@ -15,6 +15,7 @@ from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -74,15 +75,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'easydonor.urls'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap'
 
-TEMPLATES = [
-    {
+TEMPLATES = [{
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            # os.path.normpath(os.path.join(BASE_DIR, 'templates')),
-            os.path.join(BASE_DIR, 'templates')
-        ],
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -91,15 +87,25 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
             ],
+            'loaders': [
+                (
+                    'django.template.loaders.filesystem.Loader',
+                    [
+                        os.path.join('/',BASE_DIR, 'templates',)
+                    ],
+                ),
+            ],
         },
-    },
-]
+    }]
 
-
+        # 'DIRS': [
+        #     # os.path.normpath(os.path.join(BASE_DIR, 'templates')),
+        #     os.path.join(BASE_DIR, 'templates', 'bootstrap', 'allauth', 'account')
+        #
+        #
+        # ],
+        # 'APP_DIRS': True,
 WSGI_APPLICATION = 'easydonor.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -139,6 +145,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+FORM_RENDERER ='django.forms.renderers.DjangoTemplates'
+
 # https://medium.com/@gajeshbhat/django-allauth-setup-and-configuration-tutorial-63417bba339c
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -148,7 +156,7 @@ STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = '/Users/user/Envs/easydonor/easydonorapp/static/easydonorapp/easydonorapp/media/'
+# MEDIA_ROOT = '/Users/user/Envs/easydonor/static/easydonorapp/easydonorapp/media/'
 # MEDIA_URL = "http://127.0.0.1:8000/easydonorapp/media/"
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -169,10 +177,10 @@ ACCOUNT_USERNAME_MIN_LENGTH = 5
 ACCOUNT_USERNAME_REQUIRED =True
 ACCOUNT_USERNAME_VALIDATORS = None
 APPEND_SLASH = True
-#Account adapters
+
 ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
 
-FORM_RENDERER ='django.forms.renderers.DjangoTemplates'
+
 ACCOUNT_FORMS = {
 'login': 'allauth.account.forms.LoginForm',
 'signup': 'allauth.account.forms.SignupForm',

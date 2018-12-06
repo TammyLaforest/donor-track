@@ -8,9 +8,7 @@ verify_ssl = true
 [packages]
 Django = "*"
 django-shortuuidfield = "*"
-django-address = "*"
 django-crispy-forms = "*"
-terminaltables = "*"
 sqlite3 = "*"
 libsqlite3-dev = "*"
 pillow = "*"

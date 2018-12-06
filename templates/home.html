@@ -1,0 +1,67 @@
+
+{% extends "layout.html" %}
+{% load static %}
+<!-- templates/home.html -->
+{% load socialaccount %}
+{% if not user.is_authenticated %}
+
+{{ login.html }}
+
+{% endif %}
+
+{% if user.is_authenticated %}
+{% block content %}
+<div class="container" >
+    <div class="row title"  >
+      <div class="title"><h1>{% block title %}
+          EasyDonor
+      {% endblock %}</h1>
+    </div>
+    </div>
+    <div class="row" >
+
+    <h4>Your Home Page</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus ex nec est dignissim, in vestibulum nibh lacinia. Maecenas ac sapien et nisi facilisis congue. Praesent ut nisi sodales, tincidunt odio at, vulputate nisl. Mauris facilisis neque non neque posuere, efficitur interdum nunc venenatis. Nullam rhoncus nisl nec libero porttitor, finibus convallis lorem condimentum. In ante libero, lacinia vel neque nec, congue fringilla ligula. Maecenas vitae dolor pharetra, pellentesque nisi a, lacinia enim. Cras vel lectus mauris.</p>
+
+    <p>Ut mattis luctus magna, eget sollicitudin arcu dignissim a. Integer id augue mauris. Morbi hendrerit tellus facilisis, tempor sapien porttitor, venenatis velit. In euismod ex a orci posuere faucibus. Quisque faucibus sem et justo mattis ultricies. Morbi vehicula euismod egestas. Proin vulputate elit orci, id auctor dolor tristique fermentum. Nulla et enim dignissim, ultrices quam eu, vulputate metus.</p>
+</div>
+
+
+<div class="row">
+<div class="card-deck homedeck">
+
+
+      <div class="card">
+      <div class="card-header">
+        <a href="{% url 'deposit' %}"><h5 class="card-title">Receivables</h5></a>
+      </div>
+      <div class="card-img-top">
+          <img class="homeimg" src="{% static "media/business-money-pink-coins.jpg" %}" alt="image of Piggy bank with coins">
+      </div>
+      <div class="card-body">
+           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus ex nec est dignissim, in vestibulum nibh lacinia. Maecenas ac sapien et nisi facilisis congue. Praesent ut nisi sodales, tincidunt odio at, vulputate nisl. Mauris facilisis neque non neque posuere, efficitur interdum nunc venenatis. Nullam rhoncus nisl nec libero porttitor, finibus convallis lorem condimentum. In ante libero, lacinia vel neque nec, congue fringilla ligula. Maecenas vitae dolor pharetra, pellentesque nisi a, lacinia enim. Cras vel lectus mauris.</p>
+
+      </div>
+      <div class="card-footer"></div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Payables (feature unavailable)</h5>
+      </div>
+      <div class="card-img-top">
+          <img class="homeimg" src="{% static "media/writing-notes-idea-conference.jpg" %}" alt="Image of someone paying a bill">
+      </div>
+      <div class="card-body">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut finibus ex nec est dignissim, in vestibulum nibh lacinia. Maecenas ac sapien et nisi facilisis congue. Praesent ut nisi sodales, tincidunt odio at, vulputate nisl. Mauris facilisis neque non neque posuere, efficitur interdum nunc venenatis. Nullam rhoncus nisl nec libero porttitor, finibus convallis lorem condimentum. In ante libero, lacinia vel neque nec, congue fringilla ligula. Maecenas vitae dolor pharetra, pellentesque nisi a, lacinia enim. Cras vel lectus mauris.</p>
+      </div>
+      <div class="card-footer"></div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+{% endblock %}
+{% endif %}

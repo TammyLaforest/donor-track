@@ -65,12 +65,12 @@ def contacts_new(request):
                     obj.Owner_id = request.user
                     super().save_model(request, obj, form, change)
                 Contact.save()
-                return redirect('contacts')
+                return redirect('contacts_list')
         else:
             return redirect('nope')
     else:
         form = generic_contact_form()
-        return render(request, 'contacts/new.html', {'form': form})
+        return render(request, 'contacts/new_contact.html', {'form': form})
 
 @login_required
 def contacts_edit(request, pk):
@@ -83,26 +83,26 @@ def contacts_edit(request, pk):
             if not Company and not Last_Name:
                 raise forms.ValidationError('Please include a contact name or company!')
             Contact.save()
-            return redirect('edit', pk=Contact.uuid)
+            return redirect('edit_contact', pk=Contact.uuid)
     else:
         form = generic_contact_form(instance=Contact)
-    return render(request, '/edit.html', {'form': form})
+    return render(request, 'contacts/edit_contact.html', {'form': form})
 
 
 # Views for forms
 class contacts_new_view(FormView):
-    template_name = 'new.html'
+    template_name = 'new_contact.html'
     form_class = generic_contact_form
-    success_url = '/home/'
+    success_url = '/contacts-list/'
 
     def form_valid(self, form):
         def contacts_new():
             return super().form_valid(form)
 
 class contacts_edit_view(FormView):
-    template_name = 'edit.html'
+    template_name = 'edit_contact.html'
     form_class = generic_contact_form
-    success_url = '/contacts/'
+    success_url = '/contacts-list/'
 
     def form_valid(self, form):
         def contacts_edit():
@@ -110,9 +110,9 @@ class contacts_edit_view(FormView):
 
 # Not coded yet
 class contacts_delete_view(FormView):
-    template_name = 'delete.html'
+    template_name = 'delete_contact.html'
     form_class = generic_contact_form
-    success_url = '/contacts/'
+    success_url = '/contacts-contacts_list/'
 
     def form_valid(self, form):
         def contacts_edit():

@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row title"  >
+        <div class="title">
+            <h1>{% block title %}Edit Contact{% endblock %}</h1>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="container">
+        <form  class="generic_contact_form" method="post">
+        {% csrf_token %}
+        {% load crispy_forms_tags %}
+            <div style ="text-align: center;"class="row">
+                <div class="form-control col-lg">
+                    <div class="row">
+                        <div class="col-6">
+                            {{ form.Contact_Category|as_crispy_field }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-control col-lg">
+                    <div style ="text-align: center;" class="col-6">
+                        <h6 style="text-align: center;">Address Format</h6>
+                    </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-secondary" onclick="hide2()" id="individual">Individual</button>
+                      <button type="button" class="btn btn-secondary" onclick="show1()" id="family">Family</button>
+                      <button type="button" class="btn btn-secondary" onclick="show2()" id="business">Business</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="individual form-control col-sm" id="individual_new">
+                    <div class="row">
+                        <div class="col-6">
+                            {{ form.First_Name|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                            {{ form.Last_Name|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            {{ form.Email|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                            {{ form.Phone|as_crispy_field }}
+                        </div>
+                    </div>
+                </div>
+                <div class="spouse form-control col-sm hide" id="spouse_new">
+                    <div class="row">
+                        <div class="col-6">
+                            {{ form.First_Name2|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                            {{ form.Last_Name2|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                        {{ form.Email2|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                        {{ form.Phone2|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="company form-control col-sm hide" id="company_new">
+                <div class="row">
+                    <div class="col-6">
+                    {{ form.Company|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="form-control card">
+                <div class="row">
+                    <div class="form-horizontal col-lg-8">
+                        {{ form.Address|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 ">
+                        {{ form.City|as_crispy_field }}
+                    </div>
+                    <div class="col-6 ">
+                        {{ form.State|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        {{ form.Postal_code|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.Country|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row">
+        <button type="submit" class="btn btn-success">Save Contact</button>
+    </div>
+</form>
+
+
+</div>
+</div>
+
+
+<script>
+function hide2(){
+  document.getElementById('company_new').style.display = 'none';
+  document.getElementById('spouse_new').style.display ='none';
+}
+function show2(){
+  document.getElementById('company_new').style.display = 'block';
+  document.getElementById('spouse_new').style.display ='none';
+}
+function show1(){
+  document.getElementById('spouse_new').style.display = 'block';
+  document.getElementById('company_new').style.display ='none';
+}
+</script>
+{% endif %}
+{% endblock %}
