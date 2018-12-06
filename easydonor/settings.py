@@ -8,6 +8,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from django.conf import settings
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,7 +38,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.facebook',
 
     'django.contrib.auth',
     'django.contrib.sites',
@@ -75,8 +77,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.normpath(os.path.join(BASE_DIR, 'templates')),
-            # os.path.join(BASE_DIR, 'templates')
+            # os.path.normpath(os.path.join(BASE_DIR, 'templates')),
+            os.path.join(BASE_DIR, 'templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -135,7 +137,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+# https://medium.com/@gajeshbhat/django-allauth-setup-and-configuration-tutorial-63417bba339c
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
@@ -151,10 +153,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 
 #all-auth registraion settings
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =7
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 10
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 # 1 day. This does ot prevent admin login frombeing brut forced.
 ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login/' #or any other page
 LOGIN_REDIRECT_URL = '/accounts/email/' # redirects to profile page by default
@@ -166,36 +168,36 @@ ACCOUNT_USERNAME_REQUIRED =True
 ACCOUNT_USERNAME_VALIDATORS = None
 
 #Account adapters
-ACCOUNT_ADAPTER = 'allauthdemo.adapter.CustomProcessAdapter'
+ACCOUNT_ADAPTER = 'easydonor.adapter.CustomProcessAdapter'
 
 #Account Signup
-ACCOUNT_FORMS = {'signup': 'allauthdemo.forms.SignupForm',}
+ACCOUNT_FORMS = {'signup': 'easydonor.forms.SignupForm',}
 
 #Social Account Settings
 SOCIALACCOUNT_PROVIDERS = {
-    'facebook': {
-        'METHOD': 'oauth2',
-        'SCOPE': ['email', 'public_profile', 'user_friends'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'INIT_PARAMS': {'cookie': True},
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-            'updated_time',
-        ],
-        'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': 'path.to.callable',
-        'VERIFIED_EMAIL': False,
-        'VERSION': 'v2.12',
-    },
+    # 'facebook': {
+    #     'METHOD': 'oauth2',
+    #     'SCOPE': ['email', 'public_profile', 'user_friends'],
+    #     'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+    #     'INIT_PARAMS': {'cookie': True},
+    #     'FIELDS': [
+    #         'id',
+    #         'email',
+    #         'name',
+    #         'first_name',
+    #         'last_name',
+    #         'verified',
+    #         'locale',
+    #         'timezone',
+    #         'link',
+    #         'gender',
+    #         'updated_time',
+    #     ],
+    #     'EXCHANGE_TOKEN': True,
+    #     'LOCALE_FUNC':  lambda request: 'en-US',
+    #     'VERIFIED_EMAIL': False,
+    #     'VERSION': 'v2.12',
+    # },
      'google': {
         'SCOPE': [
             'profile',
@@ -212,20 +214,25 @@ SOCIALACCOUNT_STORE_TOKENS=False
 
 FORM_RENDERER ='django.forms.renderers.DjangoTemplates'
 
-# # demo_project/settings.py
-# AUTHENTICATION_BACKENDS = (
-#     "django.contrib.auth.backends.ModelBackend",
-#     "allauth.account.auth_backends.AuthenticationBackend",
-# )
+# demo_project/settings.py
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
 #
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_USERNAME_REQUIRED = False
+# SOCIALACCOUNT_ENABLED = 'allauth.socialaccount' in settings.INSTALLED_APPS
 #
+# LOGIN_REDIRECT_URL = getattr(settings, 'LOGIN_REDIRECT_URL', '/')
+
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
 #
-# AUTH_USER_MODEL = 'users.CustomUser'
-#
-# LOGIN_REDIRECT_URL = 'home'
-# LOGOUT_REDIRECT_URL = 'home'
+AUTH_USER_MODEL = 'auth.User'
+# USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
+USER_MODEL = AUTH_USER_MODEL,
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 # LOGIN_URL = 'django.contrib.auth.views.login'
 #
 # EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")

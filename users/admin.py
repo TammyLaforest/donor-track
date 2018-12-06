@@ -1,16 +1,20 @@
-# users/admin.py
 from django.contrib import admin
-from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
 
-from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
+from users.models import Profile, BusinessProfile
 
-class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
-    model = CustomUser
-    list_display = ['email', 'username',]
+# Define an inline admin descriptor for Employee model
+# which acts a bit like a singleton
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = 'Profiles'
 
-admin.site.register(CustomUser, CustomUserAdmin)
+# Define a new User admin
+class UserAdmin(BaseUserAdmin):
+    inlines = (ProfileInline,)
+
+# Re-register UserAdmin
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)

@@ -16,7 +16,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 from django.contrib.auth import views as auth_views
-from .forms import CustomUserCreationForm
+from allauth.account.forms import CustomUserCreationForm
 
 class SignUp(generic.CreateView):
     form_class = CustomUserCreationForm

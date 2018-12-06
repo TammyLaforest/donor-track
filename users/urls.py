@@ -1,11 +1,17 @@
-# users/urls.py
-from django.urls import path
-from . import views
-# https://wsvincent.com/django-allauth-tutorial-custom-user-model/#custom-user-model
-urlpatterns = [
-    path('signup/', views.SignUp.as_view(), name='signup'),
-    url('^persona/login/$', views.persona_login, name="persona_login"),
+from django.db import models
+from django.conf import settings
+from django.contrib import admin
+from django.urls import path, include, reverse
+from django.conf.urls import include, url
+from django.conf.urls.static import static
 
+
+from allauth.account import views, models
+from allauth.account.models import *
+from allauth.account.views import *
+
+
+urlpatterns = [
     url(r"^signup/$", views.signup, name="account_signup"),
     url(r"^login/$", views.login, name="account_login"),
     url(r"^logout/$", views.logout, name="account_logout"),
@@ -33,5 +39,4 @@ urlpatterns = [
         name="account_reset_password_from_key"),
     url(r"^password/reset/key/done/$", views.password_reset_from_key_done,
         name="account_reset_password_from_key_done"),
-
 ]

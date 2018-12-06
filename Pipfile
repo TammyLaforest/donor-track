@@ -18,6 +18,10 @@ pipenv-resolver = "*"
 model-utils = "*"
 django-model-utils = "*"
 django-allauth = "*"
+requests = "*"
+utils = "*"
+python-requests = "*"
+django-requests = "*"
 
 [requires]
 python_version = "3.7"

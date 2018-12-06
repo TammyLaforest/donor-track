@@ -18,6 +18,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import include, url
+from django.conf.urls.static import static
 
 import easydonorapp
 from easydonorapp import views
@@ -29,38 +30,36 @@ from contacts import views, models
 from contacts.models import *
 from contacts.views import *
 
-from django.contrib import admin
-from django.urls import path, include
-
-
-from django.conf.urls.static import static
-
+import users
+from users.allauth.account import views, models, urls
+from users.allauth.account.models import *
+from users.allauth.account.views import *
 
 
 urlpatterns = [
 
-
-    path('', include('easydonorapp.urls')),
-    path('users', include('users.urls')),
-    path('accounts/', include('allauth.urls')),
-
     path('admin/', admin.site.urls),
+    url(r'^', include('users.urls')),
 
-    path('search/', views.ContactListView.as_view(),name='search',),
+    url(r'^', include('allauth.account.urls')),
+
+    path('search/', contacts.views.ContactListView.as_view(),name='search',),
     # path('accounts/', include('django.contrib.auth.urls')),
     # path('users/', include('django.contrib.auth.urls')),
-    path('admin/', admin.site.urls),
+
+    path('home', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
 
     path('nope/', TemplateView.as_view(template_name='nope.html'), name='nope'),
     path('deposit/', easydonorapp.views.DonorDepositView.as_view(),name='deposit',),
     path('deposit_list/', easydonorapp.views.DepositView.as_view(),name='deposit_list',),
     url(r'^(?P<pk>\d+)/$', easydonorapp.views.DonorListDepositView.as_view(), name='deposit_list'),
-    path('contacts/', views.ContactListView.as_view(), name='contacts'),
-    url(r'^contact/donors/(?P<pk>\d+)/$', views.DonorListView.as_view(), name='donors'),
-    path('donors/', views.DonorListView.as_view(), name='donors'),
-    path('vendors/', views.VendorListView.as_view(), name='vendors'),
-    path('contacts/new', views.contacts_new, name='new'),
-    path('<int:pk>/edit/', views.contacts_edit, name='edit'),
+    path('contacts/', contacts.views.ContactListView.as_view(), name='contacts'),
+    url(r'^contact/donors/(?P<pk>\d+)/$', contacts.views.DonorListView.as_view(), name='donors'),
+    path('donors/', contacts.views.DonorListView.as_view(), name='donors'),
+    path('vendors/', contacts.views.VendorListView.as_view(), name='vendors'),
+    path('contacts/new', contacts.views.contacts_new, name='new'),
+    path('<int:pk>/edit/', contacts.views.contacts_edit, name='edit'),
 
 
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
