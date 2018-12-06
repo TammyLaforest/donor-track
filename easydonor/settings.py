@@ -168,10 +168,18 @@ ACCOUNT_USERNAME_REQUIRED =True
 ACCOUNT_USERNAME_VALIDATORS = None
 
 #Account adapters
-ACCOUNT_ADAPTER = 'easydonor.adapter.CustomProcessAdapter'
+ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+FORM_RENDERER ='django.forms.renderers.DjangoTemplates'
 
-#Account Signup
-ACCOUNT_FORMS = {'signup': 'easydonor.forms.SignupForm',}
+ACCOUNT_FORMS = {'add_email': 'allauth.account.forms.AddEmailForm',}
+ACCOUNT_FORMS = {'change_password': 'allauth.account.forms.ChangePasswordForm',}
+ACCOUNT_FORMS = {'disconnect': 'allauth.socialaccount.forms.DisconnectForm',}
+ACCOUNT_FORMS = {'login': 'allauth.account.forms.LoginForm',}
+ACCOUNT_FORMS = {'reset_password': 'allauth.account.forms.ResetPasswordForm',}
+ACCOUNT_FORMS = {'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',}
+ACCOUNT_FORMS = {'set_password': 'allauth.account.forms.SetPasswordForm',}
+ACCOUNT_FORMS = {'signup': 'allauth.account.forms.SignupForm',}
+ACCOUNT_FORMS = {'signup': 'allauth.socialaccount.forms.SignupForm',}
 
 #Social Account Settings
 SOCIALACCOUNT_PROVIDERS = {
@@ -212,7 +220,7 @@ SOCIALACCOUNT_QUERY_EMAIL=ACCOUNT_EMAIL_REQUIRED
 SOCIALACCOUNT_EMAIL_REQUIRED=ACCOUNT_EMAIL_REQUIRED
 SOCIALACCOUNT_STORE_TOKENS=False
 
-FORM_RENDERER ='django.forms.renderers.DjangoTemplates'
+
 
 # demo_project/settings.py
 AUTHENTICATION_BACKENDS = (

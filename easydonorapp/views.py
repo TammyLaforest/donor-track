@@ -8,6 +8,13 @@ from django.forms import ModelForm
 from contacts.models import Contact
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from django.shortcuts import redirect
+
+def my_view(request):
+    ...
+    obj = MyModel.objects.get(...)
+    return redirect(obj, permanent=True)
+
 
 # pages/views.py
 class HomePageView(TemplateView):

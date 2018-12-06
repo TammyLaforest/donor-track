@@ -42,7 +42,7 @@ urlpatterns = [
     url(r'^', include('users.urls')),
 
     url(r'^', include('allauth.account.urls')),
-
+    url(r'^done$', 'easydonorapp.views.done', name='done'),
     path('search/', contacts.views.ContactListView.as_view(),name='search',),
     # path('accounts/', include('django.contrib.auth.urls')),
     # path('users/', include('django.contrib.auth.urls')),
