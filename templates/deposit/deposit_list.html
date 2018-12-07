@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row title"  >
+      {% if object_list %}
+      <div class="title"><h1>{% block title %}
+            Contacts
+      {% endblock %}</h1></div>
+      </div>
+
+            {% if user.is_authenticated %}
+            <div class="row">
+
+
+                <a class="btn btn-success" href="{% url 'contacts' %}" role="button">Contacts</a>
+                <a role=button class="btn btn-success" href="{% url 'donors' %}">Donors</a>
+                <a role=button class="btn btn-success" href="{% url 'vendors' %}">Vendors</a>
+
+
+
+              </div>
+            <div class="row">
+{% if object_list %}
+<div class="table-responsive">
+   <table class="table table-hover table-bordered table-striped"{% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
+       {% block table.thead %}
+       <thead>
+           <tr>
+               <th><a href="{% url "new_contact" %}" class="btn btn-small btn-primary"><span class="hidden-phone"><i class="fa fa-user-plus"></i> Add Contact</span></a>
+               </th>
+               <th colspan="6">
+                   <form action="{% url 'searc" method="post" class="form-inline form-search pull-right">
+                     {% csrf_token %}
+                       <div>
+                         <input id="search_form_id" name="search" type="text"   disabled class="form-control col-lg-12 "  placeholder="feature unavailable"{% if search %} value="{{ search "{% endif %}>
+                         <button  class="btn btn-small btn-dark disabled " disable disabled><i class="fa fa-search"></i> Search</button>
+                       </div>
+                   </form>
+               </th>
+           </tr>
+<tr>
+    <th scope="col">uuid</th>
+    <th scope="col">Category</th>
+    <th scope="col">First Name</th>
+    <th scope="col">Last Name</th>
+    <th scope="col">First Name 2</th>
+    <th scope="col">Last Name 2</th>
+    <th scope="col">Address</th>
+    <th scope="col">City</th>
+    <th scope="col">State</th>
+    <th scope="col">Postal_Code</th>
+    <th scope="col">Country</th>
+    <th scope="col">Email</th>
+    <th scope="col">Phone</th>
+  </tr>
+</thead>
+{% endblock %}
+<tbody>
+{% for Contact in object_list %}
+  <tr>
+      <!-- https://godjango.com/67-understanding-get_absolute_url/ -->
+<!-- https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views -->
+      <td>{{ Contact.uuid }}</td>
+      <td>{{ Contact.Contact_Category }}</td>
+      <td>{{ Contact.First_Name }}</td>
+      <td>{{ Contact.Last_Name }} </td>
+      <td>{{ Contact.First_Name2 }}</td>
+      <td>{{ Contact.Last_Name2 }} </td>
+      <td>{{ Contact.Address }} </td>
+      <td>{{ Contact.City }} </td>
+      <td>{{ Contact.State }} </td>
+      <td>{{ Contact.Postal_code }} </td>
+      <td>{{ Contact.Country }} </td>
+      <td>{{ Contact.Email }} </td>
+      <td>{{ Contact.Phone }} </td>
+        {% endfor %}
+  </tr>
+  </tbody>
+  </table>
+
+{% endif %}
+</div>
+  {% else %}
+    <p>There are no Contacts in this list.</p>
+  {% endif %}
+    {% endif %}
+
+{% endblock %}
+{% block pagination %}
+  {% if is_paginated %}
+    <div class="pagination">
+      <span class="page-links">
+        {% if page_obj.has_previous %}
+          <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+        <span class="page-current">
+          <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</p>
+        </span>
+        {% if page_obj.has_next %}
+          <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+      </span>
+    </div>
+  {% endif %}
+{% endblock %}

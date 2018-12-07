@@ -81,6 +81,7 @@ class generic_contact_form(ModelForm):
         model = Contact
         fields = '__all__'
         exclude = ('Owner',)
+        # Address = forms.CharField(label='Address', max_length=100)
 
 @login_required
 def contacts_new(request):

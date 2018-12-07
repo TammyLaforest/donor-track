@@ -1,0 +1,27 @@
+
+{% extends "layout.html" %}
+{% load static %}
+<!-- templates/home.html -->
+{% block content %}
+{% if not user.is_authenticated %}
+
+{{ login.html }}
+
+
+{% endif %}
+    {% if user.is_authenticated %}
+
+    <div class="row title"  >
+      <div class="title"><h1>{% block title %}
+          Generic_form_template
+      {% endblock %}</h1>
+    </div>
+    </div>
+
+<form action="/your-name/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+    {% endif %}
+{% endblock %}

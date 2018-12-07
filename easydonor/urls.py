@@ -70,9 +70,13 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='home.html')),
     # Error page
     path('nope/', TemplateView.as_view(template_name='nope.html'), name='nope'),
+    # path('form/', TemplateView.as_view(template_name='generic_form_template.html'), name='form'),
+
+
+
 
     # Related to deposit slip/donation taker
-    path('deposit/', easydonorapp.views.DonorDepositView.as_view(),name='deposit',),
+    path('deposit/', easydonorapp.views.DepositView.as_view(),name='deposit',),
     # path('deposit_list/', easydonorapp.views.DepositView.as_view(),name='deposit_list',),
 
     url(r'^account/', include('allauth.urls')),

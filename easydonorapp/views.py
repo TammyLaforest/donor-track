@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.db.models import Q
 from django.views import generic, View
-from django.views.generic import ListView, CreateView, DetailView, TemplateView
+from django.views.generic import ListView, CreateView, DetailView, TemplateView, FormView
 from django import forms
 from django.forms import ModelForm
 from contacts.models import Contact
@@ -39,49 +39,51 @@ from users.models import Profile
 
 
 
+# Understand instances in order to associate pledges with donor profiles.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-def my_view(request):
-    ...
-    obj = MyModel.objects.get(...)
-    return redirect(obj, permanent=True)
-
-
-# pages/views.py
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
-class Thanks_View(CreateView):
+class ErrorView(TemplateView):
+    template_name = 'nope.html'
+
+class ThanksView(CreateView):
     model = Contact
     template_name = 'thanks.html'
     fields = '__all__'
 
-class DepositView(CreateView):
+class DepositDetailView(ListView):
+
+    model = Contact
+    template_name = 'deposit-detail.html'
+    fields ='__all__'
+
+class DepositListView(ListView):
+
+    model = Contact
+    template_name = 'deposit-list.html'
+    fields ='__all__'
+
+class DepositView(FormView):
 
     model = Contact
     template_name = 'deposit.html'
     fields ='__all__'
 
-class DonorListDepositView(ListView):
+def get_deposit(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = DepositForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/home/')
 
-    model = Contact
-    template_name = 'deposit.html'
-    fields ='__all__'
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = DepositForm()
 
-class DonorDepositView(CreateView):
-
-    model = Contact
-    template_name = 'deposit.html'
-    fields ='__all__'
+    return render(request, 'deposit.html', {'form': form})

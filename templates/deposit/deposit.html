@@ -10,6 +10,20 @@
     </div>
     {% if user.is_authenticated %}
 
+
+    <form method="POST" class="form-group DepositForm">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+
+
+
+
+
+
+<!--
+
     <div class="row" >
       <div class="panel panel-default">
         <div class="panel-body">
@@ -40,8 +54,8 @@
 
 
       </div>
-      <div class="row" >
-<!-- <p>https://bootsnipp.com/snippets/OPzW8 snippit to learn accordion dropdown</p> -->
+      <div class="row" > -->
+<!-- <p>https://bootsnipp.com/snippets/OPzW8 snippit to learn accordion dropdown</p>
 {% if object_list %}
 <div class="table-responsive">
 <table class="table-sm table-hover table-striped ">
@@ -76,8 +90,8 @@
         {% endfor %}
   </tr>
   </tbody>
-  </table>
-
+  </table> -->
+<!--
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -168,7 +182,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 {% endif %}
 {% endif %}
 {% endblock %}
