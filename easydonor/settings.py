@@ -102,20 +102,6 @@ TEMPLATES = [{
             }]
 
 
-
-    #         'loaders': [
-    #                 (
-    #                 # 'django.template.loaders.cached.Loader', [
-    #         # 'admin_tools.template_loaders.Loader',
-    #             'django.template.loaders.filesystem.Loader',
-    #             'django.template.loaders.app_directories.Loader',
-    #
-    #         # ]
-    #         ),
-    #     ],
-    #     },
-    # }]
-
 WSGI_APPLICATION = 'easydonor.wsgi.application'
 
 DATABASES = {
