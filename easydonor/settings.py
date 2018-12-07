@@ -14,8 +14,8 @@ from django.conf import settings
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+# PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+# STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -64,8 +64,6 @@ INSTALLED_APPS = [
     'contacts',
     'users',
 
-
-
 ]
 
 MIDDLEWARE = [
@@ -92,17 +90,31 @@ TEMPLATES = [{
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
             ],
-            'loaders': [
+         'loaders': ['admin_tools.template_loaders.Loader',
+                        (
+                            'django.template.loaders.filesystem.Loader',
+                            [
+                                os.path.join('/',BASE_DIR, 'templates',)
+                            ],
+                        ),'django.template.loaders.app_directories.Loader',
+                    ],
+                },
+            }]
 
-            ('django.template.loaders.cached.Loader', [
-            'admin_tools.template_loaders.Loader',
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
 
-            ]),
-        ],
-        },
-    }]
+
+    #         'loaders': [
+    #                 (
+    #                 # 'django.template.loaders.cached.Loader', [
+    #         # 'admin_tools.template_loaders.Loader',
+    #             'django.template.loaders.filesystem.Loader',
+    #             'django.template.loaders.app_directories.Loader',
+    #
+    #         # ]
+    #         ),
+    #     ],
+    #     },
+    # }]
 
 WSGI_APPLICATION = 'easydonor.wsgi.application'
 
