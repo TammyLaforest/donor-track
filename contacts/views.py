@@ -32,11 +32,11 @@ class ContactsView(TemplateView):
     paginate_by = 2
     template_name = "contacts.html"
 
-    # def get_context_data(self, **kwargs):
-    #     url = reverse('contacts')
-    #     context = super().get_context_data(**kwargs)
-    #     context['contact'] = Contact.objects.all()[:5]
-    #     return context
+    def get_context_data(self, **kwargs):
+        url = reverse('contacts')
+        context = super().get_context_data(**kwargs)
+        context['contact'] = Contact.objects.all()[:5]
+        return context
 
 class ContactListView(generic.ListView):
     model = Contact
@@ -49,7 +49,17 @@ class ContactListView(generic.ListView):
         return context
 
 class ContactDetailView(generic.DetailView):
+    template_name = 'contact_detail.html'
     model = Contact
+    context_object_name = "Contact"
+
+    def contact_detail_view(request, pk):
+        try:
+            Contact = Contact.objects.get(pk=pk)
+        except Contact.DoesNotExist:
+            raise Http404('Contact does not exist')
+
+        return render(request, 'contact_detail.html', context={'Contact': Contact})
 
 class DonorListView(generic.ListView):
     model = Contact
@@ -82,7 +92,7 @@ def contacts_new(request):
                     obj.Owner_id = request.user
                     super().save_model(request, obj, form, change)
                 Contact.save()
-                return redirect('contact-list')
+                return redirect('contacts')
         else:
             return redirect('nope')
     else:
@@ -100,7 +110,7 @@ def contacts_edit(request, pk):
             if not Company and not Last_Name:
                 raise forms.ValidationError('Please include a contact name or company!')
             Contact.save()
-            return redirect('contact-list', pk=Contact.uuid)
+            return redirect('contact-detail', pk=Contact.uuid)
     else:
         form = generic_contact_form(instance=Contact)
     return render(request, 'contacts/edit_contact.html', {'form': form})

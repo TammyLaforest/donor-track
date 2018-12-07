@@ -13,6 +13,7 @@ class Contact(models.Model):
 
     Owner = models.OneToOneField(User, on_delete=models.SET_NULL, related_name="Owner", null=True, blank=True)
     uuid = ShortUUIDField(unique=True, primary_key = True,)
+    Account= models.CharField(max_length=120, blank=False)
     Created_On = models.DateField(auto_now_add=True)
     CATEGORY_CHOICES = ( ('donor', 'Donor'), ('vendor', 'Vendor'))
 
@@ -46,7 +47,11 @@ class Contact(models.Model):
         unique_together = (("Last_Name", "First_Name"),)
         unique_together = (("Last_Name2", "First_Name2"),)
         unique_together = (("Company", "Owner"),)
+        ordering = ['Company','Last_Name', 'First_Name',  ]
 
+    def get_absolute_url(self):
+        return reverse('contact-detail', kwargs={'pk': self.uuid})
+        # return "contact-detail/%s/" %self.uuid
 
 class Format(models.Model):
     FORMAT_CHOICES = (

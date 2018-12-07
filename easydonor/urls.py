@@ -40,37 +40,42 @@ authdir = users.allauth.account
 
 urlpatterns = [
 
+    path('admin/', admin.site.urls),
     #Include urls from other apps - contacts and users
     url(r'^account', include(('users.allauth.account.urls', 'users'), namespace='account')),
     # path('search/', contacts.views.ContactListView.as_view(),name='search',),
+    path('contacts/', contacts.views.ContactListView.as_view(), name='contacts'),
+
+    path('donors/', contacts.views.DonorListView.as_view(), name='donors'),
+    path('vendors/', contacts.views.VendorListView.as_view(), name='vendors'),
     path('contact-list/', contacts.views.ContactListView.as_view(), name="contact-list"),
-    path('contacts/<int:pk>', contacts.views.ContactDetailView.as_view(), name='contact-detail'),
-    path('contact/<int:pk>', contacts.views.ContactDetailView.as_view(), name='contact-detail'),
+
+    url(r'^contacts/(?P<pk>)/$', contacts.views.ContactDetailView.as_view(), name='contact-detail'),
+    # path('contacts/<int:pk>/', views.ContactDetailView.as_view(), name='contact-detail'),
+
+    # url(r'^(?P<pk>\d+)/$', views.ContactDetailView.as_view(), name='contact_detail'),
 
     path('new_contact', contacts.views.contacts_new, name='new_contact'),
     path('<int:pk>/edit/', contacts.views.contacts_edit, name='edit'),
 
-    path('contacts/', contacts.views.ContactListView.as_view(), name='contacts'),
-    path('donors/', contacts.views.DonorListView.as_view(), name='donors'),
-    path('vendors/', contacts.views.VendorListView.as_view(), name='vendors'),
+    # url(r'^contact/(?P<pk>\d+)/(?P<True_or_False>\D+)$', views.ContactDetailView.as_view(), name='contact-detail'),
+
+
 
 
     # Home page main index
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     url(r'^$', TemplateView.as_view(template_name='home.html')),
-
-    path('index/', TemplateView.as_view(template_name='index.html'), name='index'),
     # Error page
     path('nope/', TemplateView.as_view(template_name='nope.html'), name='nope'),
 
     # Related to deposit slip/donation taker
     path('deposit/', easydonorapp.views.DonorDepositView.as_view(),name='deposit',),
     # path('deposit_list/', easydonorapp.views.DepositView.as_view(),name='deposit_list',),
-    url(r'^(?P<pk>\d+)/$', easydonorapp.views.DonorListDepositView.as_view(), name='deposit_list'),
 
     url(r'^account/', include('allauth.urls')),
-    url(r'^admin/', admin.site.urls),
+
 
 
 

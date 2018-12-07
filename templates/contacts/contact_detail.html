@@ -10,7 +10,7 @@
       </div>
 
             {% if user.is_authenticated %}
-            {% for copy in contact.contact instance_set.all %}
+            {% for copy in contacts.Contact instance_set.all %}
               {{ copy }}
             {% endfor %}
     {% endif %}

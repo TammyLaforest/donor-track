@@ -28,7 +28,7 @@
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-md navbar-light bg-light border">
-        <a class="navbar-brand" href="{% url 'index' %}">EasyDonor</a>{% if request.user.is_authenticated %}<span> Hi, {{ user.username }} {{ user.id }}!</span> {% else %}<span>You are not logged in.</span>{% endif %}
+        <a class="navbar-brand" href="{% url 'home' %}">EasyDonor</a>{% if request.user.is_authenticated %}<span> Hi, {{ user.username }} {{ user.id }}!</span> {% else %}<span>You are not logged in.</span>{% endif %}
         <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -42,8 +42,6 @@
                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                          <a class="dropdown-item" href="{% url 'contact-list' %}">Contacts</a>
                          <a class="dropdown-item" href="{% url 'new_contact' %}">Add Contact</a>
-
-
                 </div>
             </li>
             <!-- <li class="nav-item"><a class="nav-link" href={% url 'deposit' %}>Deposit</a></li> -->
@@ -57,12 +55,9 @@
             </div>
         </li>
 
-
         <ul class="navbar-nav ml-auto mt-2">
-
-          <div class="btn-group-md " role="group" aria-label="homepgbuttons">
-        <a type=button class="btn navbtn" href="{% url 'deposit' %}">Deposit</a>
-          <a type=button class="btn  navbtn" href="{% url 'account_logout' %}">Log Out</a>
+            <li class="nav-item"><a class="nav-link" href="{% url 'deposit' %}">Deposit</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'account_logout' %}">Log Out</a></li>
             {% endif %}
 
             <!-- Visible even when not logged in -->
@@ -99,7 +94,7 @@
       </span>
     </div>
   {% endif %}
-{% endblock %} 
+{% endblock %}
         </div>
     </div>
 </div>

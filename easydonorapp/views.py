@@ -14,28 +14,28 @@ from django.urls import reverse
 from contacts.models import Contact
 from users.models import Profile
 
-def index(request):
-    """View function for home page of site."""
-
-    # Generate counts of some of the main objects
-    num_contacts = Contact.objects.all().count()
-    num_instances = ContactInstance.objects.all().count()
-
-    # Available books (status = 'a')
-    num_instances_available = ContactInstance.objects.filter(status__exact='a').count()
-
-    # The 'all()' is implied by default.
-    num_profiles = Profile.objects.count()
-
-    context = {
-        'num_contacts': num_contacts,
-        'num_instances': num_instances,
-        'num_instances_available': num_instances_available,
-        'num_profiles': num_profiles,
-    }
-
-    # Render the HTML template index.html with the data in the context variable
-    return render(request, 'index.html', context=context)
+# def index(request):
+#     """View function for home page of site."""
+#
+#     # Generate counts of some of the main objects
+#     num_contacts = Contact.objects.all().count()
+#     num_instances = ContactInstance.objects.all().count()
+#
+#     # Available books (status = 'a')
+#     num_instances_available = ContactInstance.objects.filter(status__exact='a').count()
+#
+#     # The 'all()' is implied by default.
+#     num_profiles = Profile.objects.count()
+#
+#     context = {
+#         'num_contacts': num_contacts,
+#         'num_instances': num_instances,
+#         'num_instances_available': num_instances_available,
+#         'num_profiles': num_profiles,
+#     }
+#
+#     # Render the HTML template index.html with the data in the context variable
+#     return render(request, 'index.html', context=context)
 
 
 

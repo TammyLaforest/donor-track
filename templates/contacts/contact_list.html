@@ -28,7 +28,6 @@
        <thead>
            <tr>
                <th><a href="{% url "new_contact" %}" class="btn btn-small btn-primary"><span class="hidden-phone"><i class="fa fa-user-plus"></i> Add Contact</span></a>
-
                </th>
                <th colspan="6">
                    <form action="{% url 'searc" method="post" class="form-inline form-search pull-right">
@@ -41,7 +40,6 @@
                </th>
            </tr>
 <tr>
-
     <th scope="col">uuid</th>
     <th scope="col">Category</th>
     <th scope="col">First Name</th>
@@ -59,22 +57,23 @@
 </thead>
 {% endblock %}
 <tbody>
-{% for contact in object_list %}
+{% for Contact in object_list %}
   <tr>
-     <td> <a href=contacts/>{{ contact.uuid }}</a> </td>
-
-      <td>{{ contact.Contact_Category }}</td>
-      <td>{{ contact.First_Name }}</td>
-      <td>{{ contact.Last_Name }} </td>
-      <td>{{ contact.First_Name2 }}</td>
-      <td>{{ contact.Last_Name2 }} </td>
-      <td>{{ contact.Address }} </td>
-      <td>{{ contact.City }} </td>
-      <td>{{ contact.State }} </td>
-      <td>{{ contact.Postal_code }} </td>
-      <td>{{ contact.Country }} </td>
-      <td>{{ contact.Email }} </td>
-      <td>{{ contact.Phone }} </td>
+      <!-- https://godjango.com/67-understanding-get_absolute_url/ -->
+<!-- https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views -->
+      <td>{{ Contact.uuid }}</td>
+      <td>{{ Contact.Contact_Category }}</td>
+      <td>{{ Contact.First_Name }}</td>
+      <td>{{ Contact.Last_Name }} </td>
+      <td>{{ Contact.First_Name2 }}</td>
+      <td>{{ Contact.Last_Name2 }} </td>
+      <td>{{ Contact.Address }} </td>
+      <td>{{ Contact.City }} </td>
+      <td>{{ Contact.State }} </td>
+      <td>{{ Contact.Postal_code }} </td>
+      <td>{{ Contact.Country }} </td>
+      <td>{{ Contact.Email }} </td>
+      <td>{{ Contact.Phone }} </td>
         {% endfor %}
   </tr>
   </tbody>
@@ -83,7 +82,7 @@
 {% endif %}
 </div>
   {% else %}
-    <p>There are no contacts in this list.</p>
+    <p>There are no Contacts in this list.</p>
   {% endif %}
     {% endif %}
 
