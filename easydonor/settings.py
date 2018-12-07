@@ -33,6 +33,12 @@ SITE_ID = 1
 
 INSTALLED_APPS = [
 
+
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
+
     'django.contrib.admin',
 
     'allauth',
@@ -86,23 +92,17 @@ TEMPLATES = [{
                 'django.template.context_processors.request',
             ],
             'loaders': [
-                (
-                    'django.template.loaders.filesystem.Loader',
-                    [
-                        os.path.join('/',BASE_DIR, 'templates',)
-                    ],
-                ),
-            ],
+
+            ('django.template.loaders.cached.Loader', [
+            'admin_tools.template_loaders.Loader',
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+
+            ]),
+        ],
         },
     }]
 
-        # 'DIRS': [
-        #     # os.path.normpath(os.path.join(BASE_DIR, 'templates')),
-        #     os.path.join(BASE_DIR, 'templates', 'bootstrap', 'allauth', 'account')
-        #
-        #
-        # ],
-        # 'APP_DIRS': True,
 WSGI_APPLICATION = 'easydonor.wsgi.application'
 
 DATABASES = {
@@ -151,6 +151,7 @@ FORM_RENDERER ='django.forms.renderers.DjangoTemplates'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), ]
+# STATICFILES_FINDERS ='django.contrib.staticfiles.finders.AppDirectoriesFinder'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

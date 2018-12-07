@@ -38,8 +38,9 @@ from users.allauth.account import urls
 authdir = users.allauth.account
 
 
-urlpatterns = [
 
+urlpatterns = [
+    url(r'^admin_tools/', include('admin_tools.urls')),
     path('admin/', admin.site.urls),
     #Include urls from other apps - contacts and users
     url(r'^account', include(('users.allauth.account.urls', 'users'), namespace='account')),
