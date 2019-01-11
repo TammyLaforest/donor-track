@@ -12,41 +12,35 @@ from django.conf import settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# 
+
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
-# PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-# STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 
-
-# https://medium.com/@gajeshbhat/django-allauth-setup-and-configuration-tutorial-63417bba339c
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_URL = '/static/'
-
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
-
-# STATIC_URL = '/static/'
-# STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), ]
 # STATICFILES_FINDERS ='django.contrib.staticfiles.finders.AppDirectoriesFinder'
+
+# TEMPLATE_DIRS = (
+#     os.path.join(BASE_DIR,  'templates'),
+#     # Add to this list all the locations containing your static files 
+# )
+
+# PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 # MEDIA_ROOT = '/Users/user/Envs/easydonor/static/easydonorapp/easydonorapp/media/'
 # MEDIA_URL = "http://127.0.0.1:8000/easydonorapp/media/"
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'yh4g1h-u+q3(v*uddud_0@ka%u0u0%y@c&aq1s4+a2g*v9fr0$'
