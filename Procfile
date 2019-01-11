@@ -1,0 +1,1 @@
+web: gunicorn easydonor.wsgi --log-file -
