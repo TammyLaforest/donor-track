@@ -54,7 +54,7 @@ SECRET_KEY = 'yh4g1h-u+q3(v*uddud_0@ka%u0u0%y@c&aq1s4+a2g*v9fr0$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [donor-track.herokuapp.com, ]
 
 SITE_ID = 1
 
