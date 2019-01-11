@@ -23,16 +23,16 @@ from django import forms
 # from https://stackoverflow.com/questions/2770810/multiple-models-in-a-single-django-modelform
 
 
-        class ConsumerRegistrationForm(CombinedFormBase):
-    form_classes = [RegistrationForm, ConsumerProfileForm]
+# class ConsumerRegistrationForm(CombinedFormBase):
+#     form_classes = [RegistrationForm, ConsumerProfileForm]
 
-class RegisterView(FormView):
-    template_name = "register.html"
-    form_class = ConsumerRegistrationForm
+# class RegisterView(FormView):
+#     template_name = "register.html"
+#     form_class = ConsumerRegistrationForm
 
-    def form_valid(self, form):
-        # some actions...
-        return redirect(self.get_success_url())
+#     def form_valid(self, form):
+#         # some actions...
+#         return redirect(self.get_success_url())
 
 
 
