@@ -19,6 +19,31 @@ class PaymentForm(ModelForm):
 
 from django import forms
 
+
+# from https://stackoverflow.com/questions/2770810/multiple-models-in-a-single-django-modelform
+
+
+        class ConsumerRegistrationForm(CombinedFormBase):
+    form_classes = [RegistrationForm, ConsumerProfileForm]
+
+class RegisterView(FormView):
+    template_name = "register.html"
+    form_class = ConsumerRegistrationForm
+
+    def form_valid(self, form):
+        # some actions...
+        return redirect(self.get_success_url())
+
+
+
+
+
+
+
+
+
+
+
 # class NameForm(forms.Form):
 #     your_name = forms.CharField(label='Your name', max_length=100)
 
